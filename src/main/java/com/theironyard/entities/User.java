@@ -15,4 +15,6 @@ public class User {
     @Id
     @GeneratedValue
     int id;
+
+
 }
