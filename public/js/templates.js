@@ -13,9 +13,9 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>Alchemy</h1></li>",
-    "<li><a id='home' href=''>Home</a></li>",
-    "<li><a id='profile' href=''>My Profile</a></li>",
+    "<li><h1>alcoh·me</h1></li>",
+    "<li><a id='home' href='#home'>Home</a></li>",
+    "<li><a id='profile' href='#profile'>My Profile</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -54,11 +54,12 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-   "<h1 class='title'>alcho·me</h1>",
+   "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
-   "<button class='submit' type='submit'>SUBMIT</button>",
+   "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+
    "</div>"
  ].join(""),
 

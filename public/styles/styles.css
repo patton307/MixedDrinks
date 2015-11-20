@@ -25,14 +25,18 @@ body {
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto; }
-  .box .submit {
+  .box #submit {
     border-radius: 5px;
     border: 1px solid #2A363B;
     background-color: #2A363B;
     color: white;
-    margin-left: 150px;
+    margin-left: 164px;
     margin-top: 29px;
-    width: 25%; }
+    width: 40%;
+    padding: 10px; }
+  .box li {
+    list-style-type: none;
+    margin-top: 30px; }
 
 #nav {
   width: 100%;
@@ -40,7 +44,10 @@ body {
   background-color: #fecea8; }
   #nav li {
     list-style-type: none;
-    display: inline-block; }
+    display: block;
+    margin-left: 100px;
+    margin-bottom: -38px;
+    margin-top: 37px; }
     #nav li h1 {
       color: white;
       font-size: 60px;
@@ -52,4 +59,4 @@ body {
       display: block;
       color: #2A363B;
       font-size: 20px;
-      margin-left: 100px; }
+      margin-left: -100px; }
