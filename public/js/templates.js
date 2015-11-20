@@ -45,6 +45,8 @@ module.exports = {
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
+
+   "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
  ingredient: [
