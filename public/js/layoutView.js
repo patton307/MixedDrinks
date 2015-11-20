@@ -10,7 +10,8 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     var drinkCollection = new DrinkCollection();
     drinkCollection.fetch().then(function(data){
-      $('body').html(data.data[1001].description);
+      $('body').html(data.data.description);
+      console.log(data.data[1001].name);
       var collectionView = new CollectionView({collection: drinkCollection});
 
     });

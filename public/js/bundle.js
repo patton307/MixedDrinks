@@ -3,7 +3,7 @@ var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
 module.exports = Backbone.Model.extend({
-  url: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=3000',
+  url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
   initialize: function() {
     //console.log(this.url);
   }
@@ -44,7 +44,8 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     var drinkCollection = new DrinkCollection();
     drinkCollection.fetch().then(function(data){
-      $('body').html(data.data[1001].description);
+      $('body').html(data.data.description);
+      console.log(data.data[1001].name);
       var collectionView = new CollectionView({collection: drinkCollection});
 
     });
@@ -66,7 +67,7 @@ var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
 
-  urlRoot: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=35',
+  urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
   initialize: function() {
 
   }
