@@ -15,4 +15,4 @@ module.exports = Backbone.View.extend({
       var collectionView = new CollectionView({collection: drinkCollection});
     });
   }
-})
+});

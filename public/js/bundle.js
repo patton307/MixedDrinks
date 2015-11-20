@@ -2,9 +2,9 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-  url: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=3000',
-  initialize: function(){
-    console.log(this.url);
+  url: 'https://tiny-tiny.herokuapp.com/collections/lynch/',
+  initialize: function() {
+    //console.log(this.url);
   }
 });
 
@@ -14,6 +14,20 @@ var _ = require('underscore');
 var $ = require('jquery');
 Backbone.$ = $;
 var DrinkView = require('./modelView');
+
+module.exports = Backbone.View.extend({
+  el: '.content',
+  initialize: function(){
+    this.addAllDrinks();
+  },
+  addOneDrink: function(drinkModel){
+    var drinkView = new DrinkView({model: drinkModel});
+     this.$el.append(drinkView.render().el);
+  },
+  addAllDrinks: function(){
+    _.each(this.collection.models, this.addOne, this);
+  },
+});
 
 },{"./modelView":5,"backbone":6,"jquery":7,"underscore":8}],3:[function(require,module,exports){
 var Backbone = require('backbone');
@@ -33,7 +47,7 @@ module.exports = Backbone.View.extend({
       var collectionView = new CollectionView({collection: drinkCollection});
     });
   }
-})
+});
 
 },{"./collection":1,"./collectionView":2,"backbone":6,"jquery":7,"underscore":8}],4:[function(require,module,exports){
 var $ = require('jquery');
