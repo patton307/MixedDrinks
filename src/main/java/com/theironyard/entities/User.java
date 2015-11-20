@@ -1,9 +1,7 @@
 package com.theironyard.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Jack on 11/19/15.
@@ -14,7 +12,19 @@ import javax.persistence.Table;
 public class User {
     @Id
     @GeneratedValue
-    int id;
+    @Column(nullable = false)
+    public int id;
 
+    @Column(nullable = false)
+    public String username;
+
+    @Column(nullable = false)
+    public String password;
+
+
+
+    @OneToMany(mappedBy = "user")
+    public List<Drink> drinks;
 
 }
+
