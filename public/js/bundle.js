@@ -2,15 +2,11 @@
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
-module.exports = Backbone.Collection.extend({
-  url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
-  initialize: function(){
-    console.log(this.url);
-    console.log('blue');
-
-
-  },
-
+module.exports = Backbone.Model.extend({
+  url: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=3000',
+  initialize: function() {
+    //console.log(this.url);
+  }
 });
 
 },{"./model":5,"backbone":7}],2:[function(require,module,exports){
@@ -69,10 +65,11 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
- urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
- initialize: function() {
 
- }
+  urlRoot: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=35',
+  initialize: function() {
+
+  }
 });
 
 },{"backbone":7,"jquery":8,"underscore":9}],6:[function(require,module,exports){
