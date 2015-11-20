@@ -43,7 +43,8 @@ module.exports = {
    "<h3>Drink Name</h3>",
    "<ul id='ingredientList'>",
    "</ul>",
-   "<p></p>"
+   "<p></p>",
+   "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
  ingredient: [

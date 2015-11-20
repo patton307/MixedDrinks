@@ -68,7 +68,8 @@ module.exports = Backbone.View.extend({
   className: 'drink',
   initialize: function(){
     console.log('blue');
-  }
+  },
+  
 });
 
 },{"backbone":6,"jquery":7,"underscore":8}],6:[function(require,module,exports){

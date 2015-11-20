@@ -8,5 +8,6 @@ module.exports = Backbone.View.extend({
   className: 'drink',
   initialize: function(){
     console.log('blue');
-  }
+  },
+  
 });

@@ -20,7 +20,7 @@
     "watch": "./node_modules/.bin/watchify js/main.js -o js/bundle.js & ./node_modules/.bin/node-sass styles/styles.scss styles/styles.css -w",
     "sass": "./node_modules/.bin/node-sass styles/styles.scss styles/styles.css",
     "serve": "./node_modules/.bin/serve",
-    "start": "npm run watch & npm run serve"
+    "start": "npm run bundle & npm run watch & npm run serve"
   },
   "author": "Blake Guilloud <fbguillo@gmail.com>",
   "license": "MIT"
