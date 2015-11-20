@@ -1,0 +1,12 @@
+body {
+  background-color: #2A363B; }
+
+.box {
+  width: 400px;
+  height: 300px;
+  border-radius: 30px;
+  background-color: #fecea8; }
+  .box h1 {
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #2A363B; }
