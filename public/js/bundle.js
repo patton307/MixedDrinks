@@ -10,7 +10,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./model":6,"backbone":9}],2:[function(require,module,exports){
+},{"./model":7,"backbone":11}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -32,7 +32,27 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./modelView":7,"backbone":9,"jquery":10,"underscore":11}],3:[function(require,module,exports){
+},{"./modelView":8,"backbone":11,"jquery":12,"underscore":13}],3:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  initialize: function () {
+
+  },
+  template: _.template(tmpl.navigation),
+
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":10,"backbone":11,"jquery":12,"underscore":13}],4:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -40,25 +60,28 @@ var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
-
+var HeaderView = require('./headerView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
     var self = this;
+    var headerHTML = new HeaderView();
     var loginHTML = new LoginView();
     var drinkCollection = new DrinkCollection();
     drinkCollection.fetch().then(function(data){
       $('body').html(data.data.description);
-      console.log(data.data[1001].description);
+      console.log(data.data[1001].name);
       var collectionView = new CollectionView({collection: drinkCollection});
     self.$el.html(loginHTML.render().el);
+    self.$el.html(headerHTML.render().el);
+
     });
 
   },
 });
 
-},{"./collection":1,"./collectionView":2,"./loginView":4,"backbone":9,"jquery":10,"underscore":11}],4:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./headerView":3,"./loginView":5,"backbone":11,"jquery":12,"underscore":13}],5:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -78,15 +101,20 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":8,"backbone":9,"jquery":10,"underscore":11}],5:[function(require,module,exports){
+},{"./templates":10,"backbone":11,"jquery":12,"underscore":13}],6:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
+var Router = require('./routes');
+var Backbone = require('backbone');
+
 
 $(function () {
   new layoutView();
+  new Router();
+  Backbone.history.start();
 });
 
-},{"./layoutView":3,"jquery":10}],6:[function(require,module,exports){
+},{"./layoutView":4,"./routes":9,"backbone":11,"jquery":12}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -94,28 +122,67 @@ var _ = require('underscore');
 module.exports = Backbone.Model.extend({
 
 
+
   urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
+  idAttribute: '_id',
   initialize: function() {
 
   }
 });
 
-},{"backbone":9,"jquery":10,"underscore":11}],7:[function(require,module,exports){
+},{"backbone":11,"jquery":12,"underscore":13}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
+var tmpl = require('./templates');
+var Drink = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
   className: 'drink',
+  template: _.template(tmpl.recipe),
+  events: {
+    'click #like': 'onLike'
+  },
+  render: function(){
+    
+  },
+  onLike: function(){
+    console.log("liked");
+  },
   initialize: function(){
     console.log('blue');
   },
-  
+
 });
 
-},{"backbone":9,"jquery":10,"underscore":11}],8:[function(require,module,exports){
+},{"./model":7,"./templates":10,"backbone":11,"jquery":12,"underscore":13}],9:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('underscore');
+
+module.exports = Backbone.Router.extend ({
+  routes: {
+    'home': 'homePage',
+    'submit': 'homePage',
+    'profile': 'profilePage',
+
+  },
+  initialize: function(options){
+      // if(!this.layout)
+      //  {this.layout = options.layout};
+  },
+  homePage: function(){
+    console.log("hey");
+  },
+  profilePage: function(){
+    console.log("meow profile page");
+  }
+
+});
+
+},{"backbone":11,"jquery":12,"underscore":13}],10:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -163,6 +230,8 @@ module.exports = {
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
+
+   "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
  ingredient: [
@@ -170,13 +239,17 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-   "<h1 class='title'>donkey</h1>",
+   "<h1 class='title'>alcho·me</h1>",
+   "<input class='username' placeholder='username'></input>",
+   "<input class='password' placeholder='password'></input>",
+   "<input class='photo' placeholder='photo'></input>",
+   "<button class='submit' type='submit'>SUBMIT</button>",
    "</div>"
  ].join(""),
 
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2074,7 +2147,7 @@ module.exports = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":10,"underscore":11}],10:[function(require,module,exports){
+},{"jquery":12,"underscore":13}],12:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11286,7 +11359,7 @@ return jQuery;
 
 }));
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12836,4 +12909,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[5]);
+},{}]},{},[6]);

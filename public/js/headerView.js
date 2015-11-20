@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
   initialize: function () {
 
   },
-  // template: _.template(tmpl.header),
+  template: _.template(tmpl.navigation),
 
   render: function () {
     var markup = this.template({});
