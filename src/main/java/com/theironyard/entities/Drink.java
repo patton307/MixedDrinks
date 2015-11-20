@@ -26,7 +26,7 @@ public class Drink {
     @Column
     public String ingredient3;
 
-  /*  @Column
+    @Column
     public String ingredient4;
 
     @Column
@@ -51,7 +51,7 @@ public class Drink {
     public String ingredient11;
 
     @Column
-    public String ingredient12;*/
+    public String ingredient12;
 
     @ManyToOne
     public User user;
