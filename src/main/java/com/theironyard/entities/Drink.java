@@ -20,13 +20,13 @@ public class Drink {
     @Column(nullable = false)
     public String ingredient1;
 
-    @Column
+    @Column(nullable = false)
     public String ingredient2;
 
-    @Column
+    @Column(nullable = false)
     public String ingredient3;
 
-    @Column
+    @Column(nullable = false)
     public String ingredient4;
 
     @Column
