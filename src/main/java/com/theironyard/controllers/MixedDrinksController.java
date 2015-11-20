@@ -42,11 +42,12 @@ public class MixedDrinksController {
         }
 
         if (drinks.count() == 0) {
-            Scanner scanner = new Scanner(new File("mixeddrinks.csv"));
+            Scanner scanner = new Scanner(new File("mixeddrinks1.csv"));
             scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] columns = line.split(",");
+                String[] columns = line.split(",", -1);
+
 
                 Drink drink = new Drink();
 
@@ -55,9 +56,7 @@ public class MixedDrinksController {
                 drink.ingredient1 = columns[2];
                 drink.ingredient2 = columns[3];
                 drink.ingredient3 = columns[4];
-                if (columns[5] != null) {
-                    drink.ingredient4 = columns[5];
-                }
+                drink.ingredient4 = columns[5];
                 drink.ingredient5 = columns[6];
                 drink.ingredient6 = columns[7];
                 drink.ingredient7 = columns[8];
