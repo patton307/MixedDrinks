@@ -19,7 +19,6 @@ module.exports = Backbone.View.extend({
     drinkCollection.fetch().then(function(data){
       self.$el.html(loginHTML.render().el);
       self.$el.append(formHTML.render().el);
-      console.log(drinkCollection);
       var collectionView = new CollectionView({collection: drinkCollection});
 
     });

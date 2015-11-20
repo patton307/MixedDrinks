@@ -24,10 +24,8 @@ module.exports = Backbone.View.extend({
     console.log('blue');
   },
   addOneDrink: function(drinkModel){
-    console.log('drink model:', drinkModel);
     var drinkView = new DrinkView({model: drinkModel});
-    console.log(drinkView);
-    this.$el.append(drinkView.render().el);
+    // this.$el.append(drinkView.render().el);
     return this;
   },
   addAllDrinks: function(){
@@ -104,7 +102,6 @@ module.exports = Backbone.View.extend({
     drinkCollection.fetch().then(function(data){
       self.$el.html(loginHTML.render().el);
       self.$el.append(formHTML.render().el);
-      console.log(drinkCollection);
       var collectionView = new CollectionView({collection: drinkCollection});
 
     });
