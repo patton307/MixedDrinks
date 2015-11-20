@@ -2,12 +2,12 @@
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
-module.exports = Backbone.Model.extend({
-
-  url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
+module.exports = Backbone.Collection.extend({
+  url: '/drinks',
   initialize: function() {
-    //console.log(this.url);
-  }
+    console.log(this.url);
+  },
+  model: DrinkModel
 });
 
 },{"./model":7,"backbone":10}],2:[function(require,module,exports){
@@ -71,13 +71,15 @@ var FormView = require('./formView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
-  initialize: function(){
+  initialize: function(opts){
     var self = this;
+
     var loginHTML = new LoginView();
     var formHTML = new FormView();
     var drinkCollection = new DrinkCollection();
+    console.log(drinkCollection.fetch());
     drinkCollection.fetch().then(function(data){
-      console.log(data.data[1001].name);
+      console.log('blue');
       var collectionView = new CollectionView({collection: drinkCollection});
       self.$el.html(loginHTML.render().el);
       self.$el.append(formHTML.render().el);
@@ -108,7 +110,11 @@ var $ = require('jquery');
 var layoutView = require('./layoutView');
 
 $(function () {
-  new layoutView();
+
+
+      new layoutView();
+
+
 });
 
 },{"./layoutView":4,"jquery":11}],7:[function(require,module,exports){
@@ -117,13 +123,9 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
-
-
-
-  urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
-  idAttribute: '_id',
+  urlRoot: '/drinks',
   initialize: function() {
-
+    console.log(urlRoot);
   }
 });
 
