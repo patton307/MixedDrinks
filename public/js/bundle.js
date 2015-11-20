@@ -3,6 +3,7 @@ var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
 module.exports = Backbone.Model.extend({
+
   url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
   initialize: function() {
     //console.log(this.url);
@@ -43,15 +44,18 @@ var LoginView = require('./loginView');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
-    var that = this;
+
+    var self = this;
     var loginHTML = new LoginView();
     var drinkCollection = new DrinkCollection();
     drinkCollection.fetch().then(function(data){
       $('body').html(data.data.description);
-      console.log(data.data[1001].name);
+      console.log(data.data[1001].description);
       var collectionView = new CollectionView({collection: drinkCollection});
-      that.$el.html(loginHTML.render().el);
+
+    self.$el.html(loginHTML.render().el);
     });
+
   },
 });
 
@@ -63,9 +67,10 @@ var _ = require('underscore');
 var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
-  initialize: function () {
+  initialize: function () {    
   },
   template: _.template(tmpl.login),
+
   render: function () {
     var markup = this.template({});
     this.$el.html(markup);
@@ -87,7 +92,10 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: '',
+
+
+
+  urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
   idAttribute: '_id',
   initialize: function() {
 
@@ -123,6 +131,7 @@ module.exports = Backbone.View.extend({
 
 },{"./model":6,"./templates":8,"backbone":9,"jquery":10,"underscore":11}],8:[function(require,module,exports){
 module.exports = {
+
   profile: [
     "<div class='profile'>",
     "<ul>",
@@ -168,14 +177,20 @@ module.exports = {
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
+
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
  ingredient: [
    "<li>Ingredient Name</li>"
  ].join(""),
+ login:[
+   "<div class='box'>",
+   "<h1 class='title'>donkey</h1>",
+   "</div>"
+ ].join(""),
 
-}
+};
 
 },{}],9:[function(require,module,exports){
 (function (global){

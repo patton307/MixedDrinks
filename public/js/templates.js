@@ -1,4 +1,5 @@
 module.exports = {
+
   profile: [
     "<div class='profile'>",
     "<ul>",
@@ -44,11 +45,17 @@ module.exports = {
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
+
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
  ingredient: [
    "<li>Ingredient Name</li>"
  ].join(""),
+ login:[
+   "<div class='box'>",
+   "<h1 class='title'>donkey</h1>",
+   "</div>"
+ ].join(""),
 
-}
+};
