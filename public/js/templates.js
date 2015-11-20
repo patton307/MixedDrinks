@@ -41,11 +41,10 @@ module.exports = {
  ].join(""),
  recipe: [
    "<article>",
-   "<h3>Drink Name</h3>",
+   "<h3><%=name%></h3>",
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
-
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
@@ -55,7 +54,7 @@ module.exports = {
  login:[
    "<div class='box'>",
    "<h1 class='title'>alcho·me</h1>",
-   "<input class='username' placeholder='username'></input>",
+   "<input class='username' placeholder='username' required></input>",
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<button class='submit' type='submit'>SUBMIT</button>",
