@@ -10,7 +10,7 @@ module.exports = Backbone.Collection.extend({
   model: DrinkModel
 });
 
-},{"./model":7,"backbone":10}],2:[function(require,module,exports){
+},{"./model":8,"backbone":12}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -32,7 +32,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./modelView":8,"backbone":10,"jquery":11,"underscore":12}],3:[function(require,module,exports){
+},{"./modelView":9,"backbone":12,"jquery":13,"underscore":14}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -59,7 +59,27 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":9,"backbone":10,"jquery":11,"underscore":12}],4:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],4:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  initialize: function () {
+
+  },
+  template: _.template(tmpl.navigation),
+
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],5:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -68,12 +88,14 @@ var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
+var HeaderView = require('./headerView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(opts){
     var self = this;
 
+    var headerHTML = new HeaderView();
     var loginHTML = new LoginView();
     var formHTML = new FormView();
     var drinkCollection = new DrinkCollection();
@@ -83,11 +105,12 @@ module.exports = Backbone.View.extend({
       var collectionView = new CollectionView({collection: drinkCollection});
       self.$el.html(loginHTML.render().el);
       self.$el.append(formHTML.render().el);
+
     });
   },
 });
 
-},{"./collection":1,"./collectionView":2,"./formView":3,"./loginView":5,"backbone":10,"jquery":11,"underscore":12}],5:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -105,19 +128,21 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":9,"backbone":10,"jquery":11,"underscore":12}],6:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],7:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
+var Router = require('./routes');
+var Backbone = require('backbone');
+
 
 $(function () {
 
-
-      new layoutView();
-
-
+  new layoutView();
+  new Router();
+  Backbone.history.start();
 });
 
-},{"./layoutView":4,"jquery":11}],7:[function(require,module,exports){
+},{"./layoutView":5,"./routes":10,"backbone":12,"jquery":13}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -129,7 +154,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"backbone":10,"jquery":11,"underscore":12}],8:[function(require,module,exports){
+},{"backbone":12,"jquery":13,"underscore":14}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -156,7 +181,33 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./model":7,"./templates":9,"backbone":10,"jquery":11,"underscore":12}],9:[function(require,module,exports){
+},{"./model":8,"./templates":11,"backbone":12,"jquery":13,"underscore":14}],10:[function(require,module,exports){
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('underscore');
+
+module.exports = Backbone.Router.extend ({
+  routes: {
+    'home': 'homePage',
+    'submit': 'homePage',
+    'profile': 'profilePage',
+
+  },
+  initialize: function(options){
+      // if(!this.layout)
+      //  {this.layout = options.layout};
+  },
+  homePage: function(){
+    console.log("hey");
+  },
+  profilePage: function(){
+    console.log("meow profile page");
+  }
+
+});
+
+},{"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -213,13 +264,17 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-   "<h1 class='title'>donkey</h1>",
+   "<h1 class='title'>alcho·me</h1>",
+   "<input class='username' placeholder='username'></input>",
+   "<input class='password' placeholder='password'></input>",
+   "<input class='photo' placeholder='photo'></input>",
+   "<button class='submit' type='submit'>SUBMIT</button>",
    "</div>"
  ].join(""),
 
 };
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2117,7 +2172,7 @@ module.exports = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":11,"underscore":12}],11:[function(require,module,exports){
+},{"jquery":13,"underscore":14}],13:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11329,7 +11384,7 @@ return jQuery;
 
 }));
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12879,4 +12934,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[6]);
+},{}]},{},[7]);

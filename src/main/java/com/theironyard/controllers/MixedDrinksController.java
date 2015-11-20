@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -39,19 +42,7 @@ public class MixedDrinksController {
         }
 
         if (drinks.count() == 0) {
-            Drink drink = new Drink();
-            drink.name = "Dark and Stormy";
-            drink.ingredient1 = "1 oz Dark Rum";
-            drink.ingredient2 = "Ginger Beer";
-            drink.ingredient3 = "Lime";
-            drink.user = admin;
-            drinks.save(drink);
-        }
-    }
-
-/*
-        if (drinks.count() == 0) {
-            Scanner scanner = new Scanner(new File ("mixeddrinks.csv"));
+            Scanner scanner = new Scanner(new File("mixeddrinks.csv"));
             scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -60,11 +51,10 @@ public class MixedDrinksController {
                 Drink drink = new Drink();
 
                 drink.name = columns[1];
+
                 drink.ingredient1 = columns[2];
                 drink.ingredient2 = columns[3];
-                if (columns[4] != null) {
-                    drink.ingredient3 = columns[4];
-                }
+                drink.ingredient3 = columns[4];
                 if (columns[5] != null) {
                     drink.ingredient4 = columns[5];
                 }
@@ -80,11 +70,31 @@ public class MixedDrinksController {
                 drink.user = admin;
                 drinks.save(drink);
             }
-        }*/
+        }
+    }
 
 
     @RequestMapping("/drinks")
-    public List<Drink> drinks () {
+    public List<Drink> drinks() {
         return (List<Drink>) drinks.findAll();
+    }
+
+    @RequestMapping("/login")
+    public void login(HttpServletResponse response, HttpSession session, String username, String password) throws Exception {
+        session.setAttribute("username", username);
+        User user = users.findOneByUsername(username);
+        if (user == null) {
+            user = new User();
+            user.username = username;
+            user.password = PasswordHash.createHash(password);
+            users.save(user);
+        }
+        else if (!PasswordHash.validatePassword(password, user.password)) {
+            throw new Exception("Wrong password, try again!");
+        }
+        else if (username == null || password == null) {
+            throw new Exception("Please enter both a username and password!");
+        }
+     //   response.sendRedirect("/");
     }
 }
