@@ -2,17 +2,72 @@ body {
   background-color: #2A363B;
 }
 
-.box {
+.box {     //loginbox
   width: 400px;
-  height: 300px;
-  border-radius: 30px;
+  height: 350px;
+  border-radius: 10px;
   background-color: #fecea8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+
+          .title {
+            color: white;
+            font-size: 60px;
+            -webkit-text-stroke-width: 1px;
+           -webkit-text-stroke-color:#2A363B;
+           text-align: center;
+           padding-top: 20px;
+
+          }
+
+          .username, .password, .photo {
+            display: block;
+            width: 50%;
+            border-radius: 5px;
+            border: 1px solid #2A363B;
+            padding: 8px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .submit {
+            border-radius: 5px;
+            border: 1px solid #2A363B;
+            background-color: #2A363B;
+            color: white;
+            margin-left: 150px;
+            margin-top: 29px;
+            width: 25%;
+
+            }
+
+}
+#nav {
+    width: 100%;
+    height: 183px;
+    background-color: #fecea8;
+
+  li {
+    list-style-type: none;
+    display: inline-block;
+
+    h1 {
+        color: white;
+        font-size: 60px;
+        -webkit-text-stroke-width: 1px;
+       -webkit-text-stroke-color:#2A363B;
+       text-align: center;
+       padding-top: 50px;
+      }
+    a {
+    display: block;
+      color: #2A363B;
+      font-size: 20px;
+margin-left: 100px;
+       }
 
 
-   h1 {
-     color: white;
-     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color:#2A363B ;
-   }
 
+  }
 }

@@ -4,18 +4,20 @@ var _ = require('underscore');
 
 module.exports = Backbone.Router.extend ({
   routes: {
-    '': 'loginPage',
-    'profile': 'userPage',
+    'home': 'homePage',
+    'submit': 'homePage',
+    'profile': 'profilePage',
 
   },
-  initialize: function(){
-
+  initialize: function(options){
+      // if(!this.layout)
+      //  {this.layout = options.layout};
   },
-  loginPage: function(){
-    console.log();
+  homePage: function(){
+    console.log("hey");
   },
-  userPage: function(){
-
+  profilePage: function(){
+    console.log("meow profile page");
   }
 
 });
