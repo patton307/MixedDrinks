@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 
 
 $(function () {
+
   new layoutView();
   new Router();
   Backbone.history.start();

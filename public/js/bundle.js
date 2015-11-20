@@ -2,15 +2,15 @@
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
-module.exports = Backbone.Model.extend({
-
-  url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
+module.exports = Backbone.Collection.extend({
+  url: '/drinks',
+  model: DrinkModel,
   initialize: function() {
-    //console.log(this.url);
+    console.log('cat');
   }
 });
 
-},{"./model":7,"backbone":11}],2:[function(require,module,exports){
+},{"./model":8,"backbone":12}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -18,21 +18,49 @@ Backbone.$ = $;
 var DrinkView = require('./modelView');
 
 module.exports = Backbone.View.extend({
-  el: '.content',
+  el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
+    console.log('blue');
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
-    console.log(drinkView);
-     this.$el.append(drinkView.render().el);
+    // this.$el.append(drinkView.render().el);
+    return this;
   },
   addAllDrinks: function(){
-    _.each(this.collection.models, this.addOne, this);
+    _.each(this.collection.models, this.addOneDrink, this);
   }
 });
 
-},{"./modelView":8,"backbone":11,"jquery":12,"underscore":13}],3:[function(require,module,exports){
+},{"./modelView":9,"backbone":12,"jquery":13,"underscore":14}],3:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  events: {
+    'click .send-stuff': 'onSubmitIngredients'
+  },
+  initialize: function () {
+  },
+  onSubmitIngredients: function(event){
+    event.preventDefault();
+    console.log('SUBMIT INGREDIENTS BUTTON');
+
+    /// FILTER THROUGH DATA TO FIND MATCHING DRINKS
+  },
+  template: _.template(tmpl.form),
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],4:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -51,7 +79,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":10,"backbone":11,"jquery":12,"underscore":13}],4:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],5:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -59,11 +87,13 @@ var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
+var FormView = require('./formView');
 var HeaderView = require('./headerView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+<<<<<<< HEAD
     // var self = this;
     // var headerHTML = new HeaderView();
     // var loginHTML = new LoginView();
@@ -77,10 +107,23 @@ module.exports = Backbone.View.extend({
 
     // });
 
+=======
+    var self = this;
+    var headerHTML = new HeaderView();
+    var loginHTML = new LoginView();
+    var formHTML = new FormView();
+    var drinkCollection = new DrinkCollection();
+    drinkCollection.fetch().then(function(data){
+      self.$el.html(loginHTML.render().el);
+      self.$el.append(formHTML.render().el);
+      var collectionView = new CollectionView({collection: drinkCollection});
+
+    });
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
   },
 });
 
-},{"./collection":1,"./collectionView":2,"./headerView":3,"./loginView":5,"backbone":11,"jquery":12,"underscore":13}],5:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -89,10 +132,8 @@ var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
   initialize: function () {
-      
   },
   template: _.template(tmpl.login),
-
   render: function () {
     var markup = this.template({});
     this.$el.html(markup);
@@ -100,7 +141,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":10,"backbone":11,"jquery":12,"underscore":13}],6:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],7:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 var Router = require('./routes');
@@ -108,44 +149,40 @@ var Backbone = require('backbone');
 
 
 $(function () {
+
   new layoutView();
   new Router();
   Backbone.history.start();
 });
 
-},{"./layoutView":4,"./routes":9,"backbone":11,"jquery":12}],7:[function(require,module,exports){
+},{"./layoutView":5,"./routes":10,"backbone":12,"jquery":13}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
-
-
-
-  urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
-  idAttribute: '_id',
+  urlRoot: '/drinks',
   initialize: function() {
-
+    console.log('dog');
   }
 });
 
-},{"backbone":11,"jquery":12,"underscore":13}],8:[function(require,module,exports){
+},{"backbone":12,"jquery":13,"underscore":14}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
-var Drink = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
-  className: 'drink',
   template: _.template(tmpl.recipe),
   events: {
-    'click #like': 'onLike'
   },
   render: function(){
-    
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    return this;
   },
   onLike: function(){
     console.log("liked");
@@ -156,7 +193,8 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./model":7,"./templates":10,"backbone":11,"jquery":12,"underscore":13}],9:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],10:[function(require,module,exports){
+
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -199,7 +237,11 @@ module.exports = Backbone.Router.extend ({
 
 });
 
+<<<<<<< HEAD
 },{"./headerView":3,"./loginView":5,"backbone":11,"jquery":12,"underscore":13}],10:[function(require,module,exports){
+=======
+},{"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
 module.exports = {
 
   profile: [
@@ -243,11 +285,10 @@ module.exports = {
  ].join(""),
  recipe: [
    "<article>",
-   "<h3>Drink Name</h3>",
+   "<h3><%=name%></h3>",
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
-
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
@@ -256,8 +297,13 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
+<<<<<<< HEAD
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
+=======
+   "<h1 class='title'>alcho·me</h1>",
+   "<input class='username' placeholder='username' required></input>",
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
@@ -267,7 +313,7 @@ module.exports = {
 
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2165,7 +2211,7 @@ module.exports = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":12,"underscore":13}],12:[function(require,module,exports){
+},{"jquery":13,"underscore":14}],13:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11377,7 +11423,7 @@ return jQuery;
 
 }));
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12927,4 +12973,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[6]);
+},{}]},{},[7]);

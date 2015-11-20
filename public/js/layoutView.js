@@ -5,6 +5,7 @@ var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
+var FormView = require('./formView');
 var HeaderView = require('./headerView');
 
 module.exports = Backbone.View.extend({
@@ -22,6 +23,7 @@ module.exports = Backbone.View.extend({
     // self.$el.append(headerHTML.render().el);
 
     // });
+
 
   },
 });
