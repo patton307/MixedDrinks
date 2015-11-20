@@ -52,7 +52,7 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-   "<h1 class='title'>IMDbACKBONE</h1>",
+   "<h1 class='title'>donkey</h1>",
    "</div>"
  ].join(""),
 
