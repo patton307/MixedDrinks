@@ -5,16 +5,17 @@ Backbone.$ = $;
 var DrinkView = require('./modelView');
 
 module.exports = Backbone.View.extend({
-  el: '.content',
+  el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
+    console.log('blue');
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
-    console.log(drinkView);
-     this.$el.append(drinkView.render().el);
+    // this.$el.append(drinkView.render().el);
+    return this;
   },
   addAllDrinks: function(){
-    _.each(this.collection.models, this.addOne, this);
+    _.each(this.collection.models, this.addOneDrink, this);
   }
 });
