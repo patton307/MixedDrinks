@@ -54,7 +54,7 @@ module.exports = {
  login:[
    "<div class='box'>",
    "<h1 class='title'>alcho·me</h1>",
-   "<input class='username' placeholder='username'></input>",
+   "<input class='username' placeholder='username' required></input>",
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<button class='submit' type='submit'>SUBMIT</button>",
