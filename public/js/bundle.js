@@ -69,7 +69,6 @@ var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
   initialize: function () {
-
   },
   template: _.template(tmpl.navigation),
 
@@ -94,6 +93,21 @@ var HeaderView = require('./headerView');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+<<<<<<< HEAD
+    // var self = this;
+    // var headerHTML = new HeaderView();
+    // var loginHTML = new LoginView();
+    // var drinkCollection = new DrinkCollection();
+    // drinkCollection.fetch().then(function(data){
+    //   $('body').html(data.data.description);
+    //   console.log(data.data[1001].name);
+    //   var collectionView = new CollectionView({collection: drinkCollection});
+    // self.$el.html(loginHTML.render().el);
+    // self.$el.append(headerHTML.render().el);
+
+    // });
+
+=======
     var self = this;
     var headerHTML = new HeaderView();
     var loginHTML = new LoginView();
@@ -105,6 +119,7 @@ module.exports = Backbone.View.extend({
       var collectionView = new CollectionView({collection: drinkCollection});
 
     });
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
   },
 });
 
@@ -183,28 +198,50 @@ module.exports = Backbone.View.extend({
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
+var headerView = require('./headerView');
+var LoginView = require('./loginView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
+
     'home': 'homePage',
-    'submit': 'homePage',
+    '': 'loginPage',
     'profile': 'profilePage',
 
+
   },
-  initialize: function(options){
-      // if(!this.layout)
-      //  {this.layout = options.layout};
-  },
+  // initialize: function(options){
+  //     // if(!this.layout)
+  //     //  {this.layout = options.layout};
+  // },
   homePage: function(){
-    console.log("hey");
+    console.log("home page");
+    var headerHTML = new headerView();
+    $('#layoutView').html(headerHTML.render().el);
+
   },
   profilePage: function(){
-    console.log("meow profile page");
+    console.log("profile page");
+
+
+  },
+  loginPage: function(){
+    console.log("login page");
+    var loginHTML = new LoginView();
+    $('#layoutView').html(loginHTML.render().el);
+    // this.destroy();
   }
+
+
+
 
 });
 
+<<<<<<< HEAD
+},{"./headerView":3,"./loginView":5,"backbone":11,"jquery":12,"underscore":13}],10:[function(require,module,exports){
+=======
 },{"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
 module.exports = {
 
   profile: [
@@ -220,9 +257,9 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>Alchemy</h1></li>",
-    "<li><a id='home' href=''>Home</a></li>",
-    "<li><a id='profile' href=''>My Profile</a></li>",
+    "<li><h1>alcoh·me</h1></li>",
+    "<li><a id='home' href='#home'>Home</a></li>",
+    "<li><a id='profile' href='#profile'>My Profile</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -260,11 +297,17 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
+<<<<<<< HEAD
+   "<h1 class='title'>alcoh·me</h1>",
+   "<input class='username' placeholder='username'></input>",
+=======
    "<h1 class='title'>alcho·me</h1>",
    "<input class='username' placeholder='username' required></input>",
+>>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
-   "<button class='submit' type='submit'>SUBMIT</button>",
+   "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+
    "</div>"
  ].join(""),
 
