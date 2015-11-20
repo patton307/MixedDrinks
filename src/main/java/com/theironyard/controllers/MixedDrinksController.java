@@ -42,17 +42,6 @@ public class MixedDrinksController {
         }
 
         if (drinks.count() == 0) {
-            Drink drink = new Drink();
-            drink.name = "Dark and Stormy";
-            drink.ingredient1 = "1 oz Dark Rum";
-            drink.ingredient2 = "Ginger Beer";
-            drink.ingredient3 = "Lime";
-            drink.user = admin;
-            drinks.save(drink);
-        }
-
-/*
-        if (drinks.count() == 0) {
             Scanner scanner = new Scanner(new File("mixeddrinks.csv"));
             scanner.nextLine();
             while (scanner.hasNextLine()) {
@@ -62,10 +51,13 @@ public class MixedDrinksController {
                 Drink drink = new Drink();
 
                 drink.name = columns[1];
+
                 drink.ingredient1 = columns[2];
                 drink.ingredient2 = columns[3];
                 drink.ingredient3 = columns[4];
-                drink.ingredient4 = columns[5];
+                if (columns[5] != null) {
+                    drink.ingredient4 = columns[5];
+                }
                 drink.ingredient5 = columns[6];
                 drink.ingredient6 = columns[7];
                 drink.ingredient7 = columns[8];
@@ -78,7 +70,7 @@ public class MixedDrinksController {
                 drink.user = admin;
                 drinks.save(drink);
             }
-        }*/
+        }
     }
 
 
