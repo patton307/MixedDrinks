@@ -3,10 +3,53 @@ body {
 
 .box {
   width: 400px;
-  height: 300px;
-  border-radius: 30px;
-  background-color: #fecea8; }
-  .box h1 {
+  height: 350px;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px; }
+  .box .title {
     color: white;
+    font-size: 60px;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #2A363B; }
+    -webkit-text-stroke-color: #2A363B;
+    text-align: center;
+    padding-top: 20px; }
+  .box .username, .box .password, .box .photo {
+    display: block;
+    width: 50%;
+    border-radius: 5px;
+    border: 1px solid #2A363B;
+    padding: 8px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto; }
+  .box .submit {
+    border-radius: 5px;
+    border: 1px solid #2A363B;
+    background-color: #2A363B;
+    color: white;
+    margin-left: 150px;
+    margin-top: 29px;
+    width: 25%; }
+
+#nav {
+  width: 100%;
+  height: 183px;
+  background-color: #fecea8; }
+  #nav li {
+    list-style-type: none;
+    display: inline-block; }
+    #nav li h1 {
+      color: white;
+      font-size: 60px;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: #2A363B;
+      text-align: center;
+      padding-top: 50px; }
+    #nav li a {
+      display: block;
+      color: #2A363B;
+      font-size: 20px;
+      margin-left: 100px; }
