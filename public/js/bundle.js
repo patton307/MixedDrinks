@@ -9,7 +9,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./model":5,"backbone":7}],2:[function(require,module,exports){
+},{"./model":6,"backbone":9}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -31,28 +31,49 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./modelView":6,"backbone":7,"jquery":8,"underscore":9}],3:[function(require,module,exports){
+},{"./modelView":7,"backbone":9,"jquery":10,"underscore":11}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+    var that = this;
+    var loginHTML = new LoginView();
     var drinkCollection = new DrinkCollection();
     drinkCollection.fetch().then(function(data){
       $('body').html(data.data.description);
       console.log(data.data[1001].name);
       var collectionView = new CollectionView({collection: drinkCollection});
-
+      that.$el.html(loginHTML.render().el);
     });
   },
 });
 
-},{"./collection":1,"./collectionView":2,"backbone":7,"jquery":8,"underscore":9}],4:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./loginView":4,"backbone":9,"jquery":10,"underscore":11}],4:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  initialize: function () {
+  },
+  template: _.template(tmpl.login),
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":8,"backbone":9,"jquery":10,"underscore":11}],5:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 
@@ -60,7 +81,7 @@ $(function () {
   new layoutView();
 });
 
-},{"./layoutView":3,"jquery":8}],5:[function(require,module,exports){
+},{"./layoutView":3,"jquery":10}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -73,7 +94,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"backbone":7,"jquery":8,"underscore":9}],6:[function(require,module,exports){
+},{"backbone":9,"jquery":10,"underscore":11}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -87,7 +108,62 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"backbone":7,"jquery":8,"underscore":9}],7:[function(require,module,exports){
+},{"backbone":9,"jquery":10,"underscore":11}],8:[function(require,module,exports){
+module.exports = {
+  profile: [
+    "<div class='profile'>",
+    "<ul>",
+    "<li><h2>User Name</h2></li>",
+    "<li><img src='http://www.fillmurray.com/460/300' /></li>",
+    "</ul>",
+    "<h4>Favorite Recipes</h4>",
+    "<section id='recipes'>",
+    "</section>",
+    "</div>"
+  ].join(''),
+  navigation: [
+    "<ul id='nav'>",
+    "<li><h1>Alchemy</h1></li>",
+    "<li><a id='home' href=''>Home</a></li>",
+    "<li><a id='profile' href=''>My Profile</a></li>",
+    "</ul>"
+  ].join(""),
+  form: [
+    "<form class='movieform'>",
+     "<input type='text' id='liquor' class='title' placeholder='What liquor do you have?'>",
+     "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
+     "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
+     "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
+     "<button class='send-stuff'>submit</button>",
+   "</form>"
+ ].join(""),
+ sideBar: [
+   "<aside>",
+   "<ul id='sideBar'>",
+   "</ul>",
+   "</aside>"
+ ].join(""),
+ sideUser: [
+   "<li>",
+   "<img src='http://www.fillmurray.com/460/300' />",
+   "<h5>Friend Name</h5>",
+   "</li>"
+ ].join(""),
+ recipe: [
+   "<article>",
+   "<h3>Drink Name</h3>",
+   "<ul id='ingredientList'>",
+   "</ul>",
+   "<p></p>",
+   "</article>"
+ ].join(""),
+ ingredient: [
+   "<li>Ingredient Name</li>"
+ ].join(""),
+
+}
+
+},{}],9:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1985,7 +2061,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":8,"underscore":9}],8:[function(require,module,exports){
+},{"jquery":10,"underscore":11}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11197,7 +11273,7 @@ return jQuery;
 
 }));
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12747,4 +12823,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[4]);
+},{}]},{},[5]);
