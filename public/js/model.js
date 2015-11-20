@@ -5,6 +5,6 @@ var _ = require('underscore');
 module.exports = Backbone.Model.extend({
   urlRoot: '/drinks',
   initialize: function() {
-    console.log(urlRoot);
+    console.log('dog');
   }
 });

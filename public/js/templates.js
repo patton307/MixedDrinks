@@ -41,11 +41,10 @@ module.exports = {
  ].join(""),
  recipe: [
    "<article>",
-   "<h3>Drink Name</h3>",
+   "<h3><%=name%></h3>",
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
-
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),

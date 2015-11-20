@@ -4,10 +4,10 @@ var DrinkModel = require('./model');
 
 module.exports = Backbone.Collection.extend({
   url: '/drinks',
+  model: DrinkModel,
   initialize: function() {
-    console.log(this.url);
-  },
-  model: DrinkModel
+    console.log('cat');
+  }
 });
 
 },{"./model":8,"backbone":12}],2:[function(require,module,exports){
@@ -18,17 +18,20 @@ Backbone.$ = $;
 var DrinkView = require('./modelView');
 
 module.exports = Backbone.View.extend({
-  el: '.content',
+  el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
+    console.log('blue');
   },
   addOneDrink: function(drinkModel){
+    console.log('drink model:', drinkModel);
     var drinkView = new DrinkView({model: drinkModel});
     console.log(drinkView);
     this.$el.append(drinkView.render().el);
+    return this;
   },
   addAllDrinks: function(){
-    _.each(this.collection.models, this.addOne, this);
+    _.each(this.collection.models, this.addOneDrink, this);
   }
 });
 
@@ -92,19 +95,17 @@ var HeaderView = require('./headerView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
-  initialize: function(opts){
+  initialize: function(){
     var self = this;
-
     var headerHTML = new HeaderView();
     var loginHTML = new LoginView();
     var formHTML = new FormView();
     var drinkCollection = new DrinkCollection();
-    console.log(drinkCollection.fetch());
     drinkCollection.fetch().then(function(data){
-      console.log('blue');
-      var collectionView = new CollectionView({collection: drinkCollection});
       self.$el.html(loginHTML.render().el);
       self.$el.append(formHTML.render().el);
+      console.log(drinkCollection);
+      var collectionView = new CollectionView({collection: drinkCollection});
 
     });
   },
@@ -150,7 +151,7 @@ var _ = require('underscore');
 module.exports = Backbone.Model.extend({
   urlRoot: '/drinks',
   initialize: function() {
-    console.log(urlRoot);
+    console.log('dog');
   }
 });
 
@@ -159,18 +160,17 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
-var Drink = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
-  className: 'drink',
   template: _.template(tmpl.recipe),
   events: {
-    'click #like': 'onLike'
   },
   render: function(){
-    
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    return this;
   },
   onLike: function(){
     console.log("liked");
@@ -181,7 +181,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./model":8,"./templates":11,"backbone":12,"jquery":13,"underscore":14}],10:[function(require,module,exports){
+},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],10:[function(require,module,exports){
 
 var Backbone = require('backbone');
 var $ = require('jquery');
@@ -251,11 +251,10 @@ module.exports = {
  ].join(""),
  recipe: [
    "<article>",
-   "<h3>Drink Name</h3>",
+   "<h3><%=name%></h3>",
    "<ul id='ingredientList'>",
    "</ul>",
    "<p></p>",
-
    "<button id='like'>I'd Drink That!</button>",
    "</article>"
  ].join(""),
