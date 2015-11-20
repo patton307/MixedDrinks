@@ -10,7 +10,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"./model":6,"backbone":9}],2:[function(require,module,exports){
+},{"./model":7,"backbone":10}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -25,41 +25,14 @@ module.exports = Backbone.View.extend({
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
     console.log(drinkView);
-     this.$el.append(drinkView.render().el);
+    this.$el.append(drinkView.render().el);
   },
   addAllDrinks: function(){
     _.each(this.collection.models, this.addOne, this);
   }
 });
 
-},{"./modelView":7,"backbone":9,"jquery":10,"underscore":11}],3:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery');
-Backbone.$ = $;
-var _ = require('underscore');
-var DrinkCollection = require('./collection');
-var CollectionView = require('./collectionView');
-var LoginView = require('./loginView');
-
-module.exports = Backbone.View.extend({
-  el: '#layoutView',
-  initialize: function(){
-
-    var self = this;
-    var loginHTML = new LoginView();
-    var drinkCollection = new DrinkCollection();
-    drinkCollection.fetch().then(function(data){
-      $('body').html(data.data.description);
-      console.log(data.data[1001].description);
-      var collectionView = new CollectionView({collection: drinkCollection});
-
-    self.$el.html(loginHTML.render().el);
-    });
-
-  },
-});
-
-},{"./collection":1,"./collectionView":2,"./loginView":4,"backbone":9,"jquery":10,"underscore":11}],4:[function(require,module,exports){
+},{"./modelView":8,"backbone":10,"jquery":11,"underscore":12}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -67,10 +40,18 @@ var _ = require('underscore');
 var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
-  initialize: function () {    
+  events: {
+    'click .send-stuff': 'onSubmitIngredients'
   },
-  template: _.template(tmpl.login),
+  initialize: function () {
+  },
+  onSubmitIngredients: function(event){
+    event.preventDefault();
+    console.log('SUBMIT INGREDIENTS BUTTON');
 
+    /// FILTER THROUGH DATA TO FIND MATCHING DRINKS
+  },
+  template: _.template(tmpl.form),
   render: function () {
     var markup = this.template({});
     this.$el.html(markup);
@@ -78,7 +59,51 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":8,"backbone":9,"jquery":10,"underscore":11}],5:[function(require,module,exports){
+},{"./templates":9,"backbone":10,"jquery":11,"underscore":12}],4:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
+var FormView = require('./formView');
+
+module.exports = Backbone.View.extend({
+  el: '#layoutView',
+  initialize: function(){
+    var self = this;
+    var loginHTML = new LoginView();
+    var formHTML = new FormView();
+    var drinkCollection = new DrinkCollection();
+    drinkCollection.fetch().then(function(data){
+      console.log(data.data[1001].name);
+      var collectionView = new CollectionView({collection: drinkCollection});
+      self.$el.html(loginHTML.render().el);
+      self.$el.append(formHTML.render().el);
+    });
+  },
+});
+
+},{"./collection":1,"./collectionView":2,"./formView":3,"./loginView":5,"backbone":10,"jquery":11,"underscore":12}],5:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  initialize: function () {
+  },
+  template: _.template(tmpl.login),
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":9,"backbone":10,"jquery":11,"underscore":12}],6:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 
@@ -86,7 +111,7 @@ $(function () {
   new layoutView();
 });
 
-},{"./layoutView":3,"jquery":10}],6:[function(require,module,exports){
+},{"./layoutView":4,"jquery":11}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -102,7 +127,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"backbone":9,"jquery":10,"underscore":11}],7:[function(require,module,exports){
+},{"backbone":10,"jquery":11,"underscore":12}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -129,7 +154,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./model":6,"./templates":8,"backbone":9,"jquery":10,"underscore":11}],8:[function(require,module,exports){
+},{"./model":7,"./templates":9,"backbone":10,"jquery":11,"underscore":12}],9:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -192,7 +217,7 @@ module.exports = {
 
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2090,7 +2115,7 @@ module.exports = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":10,"underscore":11}],10:[function(require,module,exports){
+},{"jquery":11,"underscore":12}],11:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11302,7 +11327,7 @@ return jQuery;
 
 }));
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12852,4 +12877,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[5]);
+},{}]},{},[6]);
