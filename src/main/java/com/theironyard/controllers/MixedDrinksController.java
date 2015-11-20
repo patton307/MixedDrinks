@@ -41,7 +41,7 @@ public class MixedDrinksController {
             users.save(admin);
         }
 
-     /*   if (drinks.count() == 0) {
+        if (drinks.count() == 0) {
             Drink drink = new Drink();
             drink.name = "Dark and Stormy";
             drink.ingredient1 = "1 oz Dark Rum";
@@ -49,9 +49,9 @@ public class MixedDrinksController {
             drink.ingredient3 = "Lime";
             drink.user = admin;
             drinks.save(drink);
-        }*/
+        }
 
-
+/*
         if (drinks.count() == 0) {
             Scanner scanner = new Scanner(new File("mixeddrinks.csv"));
             scanner.nextLine();
@@ -78,7 +78,7 @@ public class MixedDrinksController {
                 drink.user = admin;
                 drinks.save(drink);
             }
-        }
+        }*/
     }
 
 
@@ -103,6 +103,6 @@ public class MixedDrinksController {
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
-        response.sendRedirect("/");
+     //   response.sendRedirect("/");
     }
 }
