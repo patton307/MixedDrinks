@@ -1,41 +1,84 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Backbone = require('backbone');
+var DrinkModel = require('./model');
 
 module.exports = Backbone.Model.extend({
-  url: 'http://addb.absolutdrinks.com/drinks/?apiKey=fa0ea8ba586c4f70b9397e6e64613fa9&start=25&pageSize=3000',
-  initialize: function(){
-    console.log(this.url);
+
+  url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
+  initialize: function() {
+    //console.log(this.url);
   }
 });
 
-},{"backbone":6}],2:[function(require,module,exports){
+},{"./model":6,"backbone":9}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 Backbone.$ = $;
 var DrinkView = require('./modelView');
 
-},{"./modelView":5,"backbone":6,"jquery":7,"underscore":8}],3:[function(require,module,exports){
+module.exports = Backbone.View.extend({
+  el: '.content',
+  initialize: function(){
+    this.addAllDrinks();
+  },
+  addOneDrink: function(drinkModel){
+    var drinkView = new DrinkView({model: drinkModel});
+    console.log(drinkView);
+     this.$el.append(drinkView.render().el);
+  },
+  addAllDrinks: function(){
+    _.each(this.collection.models, this.addOne, this);
+  }
+});
+
+},{"./modelView":7,"backbone":9,"jquery":10,"underscore":11}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
+
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+    var self = this;
+    var loginHTML = new LoginView();
     var drinkCollection = new DrinkCollection();
-
     drinkCollection.fetch().then(function(data){
-      console.log(data);
+      $('body').html(data.data.description);
+      console.log(data.data[1001].description);
       var collectionView = new CollectionView({collection: drinkCollection});
+    self.$el.html(loginHTML.render().el);
     });
-  }
-})
 
-},{"./collection":1,"./collectionView":2,"backbone":6,"jquery":7,"underscore":8}],4:[function(require,module,exports){
+  },
+});
+
+},{"./collection":1,"./collectionView":2,"./loginView":4,"backbone":9,"jquery":10,"underscore":11}],4:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var tmpl = require('./templates');
+
+module.exports = Backbone.View.extend({
+  initialize: function () {
+      
+  },
+  template: _.template(tmpl.login),
+
+  render: function () {
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
+  }
+});
+
+},{"./templates":8,"backbone":9,"jquery":10,"underscore":11}],5:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 
@@ -43,7 +86,21 @@ $(function () {
   new layoutView();
 });
 
-},{"./layoutView":3,"jquery":7}],5:[function(require,module,exports){
+},{"./layoutView":3,"jquery":10}],6:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('underscore');
+
+module.exports = Backbone.Model.extend({
+
+
+  urlRoot: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?api_key=9c8df2d8-47f8-41ba-b940-c073b02549cb',
+  initialize: function() {
+
+  }
+});
+
+},{"backbone":9,"jquery":10,"underscore":11}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -54,10 +111,72 @@ module.exports = Backbone.View.extend({
   className: 'drink',
   initialize: function(){
     console.log('blue');
-  }
+  },
+  
 });
 
-},{"backbone":6,"jquery":7,"underscore":8}],6:[function(require,module,exports){
+},{"backbone":9,"jquery":10,"underscore":11}],8:[function(require,module,exports){
+module.exports = {
+
+  profile: [
+    "<div class='profile'>",
+    "<ul>",
+    "<li><h2>User Name</h2></li>",
+    "<li><img src='http://www.fillmurray.com/460/300' /></li>",
+    "</ul>",
+    "<h4>Favorite Recipes</h4>",
+    "<section id='recipes'>",
+    "</section>",
+    "</div>"
+  ].join(''),
+  navigation: [
+    "<ul id='nav'>",
+    "<li><h1>Alchemy</h1></li>",
+    "<li><a id='home' href=''>Home</a></li>",
+    "<li><a id='profile' href=''>My Profile</a></li>",
+    "</ul>"
+  ].join(""),
+  form: [
+    "<form class='movieform'>",
+     "<input type='text' id='liquor' class='title' placeholder='What liquor do you have?'>",
+     "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
+     "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
+     "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
+     "<button class='send-stuff'>submit</button>",
+   "</form>"
+ ].join(""),
+ sideBar: [
+   "<aside>",
+   "<ul id='sideBar'>",
+   "</ul>",
+   "</aside>"
+ ].join(""),
+ sideUser: [
+   "<li>",
+   "<img src='http://www.fillmurray.com/460/300' />",
+   "<h5>Friend Name</h5>",
+   "</li>"
+ ].join(""),
+ recipe: [
+   "<article>",
+   "<h3>Drink Name</h3>",
+   "<ul id='ingredientList'>",
+   "</ul>",
+   "<p></p>",
+   "</article>"
+ ].join(""),
+ ingredient: [
+   "<li>Ingredient Name</li>"
+ ].join(""),
+ login:[
+   "<div class='box'>",
+   "<h1 class='title'>donkey</h1>",
+   "</div>"
+ ].join(""),
+
+};
+
+},{}],9:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1955,7 +2074,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":7,"underscore":8}],7:[function(require,module,exports){
+},{"jquery":10,"underscore":11}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11167,7 +11286,7 @@ return jQuery;
 
 }));
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -12717,4 +12836,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[4]);
+},{}]},{},[5]);
