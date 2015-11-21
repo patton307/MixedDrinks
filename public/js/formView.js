@@ -24,10 +24,10 @@ module.exports = Backbone.View.extend({
         var combinedIngredients = '';
         if(data[i].ingredient1 === null){
           data[i].ingredient1 = '';
-        };
+        }
         if(data[i].ingredient2 === null){
           data[i].ingredient2 = '';
-        };
+        }
         var ingredient1 = data[i].ingredient1.toUpperCase();
         var ingredient2 = data[i].ingredient2.toUpperCase();
         combinedIngredients += ingredient1;
@@ -41,7 +41,7 @@ module.exports = Backbone.View.extend({
           console.log(data[i].name);
         }
 
-      };
+      }
       // var collectionView = new CollectionView({collection: drinkCollection});
   });
 

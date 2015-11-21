@@ -30,7 +30,9 @@ module.exports = Backbone.Router.extend ({
   },
   profilePage: function(){
     console.log("profile page");
-
+    var headerHTML = new headerView();
+    $('#layoutView').html(headerHTML.render().el);
+    // $('#layoutView').find('.drinkform').remove();
 
   },
   onHomePage: function(){
@@ -40,7 +42,7 @@ module.exports = Backbone.Router.extend ({
     console.log("login page");
     var loginHTML = new LoginView();
     $('#layoutView').html(loginHTML.render().el);
-    // this.destroy();
+
   }
 
 
