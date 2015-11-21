@@ -27,12 +27,6 @@ module.exports = {
      "<button class='send-stuff'>submit</button>",
    "</form>"
  ].join(""),
- sideBar: [
-   "<aside>",
-   "<ul id='sideBar'>",
-   "</ul>",
-   "</aside>"
- ].join(""),
  sideUser: [
    "<li>",
    "<img src='http://www.fillmurray.com/460/300' />",

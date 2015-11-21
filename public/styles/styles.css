@@ -93,3 +93,21 @@ body {
     margin-left: 258px;
     margin-top: 40px;
     width: 25%; }
+
+.profile {
+  width: 900px;
+  height: 600px;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding-top: 40px; }
+
+#sideUser {
+  width: 100px;
+  height: 600px;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin-top: 100px;
+  padding-top: 40px; }

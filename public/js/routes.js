@@ -8,6 +8,9 @@ var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
+var ProfileView = require('./profileView');
+var UserView = require('./userView');
+
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -24,11 +27,19 @@ module.exports = Backbone.Router.extend ({
     new layoutView();
     $('#layoutView').find('.box').remove();
     new FormView();
+    new HeaderView();
+    var userHTML = new UserView();
+    $('#layoutView').append(userHTML.render().el);
+
   },
   profilePage: function(){
     console.log("profile page");
-    var headerHTML = new headerView();
+    $('#layoutView').find('.drinkform').remove();
+    var headerHTML = new HeaderView();
     $('#layoutView').html(headerHTML.render().el);
+    var profileHTML = new ProfileView();
+    $('#layoutView').append(profileHTML.render().el);
+
 
   },
   onHomePage: function(){
@@ -37,8 +48,8 @@ module.exports = Backbone.Router.extend ({
   loginPage: function(){
     console.log("login page");
     var loginHTML = new LoginView();
-    $('#layoutView').html(loginHTML.render().el);
-
+    $('#layoutView').append(loginHTML.render().el);
+    // new layoutView();
   }
 
 
