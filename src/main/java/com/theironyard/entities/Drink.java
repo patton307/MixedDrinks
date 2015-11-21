@@ -41,9 +41,8 @@ public class Drink {
 
     public String ingredient12;
 
+
     @ManyToOne
     public User user;
 
 }
-
-//Random Comment
