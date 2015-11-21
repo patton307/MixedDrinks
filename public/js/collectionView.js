@@ -22,7 +22,8 @@ module.exports = Backbone.View.extend({
 
   },
   addAllDrinks: function(){
-    console.log('orange');
+  //  console.log('orange');
     _.each(this.collection.models, this.addOneDrink, this);
+
   }
 });

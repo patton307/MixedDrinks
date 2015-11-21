@@ -3,8 +3,6 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: '/users',
-  initialize: function() {
+  //urlRoot: '/users',
 
-  }
 });

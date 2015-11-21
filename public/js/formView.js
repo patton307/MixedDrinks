@@ -7,6 +7,7 @@ var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
+  el: '#layoutView',
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },

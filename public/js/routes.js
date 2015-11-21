@@ -2,12 +2,16 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
+var headerView = require('./headerView');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
+var UserView = require('./userView');
+var UserCollection = require('./userCollection');
+var UserCollectionView = require('./userCollectionView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -36,9 +40,12 @@ module.exports = Backbone.Router.extend ({
 
   },
   loginPage: function(){
-    console.log("login page");
     var loginHTML = new LoginView();
     $('#layoutView').html(loginHTML.render().el);
+
+
+
+
 
   }
 

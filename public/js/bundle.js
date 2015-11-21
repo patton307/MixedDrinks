@@ -1,16 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Backbone = require('backbone');
-var DrinkModel = require('./model');
-
-module.exports = Backbone.Collection.extend({
-  url: '/drinks',
-  model: DrinkModel,
-  initialize: function() {
-  }
-});
-
-},{"./model":8,"backbone":12}],2:[function(require,module,exports){
-var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
@@ -34,12 +23,61 @@ module.exports = Backbone.View.extend({
 
   },
   addAllDrinks: function(){
-    console.log('orange');
+  //  console.log('orange');
     _.each(this.collection.models, this.addOneDrink, this);
+
   }
 });
 
-},{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./loginView":6,"./modelView":9,"backbone":12,"jquery":13,"underscore":14}],3:[function(require,module,exports){
+},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":18,"jquery":19,"underscore":20}],2:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var UserView = require('./userView');
+var UserModel = require('./userModel');
+var UserCollection = require('./userCollection');
+var tmpl = require('./templates');
+
+
+module.exports = Backbone.View.extend({
+  el: '#side',
+  initialize: function(){
+    this.addAllUsers();
+  },
+  addOneUser: function(userModel){
+    var userView = new UserView({model: userModel});
+    this.$el.append(userView.render().el);
+    console.log(this);
+  },
+  addAllUsers: function(){
+    var userCollection = new UserCollection();
+    userCollection.fetch().then(function(data) {
+      var template = _.template(tmpl.sideUser);
+      console.log(tmpl.sideUser);
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        return template(data[i]);
+      }
+    });
+  }
+});
+
+},{"./templates":13,"./userCollection":14,"./userModel":16,"./userView":17,"backbone":18,"jquery":19,"underscore":20}],3:[function(require,module,exports){
+var Backbone = require('backbone');
+var DrinkModel = require('./model');
+
+module.exports = Backbone.Collection.extend({
+  url: '/drinks',
+  model: DrinkModel,
+  initialize: function() {
+
+  }
+});
+
+},{"./model":10,"backbone":18}],4:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":18,"dup":1,"jquery":19,"underscore":20}],5:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -49,6 +87,7 @@ var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
+  el: '#layoutView',
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },
@@ -155,7 +194,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./collection":1,"./collectionView":2,"./templates":11,"backbone":12,"jquery":13,"underscore":14}],4:[function(require,module,exports){
+},{"./collection":3,"./collectionView":4,"./templates":13,"backbone":18,"jquery":19,"underscore":20}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -175,7 +214,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],5:[function(require,module,exports){
+},{"./templates":13,"backbone":18,"jquery":19,"underscore":20}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -185,11 +224,24 @@ var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
+var UserCollection = require('./userCollection');
+var UserCollectionView = require('./UserCollectionView');
+var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
     var self = this;
+    var userCollection = new UserCollection();
+    userCollection.fetch().then(function(data) {
+      var template = _.template(tmpl.sideUser);
+      console.log(tmpl.sideUser);
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        var displayer = template(data[i]);
+        $('#side').append(displayer);
+      }
+    });
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
     self.$el.append(headerHTML.render().el);
@@ -199,15 +251,17 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],6:[function(require,module,exports){
+},{"./UserCollectionView":2,"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./templates":13,"./userCollection":14,"backbone":18,"jquery":19,"underscore":20}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
 var tmpl = require('./templates');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./CollectionView');
 
 module.exports = Backbone.View.extend({
-  initialize: function () {
+initialize: function () {
   },
   template: _.template(tmpl.login),
   render: function () {
@@ -217,7 +271,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],7:[function(require,module,exports){
+},{"./CollectionView":1,"./collection":3,"./templates":13,"backbone":18,"jquery":19,"underscore":20}],9:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 var collectionView = require('./collectionView');
@@ -231,7 +285,7 @@ $(function () {
   Backbone.history.start();
 });
 
-},{"./collectionView":2,"./layoutView":5,"./routes":10,"backbone":12,"jquery":13}],8:[function(require,module,exports){
+},{"./collectionView":4,"./layoutView":7,"./routes":12,"backbone":18,"jquery":19}],10:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -239,18 +293,21 @@ var _ = require('underscore');
 module.exports = Backbone.Model.extend({
   urlRoot: '/drinks',
   initialize: function() {
+    //console.log('dog');
   }
 });
 
-},{"backbone":12,"jquery":13,"underscore":14}],9:[function(require,module,exports){
+},{"backbone":18,"jquery":19,"underscore":20}],11:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
+var DrinkModel = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
+  el: '#layoutView',
   template: _.template(tmpl.recipe),
   events: {
   },
@@ -263,21 +320,26 @@ module.exports = Backbone.View.extend({
     console.log("liked");
   },
   initialize: function(){
+    //console.log('blue');
   },
 
 });
 
-},{"./templates":11,"backbone":12,"jquery":13,"underscore":14}],10:[function(require,module,exports){
+},{"./model":10,"./templates":13,"backbone":18,"jquery":19,"underscore":20}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
+var headerView = require('./headerView');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
+var UserView = require('./userView');
+var UserCollection = require('./userCollection');
+var UserCollectionView = require('./userCollectionView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -306,9 +368,12 @@ module.exports = Backbone.Router.extend ({
 
   },
   loginPage: function(){
-    console.log("login page");
     var loginHTML = new LoginView();
     $('#layoutView').html(loginHTML.render().el);
+
+
+
+
 
   }
 
@@ -317,7 +382,7 @@ module.exports = Backbone.Router.extend ({
 
 });
 
-},{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./layoutView":5,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
+},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./layoutView":7,"./loginView":8,"./userCollection":14,"./userCollectionView":15,"./userView":17,"backbone":18,"jquery":19,"underscore":20}],13:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -347,16 +412,10 @@ module.exports = {
      "<button class='send-stuff'>submit</button>",
    "</form>"
  ].join(""),
- sideBar: [
-   "<aside>",
-   "<ul id='sideBar'>",
-   "</ul>",
-   "</aside>"
- ].join(""),
  sideUser: [
    "<li>",
    "<img src='http://www.fillmurray.com/460/300' />",
-   "<h5>Friend Name</h5>",
+   "<h5><%= username %></h5>",
    "</li>"
  ].join(""),
  recipe: [
@@ -388,7 +447,7 @@ module.exports = {
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
 
-   "<input class='password' placeholder='password'></input>",
+   "<input type='password' class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
 
@@ -397,7 +456,82 @@ module.exports = {
 
 };
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+var Backbone = require('backbone');
+var DrinkModel = require('./model');
+
+module.exports = Backbone.Model.extend({
+  url: '/users',
+  initialize: function() {
+    //console.log(this.url);
+  }
+});
+
+},{"./model":10,"backbone":18}],15:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var UserView = require('./userView');
+var UserModel = require('./userModel');
+var UserCollection = require('./userCollection');
+var tmpl = require('./templates');
+
+
+module.exports = Backbone.View.extend({
+  el: '#side',
+  initialize: function(){
+    // this.addAllUsers();
+  },
+  addOneUser: function(userModel){
+    var userView = new UserView({model: userModel});
+    this.$el.append(userView.render().el);
+  },
+  addAllUsers: function(){
+  
+  }
+});
+
+},{"./templates":13,"./userCollection":14,"./userModel":16,"./userView":17,"backbone":18,"jquery":19,"underscore":20}],16:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('underscore');
+
+module.exports = Backbone.Model.extend({
+  urlRoot: '/users',
+  initialize: function() {
+
+  }
+});
+
+},{"backbone":18,"jquery":19,"underscore":20}],17:[function(require,module,exports){
+var Backbone = require('backbone');
+var _ = require('underscore');
+var $ = require('jquery');
+var tmpl = require('./templates');
+var User = require('./userModel');
+Backbone.$ = $;
+
+module.exports = Backbone.View.extend({
+  tagName: 'li',
+  template: _.template(tmpl.sideUser),
+  events: {
+    'click img': 'onProfile'
+  },
+  render: function() {
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    return this;
+  },
+  onProfile: function() {
+    console.log("clicked prof");
+  },
+  initialize: function() {
+    this.render();
+  }
+});
+
+},{"./templates":13,"./userModel":16,"backbone":18,"jquery":19,"underscore":20}],18:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2295,7 +2429,7 @@ module.exports = {
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":13,"underscore":14}],13:[function(require,module,exports){
+},{"jquery":19,"underscore":20}],19:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11507,7 +11641,7 @@ return jQuery;
 
 }));
 
-},{}],14:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13057,4 +13191,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[7]);
+},{}]},{},[9]);
