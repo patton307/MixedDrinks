@@ -7,6 +7,8 @@ var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
+var ProfileView = require('./profileView');
+var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./UserCollectionView');
 var tmpl = require('./templates');
@@ -27,8 +29,10 @@ module.exports = Backbone.View.extend({
     });
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
-    self.$el.append(headerHTML.render().el);
+    self.$el.html(headerHTML.render().el);
     self.$el.append(formHTML.render().el);
+
+
 
   }
 
