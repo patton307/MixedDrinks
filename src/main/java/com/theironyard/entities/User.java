@@ -12,13 +12,12 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
-    @Column(nullable = false)
     public int id;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     public String username;
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     public String password;
 
 }
