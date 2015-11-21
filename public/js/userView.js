@@ -7,6 +7,7 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'div',
+  el: '#id',
   className: 'user',
   template: _.template(tmpl.sideUser),
   events: {
@@ -18,7 +19,7 @@ module.exports = Backbone.View.extend({
     return this;
   },
   onProfile: function() {
-    
+    console.log("clicked prof");
   },
   initialize: function() {
 
