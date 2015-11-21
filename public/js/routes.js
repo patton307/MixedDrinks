@@ -11,12 +11,9 @@ var layoutView = require('./layoutView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
-
     'home': 'homePage',
     '': 'loginPage',
     'profile': 'profilePage',
-
-
   },
   // initialize: function(options){
   //     // if(!this.layout)
