@@ -17,6 +17,7 @@ module.exports = Backbone.View.extend({
     event.preventDefault();
     console.log('SUBMIT INGREDIENTS BUTTON');
     var drinkCollection = new DrinkCollection();
+    $('.content').html('');
     drinkCollection.fetch().then(function(data){
       for(var i = 0; i < data.length; i++){
         ////ASSIGNS NULL INGREDIENT TO EMPTY STRING //
@@ -95,11 +96,12 @@ module.exports = Backbone.View.extend({
           &&combinedIngredients.includes(ingredientThreeID)
           &&combinedIngredients.includes(ingredientFourID)
         ){
-          console.log(data[i].name);
+          // console.log(data[i]);
+          // console.log(combinedIngredients);
+          var template = _.template(tmpl.recipe)
+          $('.content').append(template(data[i]));
         }
-
       }
-      // var collectionView = new CollectionView({collection: drinkCollection});
   });
 
     /// FILTER THROUGH DATA TO FIND MATCHING DRINKS

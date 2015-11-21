@@ -97,6 +97,7 @@ module.exports = Backbone.View.extend({
     event.preventDefault();
     console.log('SUBMIT INGREDIENTS BUTTON');
     var drinkCollection = new DrinkCollection();
+    $('.content').html('');
     drinkCollection.fetch().then(function(data){
       for(var i = 0; i < data.length; i++){
         ////ASSIGNS NULL INGREDIENT TO EMPTY STRING //
@@ -175,11 +176,12 @@ module.exports = Backbone.View.extend({
           &&combinedIngredients.includes(ingredientThreeID)
           &&combinedIngredients.includes(ingredientFourID)
         ){
-          console.log(data[i].name);
+          // console.log(data[i]);
+          // console.log(combinedIngredients);
+          var template = _.template(tmpl.recipe)
+          $('.content').append(template(data[i]));
         }
-
       }
-      // var collectionView = new CollectionView({collection: drinkCollection});
   });
 
     /// FILTER THROUGH DATA TO FIND MATCHING DRINKS
@@ -420,10 +422,21 @@ module.exports = {
    "<article>",
    "<h3><%=name%></h3>",
    "<ul id='ingredientList'>",
+   "<li><%=ingredient1%></li>",
+   "<li><%=ingredient2%></li>",
+   "<li><%=ingredient3%></li>",
+   "<li><%=ingredient4%></li>",
+   "<li><%=ingredient5%></li>",
+   "<li><%=ingredient6%></li>",
+   "<li><%=ingredient7%></li>",
+   "<li><%=ingredient8%></li>",
+   "<li><%=ingredient9%></li>",
+   "<li><%=ingredient10%></li>",
+   "<li><%=ingredient11%></li>",
+   "<li><%=ingredient12%></li>",
    "</ul>",
-   "<p></p>",
    "<button id='like'>I'd Drink That!</button>",
-   "</article>"
+   "</article>",
  ].join(""),
  ingredient: [
    "<li>Ingredient Name</li>"
