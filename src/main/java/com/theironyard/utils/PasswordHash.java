@@ -1,4 +1,5 @@
 package com.theironyard.utils;
+
 /*
  * Password Hashing With PBKDF2 (http://crackstation.net/hashing-security.htm).
  * Copyright (c) 2013, Taylor Hornby
@@ -191,7 +192,7 @@ public class PasswordHash
      * Tests the basic functionality of the PasswordHash class
      *
      * @param   args        ignored
-
+     */
     public static void main(String[] args)
     {
         try
@@ -232,5 +233,5 @@ public class PasswordHash
             System.out.println("ERROR: " + ex);
         }
     }
-     */
+
 }
