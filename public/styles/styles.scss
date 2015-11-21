@@ -117,8 +117,19 @@ margin-top:  10px;
   margin-left: 258px;
     margin-top: 40px;
     width: 25%;
-
 }
+}
+
+
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+}
+
 
 }
 
@@ -144,6 +155,26 @@ margin-top:  10px;
                   text-align: center;
                   margin-top: 100px;
                 }
+
+
+article{
+  border-radius: 10px;
+  background-color: #fecea8;
+  border: 1px solid #2A363B;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 30px;
+  justify-content: center;
+  h3{
+    margin-left: 20px;
+  }
+  ul{
+    li{
+      list-style-type: none;
+    }
+  }
 
 }
 // #sideUser {
