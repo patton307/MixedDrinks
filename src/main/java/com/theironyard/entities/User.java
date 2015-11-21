@@ -22,9 +22,4 @@ public class User {
     public String password;
 
     public String image;
-
-    public ArrayList<Drink> favorites;
-
-    public ArrayList<Drink> created;
 }
-

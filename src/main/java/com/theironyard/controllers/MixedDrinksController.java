@@ -1,8 +1,10 @@
 package com.theironyard.controllers;
 
 import com.theironyard.entities.Drink;
+import com.theironyard.entities.Favorite;
 import com.theironyard.entities.User;
 import com.theironyard.services.DrinkRepository;
+import com.theironyard.services.FavoriteRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class MixedDrinksController {
     DrinkRepository drinks;
     @Autowired
     UserRepository users;
+    @Autowired
+    FavoriteRepository favorites;
 
     @PostConstruct
     public void init() throws InvalidKeySpecException, NoSuchAlgorithmException, FileNotFoundException {
@@ -69,8 +73,6 @@ public class MixedDrinksController {
                 }
                 drink.user = admin;
                 drinks.save(drink);
-
-                admin.created.add(drink);
             }
         }
     }
@@ -96,13 +98,13 @@ public class MixedDrinksController {
             user.image = image;
             users.save(user);
         }
-
-        if (password.equals(user.password)) {
+/*
+        if (!password.equals(user.password) || username == null || password == null) {
             response.sendRedirect("/");
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect("/");
         }
-        /*
+        */
         else if (!PasswordHash.validatePassword(password, user.password)) {
             throw new Exception("Wrong password, try again!");
         }
@@ -110,7 +112,7 @@ public class MixedDrinksController {
             throw new Exception("Please enter both a username and password!");
         }
 
-        response.sendRedirect("/");*/
+        response.sendRedirect("/");
     }
 
     @RequestMapping("/logout")
@@ -120,7 +122,7 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/create")
-    public String create(HttpSession session,
+    public void create(HttpSession session,
                          HttpServletResponse response,
                          String name,
                          String ingredient1,
@@ -156,8 +158,27 @@ public class MixedDrinksController {
         drink.ingredient12 = ingredient12;
         drink.user = user;
         drinks.save(drink);
-        user.created.add(drink);
-
-        return "redirect:/";
     }
+
+    @RequestMapping("/favorite")
+    public void addFav(HttpSession session, HttpServletResponse response, int id) throws IOException {
+        String username = (String) session.getAttribute("username");
+        User user = users.findOneByUsername(username);
+        Drink selectedDrink = drinks.findOne(id);
+
+        if (username == null) {
+            response.sendRedirect("/");
+        }
+
+        Favorite fav = new Favorite();
+        fav.favUser = user;
+        fav.drink = selectedDrink;
+
+        favorites.save(fav);
+    }
+
+/*
+    @RequestMapping("/created")
+    public
+ */
 }
