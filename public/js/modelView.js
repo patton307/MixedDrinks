@@ -2,10 +2,12 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
+var DrinkModel = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
+  el: '#layoutView',
   template: _.template(tmpl.recipe),
   events: {
   },
@@ -18,6 +20,7 @@ module.exports = Backbone.View.extend({
     console.log("liked");
   },
   initialize: function(){
+    //console.log('blue');
   },
 
 });

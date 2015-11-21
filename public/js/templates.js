@@ -30,7 +30,7 @@ module.exports = {
  sideUser: [
    "<li>",
    "<img src='http://www.fillmurray.com/460/300' />",
-   "<h5>Friend Name</h5>",
+   "<h5><%= username %></h5>",
    "</li>"
  ].join(""),
  recipe: [
@@ -62,7 +62,7 @@ module.exports = {
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
 
-   "<input class='password' placeholder='password'></input>",
+   "<input type='password' class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
 

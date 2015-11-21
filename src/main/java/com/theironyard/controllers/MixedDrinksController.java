@@ -111,6 +111,14 @@ public class MixedDrinksController {
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+        response.sendRedirect("/");
+=======
+        */
+     //   response.sendRedirect("/");
+>>>>>>> ccbf916e95085a8b465b00afe99c94d0d1540f97
+=======
 
         response.sendRedirect("/");
     }
@@ -119,7 +127,11 @@ public class MixedDrinksController {
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
         session.invalidate();
         response.sendRedirect("/");
+>>>>>>> 12b3a237c45dc234edd97726e12cc37c28742693
     }
+<<<<<<< HEAD
+}
+=======
 
     @RequestMapping("/create")
     public void create(HttpSession session,
@@ -182,3 +194,4 @@ public class MixedDrinksController {
     public
  */
 }
+>>>>>>> 27d231177f3f9c064acf384f7cfec1ef027a69ee
