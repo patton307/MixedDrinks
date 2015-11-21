@@ -5,6 +5,7 @@ var _ = require('underscore');
 var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
+  el: '#layoutView',
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },

@@ -9,10 +9,10 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     this.addAllDrinks();
   },
-  addOneDrink: function(drinkModel){
-    var drinkView = new DrinkView({model: drinkModel});
-    // this.$el.append(drinkView.render().el);
-    return this;
+  addOneDrink: function(DrinkModel){
+    var drinkView = new DrinkView({model: DrinkModel});
+    this.$el.append(drinkView.render().el);
+    //return this;
   },
   addAllDrinks: function(){
     _.each(this.collection.models, this.addOneDrink, this);

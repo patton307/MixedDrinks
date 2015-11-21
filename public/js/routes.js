@@ -3,7 +3,8 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
 var headerView = require('./headerView');
-var
+var CollectionView = require('./collectionView');
+var DrinkCollection = require('./collection');
 var LoginView = require('./loginView');
 
 module.exports = Backbone.Router.extend ({
@@ -20,9 +21,9 @@ module.exports = Backbone.Router.extend ({
   //     //  {this.layout = options.layout};
   // },
   homePage: function(){
-    console.log("home junk");
-    var headerHTML = new headerView();
-    $('#layoutView').html(headerHTML.render().el);
+    //console.log("home junk");
+  //  var headerHTML = new headerView();
+    // $('#layoutView').html(headerHTML.render().el);
 
   },
   profilePage: function(){
@@ -31,10 +32,8 @@ module.exports = Backbone.Router.extend ({
 
   },
   loginPage: function(){
-    console.log("login page");
     var loginHTML = new LoginView();
     $('#layoutView').html(loginHTML.render().el);
-    // this.destroy();
   }
 
 

@@ -2,6 +2,7 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
+var DrinkModel = require('./model');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
@@ -18,7 +19,7 @@ module.exports = Backbone.View.extend({
     console.log("liked");
   },
   initialize: function(){
-    console.log('blue');
+    //console.log('blue');
   },
 
 });

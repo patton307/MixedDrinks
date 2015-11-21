@@ -36,8 +36,8 @@ public class MixedDrinksController {
         User admin = users.findOneByUsername("Admin");
         if (admin == null) {
             admin = new User();
-            admin.username = " Admin";
-            admin.password = PasswordHash.createHash("Admin");
+            admin.username = "Admin";
+            admin.password = "Admin";
             users.save(admin);
         }
 
@@ -88,15 +88,27 @@ public class MixedDrinksController {
         if (user == null) {
             user = new User();
             user.username = username;
-            user.password = PasswordHash.createHash(password);
+            user.password = password;
             users.save(user);
         }
+
+        if (username.equals(user.password)) {
+            response.sendRedirect("/");
+        } else {
+            response.sendRedirect("/login");
+        }
+        /*
         else if (!PasswordHash.validatePassword(password, user.password)) {
             throw new Exception("Wrong password, try again!");
         }
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
+<<<<<<< HEAD
         response.sendRedirect("/");
+=======
+        */
+     //   response.sendRedirect("/");
+>>>>>>> ccbf916e95085a8b465b00afe99c94d0d1540f97
     }
 }
