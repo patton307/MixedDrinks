@@ -9,15 +9,10 @@ var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
-<<<<<<< HEAD
 var ProfileView = require('./profileView');
-var UserView = require('./userView');
-
-=======
 var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./userCollectionView');
->>>>>>> 58ea165f9180b20e3cd1451e5878e5c251cc28fa
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -34,9 +29,11 @@ module.exports = Backbone.Router.extend ({
     new layoutView();
     $('#layoutView').find('.box').remove();
     new FormView();
-    new HeaderView();
-    var userHTML = new UserView();
-    $('#layoutView').append(userHTML.render().el);
+  var headerHTML = new HeaderView();
+      $('#layoutView').html(headerHTML.render().el);
+    
+    // var userHTML = new UserView();
+    // $('#layoutView').append(userHTML.render().el);
 
   },
   profilePage: function(){

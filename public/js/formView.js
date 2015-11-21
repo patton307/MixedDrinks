@@ -98,7 +98,7 @@ module.exports = Backbone.View.extend({
         ){
           // console.log(data[i]);
           // console.log(combinedIngredients);
-          var template = _.template(tmpl.recipe)
+          var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
         }
       }
