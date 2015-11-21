@@ -19,7 +19,7 @@ module.exports = {
     "</ul>"
   ].join(""),
   form: [
-    "<form class='movieform'>",
+    "<form class='drinkform'>",
      "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
      "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
      "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
