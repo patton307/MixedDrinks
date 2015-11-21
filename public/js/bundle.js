@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
     return this;
-    console.log(this);
+
   },
   addAllDrinks: function(){
     console.log('orange');
@@ -64,7 +64,7 @@ module.exports = Backbone.View.extend({
         var combinedIngredients = '';
         if(data[i].ingredient1 === null){
           data[i].ingredient1 = '';
-        };
+        }
         if(data[i].ingredient2 === null){
           data[i].ingredient2 = '';
         };
@@ -98,6 +98,7 @@ module.exports = Backbone.View.extend({
         if(data[i].ingredient12 === null){
           data[i].ingredient12 = '';
         };
+
         var ingredient1 = data[i].ingredient1.toUpperCase();
         var ingredient2 = data[i].ingredient2.toUpperCase();
         var ingredient3 = data[i].ingredient3.toUpperCase();
@@ -138,7 +139,7 @@ module.exports = Backbone.View.extend({
           console.log(data[i].name);
         }
 
-      };
+      }
       // var collectionView = new CollectionView({collection: drinkCollection});
   });
 
@@ -162,6 +163,7 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   initialize: function () {
   },
+  
   template: _.template(tmpl.navigation),
 
   render: function () {
@@ -293,7 +295,9 @@ module.exports = Backbone.Router.extend ({
   },
   profilePage: function(){
     console.log("profile page");
-
+    var headerHTML = new headerView();
+    $('#layoutView').html(headerHTML.render().el);
+    // $('#layoutView').find('.drinkform').remove();
 
   },
   onHomePage: function(){
@@ -303,7 +307,7 @@ module.exports = Backbone.Router.extend ({
     console.log("login page");
     var loginHTML = new LoginView();
     $('#layoutView').html(loginHTML.render().el);
-    // this.destroy();
+
   }
 
 
