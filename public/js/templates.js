@@ -20,10 +20,10 @@ module.exports = {
   ].join(""),
   form: [
     "<form class='drinkform'>",
-     "<input type='text' id='liquor' class='title' placeholder='What liquor do you have?'>",
      "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
      "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
      "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
+     "<input type='text' id='ingredientFour' class='ingredients' placeholder='optional ingredients'>",
      "<button class='send-stuff'>submit</button>",
    "</form>"
  ].join(""),

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class MixedDrinksController {
         User admin = users.findOneByUsername("Admin");
         if (admin == null) {
             admin = new User();
-            admin.username = " Admin";
+            admin.username = "Admin";
             admin.password = PasswordHash.createHash("Admin");
             users.save(admin);
         }
@@ -47,7 +48,6 @@ public class MixedDrinksController {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] columns = line.split(",");
-
 
                 Drink drink = new Drink();
 
@@ -66,19 +66,21 @@ public class MixedDrinksController {
                     drink.ingredient11 = columns[12];
                     drink.ingredient12 = columns[13];
                 } catch (Exception e) {
-
                 }
-
                 drink.user = admin;
                 drinks.save(drink);
             }
         }
     }
 
-
     @RequestMapping("/drinks")
     public List<Drink> drinks() {
         return (List<Drink>) drinks.findAll();
+    }
+
+    @RequestMapping("/users")
+    public List<User> users() {
+        return (List<User>) users.findAll();
     }
 
     @RequestMapping("/login")
@@ -91,12 +93,26 @@ public class MixedDrinksController {
             user.password = PasswordHash.createHash(password);
             users.save(user);
         }
+
+        if (password.equals(user.password)) {
+            response.sendRedirect("/");
+        } else {
+            response.sendRedirect("/login");
+        }
+        /*
         else if (!PasswordHash.validatePassword(password, user.password)) {
             throw new Exception("Wrong password, try again!");
         }
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
-     //   response.sendRedirect("/");
+
+        response.sendRedirect("/");*/
+    }
+
+    @RequestMapping("/logout")
+    public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+        session.invalidate();
+        response.sendRedirect("/");
     }
 }

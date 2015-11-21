@@ -1,10 +1,13 @@
-
 var Backbone = require('backbone');
 var $ = require('jquery');
+Backbone.$ = $;
 var _ = require('underscore');
-var headerView = require('./headerView');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
+var HeaderView = require('./headerView');
+var layoutView = require('./layoutView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -21,16 +24,18 @@ module.exports = Backbone.Router.extend ({
   // },
   homePage: function(){
     console.log("home page");
-    var headerHTML = new headerView();
-    $('#layoutView').html(headerHTML.render().el);
-    var formHTML = new FormView();
-    $('#layoutView').append(formHTML.render().el);
-
+    new layoutView();
+    $('#layoutView').find('.box').remove();
+    new FormView();
   },
   profilePage: function(){
     console.log("profile page");
     var headerHTML = new headerView();
     $('#layoutView').html(headerHTML.render().el);
+    // $('#layoutView').find('.drinkform').remove();
+
+  },
+  onHomePage: function(){
 
   },
   loginPage: function(){
