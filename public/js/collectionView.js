@@ -1,29 +1,28 @@
 var Backbone = require('backbone');
-var _ = require('underscore');
 var $ = require('jquery');
 Backbone.$ = $;
-var DrinkView = require('./modelView');
+var _ = require('underscore');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
+var FormView = require('./formView');
+var HeaderView = require('./headerView');
+var DrinkView = require('./modelView');
+
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
-    console.log('blue');
-    var self = this;
-    var drinkCollection = new DrinkCollection();
-    drinkCollection.fetch().then(function(data){
-      console.log(data);
-      // var collectionView = new CollectionView({collection: drinkCollection});
-    });
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
     return this;
+    console.log(this);
   },
   addAllDrinks: function(){
+    console.log('orange');
     _.each(this.collection.models, this.addOneDrink, this);
   }
 });

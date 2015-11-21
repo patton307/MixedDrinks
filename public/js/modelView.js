@@ -18,7 +18,6 @@ module.exports = Backbone.View.extend({
     console.log("liked");
   },
   initialize: function(){
-    console.log('blue');
   },
 
 });
