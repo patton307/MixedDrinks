@@ -94,7 +94,14 @@ body {
     margin-top: 40px;
     width: 25%; }
 
-<<<<<<< HEAD
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%; }
+
 .profile {
   width: 900px;
   height: 600px;
@@ -111,14 +118,6 @@ body {
   .profile h4 {
     text-align: center;
     margin-top: 100px; }
-=======
-.content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  width: 100%; }
 
 article {
   border-radius: 10px;
@@ -134,4 +133,6 @@ article {
     margin-left: 20px; }
   article ul li {
     list-style-type: none; }
->>>>>>> ba1d4e107d2d73dbe2f80e952af270ad8026918a
+  article #like {
+    color: white;
+    background-color: #2A363B; }

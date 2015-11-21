@@ -131,7 +131,7 @@ margin-top:  10px;
 }
 
 
-}
+
 
 .profile {
   width: 900px;
@@ -155,7 +155,7 @@ margin-top:  10px;
                   text-align: center;
                   margin-top: 100px;
                 }
-
+}
 
 article{
   border-radius: 10px;
@@ -175,8 +175,13 @@ article{
       list-style-type: none;
     }
   }
+  #like {
+    color: white;
+    background-color: #2A363B;
+  }
 
 }
+
 // #sideUser {
 //   width: 100px;
 //   height: 600px;

@@ -35,6 +35,7 @@ module.exports = Backbone.Router.extend ({
   profilePage: function(){
     console.log("profile page");
     $('#layoutView').find('.drinkform').remove();
+    $('.content').find('article').remove();
     var headerHTML = new HeaderView();
     $('#layoutView').html(headerHTML.render().el);
     var profileHTML = new ProfileView();
