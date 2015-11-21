@@ -7,6 +7,7 @@ Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   tagName: 'section',
+  el: '#layoutView',
   template: _.template(tmpl.recipe),
   events: {
   },

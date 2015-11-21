@@ -19,7 +19,7 @@ module.exports = {
     "</ul>"
   ].join(""),
   form: [
-    "<form class='movieform'>",
+    "<form class='drinkform'>",
      "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
      "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
      "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
@@ -27,16 +27,10 @@ module.exports = {
      "<button class='send-stuff'>submit</button>",
    "</form>"
  ].join(""),
- sideBar: [
-   "<aside>",
-   "<ul id='sideBar'>",
-   "</ul>",
-   "</aside>"
- ].join(""),
  sideUser: [
    "<li>",
    "<img src='http://www.fillmurray.com/460/300' />",
-   "<h5>Friend Name</h5>",
+   "<h5><%= username %></h5>",
    "</li>"
  ].join(""),
  recipe: [
@@ -57,7 +51,7 @@ module.exports = {
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
 
-   "<input class='password' placeholder='password'></input>",
+   "<input type='password' class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
 
