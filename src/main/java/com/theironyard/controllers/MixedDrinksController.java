@@ -69,6 +69,8 @@ public class MixedDrinksController {
                 }
                 drink.user = admin;
                 drinks.save(drink);
+
+                admin.created.add(drink);
             }
         }
     }
@@ -84,13 +86,14 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/login")
-    public void login(HttpServletResponse response, HttpSession session, String username, String password) throws Exception {
+    public void login(HttpServletResponse response, HttpSession session, String username, String password, String image) throws Exception {
         session.setAttribute("username", username);
         User user = users.findOneByUsername(username);
         if (user == null) {
             user = new User();
             user.username = username;
             user.password = PasswordHash.createHash(password);
+            user.image = image;
             users.save(user);
         }
 
@@ -114,5 +117,47 @@ public class MixedDrinksController {
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
         session.invalidate();
         response.sendRedirect("/");
+    }
+
+    @RequestMapping("/create")
+    public String create(HttpSession session,
+                         HttpServletResponse response,
+                         String name,
+                         String ingredient1,
+                         String ingredient2,
+                         String ingredient3,
+                         String ingredient4,
+                         String ingredient5,
+                         String ingredient6,
+                         String ingredient7,
+                         String ingredient8,
+                         String ingredient9,
+                         String ingredient10,
+                         String ingredient11,
+                         String ingredient12) throws Exception {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            throw new Exception("Not logged in");
+        }
+        User user = users.findOneByUsername(username);
+        Drink drink = new Drink();
+        drink.name = name;
+        drink.ingredient1 = ingredient1;
+        drink.ingredient2 = ingredient2;
+        drink.ingredient3 = ingredient3;
+        drink.ingredient4 = ingredient4;
+        drink.ingredient5 = ingredient5;
+        drink.ingredient6 = ingredient6;
+        drink.ingredient7 = ingredient7;
+        drink.ingredient8 = ingredient8;
+        drink.ingredient9 = ingredient9;
+        drink.ingredient10 = ingredient10;
+        drink.ingredient11 = ingredient11;
+        drink.ingredient12 = ingredient12;
+        drink.user = user;
+        drinks.save(drink);
+        user.created.add(drink);
+
+        return "redirect:/";
     }
 }

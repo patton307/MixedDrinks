@@ -1,6 +1,7 @@
 package com.theironyard.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,5 +21,10 @@ public class User {
     // @Column(nullable = false)
     public String password;
 
+    public String image;
+
+    public ArrayList<Drink> favorites;
+
+    public ArrayList<Drink> created;
 }
 
