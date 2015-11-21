@@ -43,23 +43,14 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   el: '#side',
   initialize: function(){
-    this.addAllUsers();
+    // this.addAllUsers();
   },
   addOneUser: function(userModel){
     var userView = new UserView({model: userModel});
     this.$el.append(userView.render().el);
-    console.log(this);
   },
   addAllUsers: function(){
-    var userCollection = new UserCollection();
-    userCollection.fetch().then(function(data) {
-      var template = _.template(tmpl.sideUser);
-      console.log(tmpl.sideUser);
-      for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
-        return template(data[i]);
-      }
-    });
+  
   }
 });
 
@@ -468,31 +459,8 @@ module.exports = Backbone.Model.extend({
 });
 
 },{"./model":10,"backbone":18}],15:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery');
-Backbone.$ = $;
-var _ = require('underscore');
-var UserView = require('./userView');
-var UserModel = require('./userModel');
-var UserCollection = require('./userCollection');
-var tmpl = require('./templates');
-
-
-module.exports = Backbone.View.extend({
-  el: '#side',
-  initialize: function(){
-    // this.addAllUsers();
-  },
-  addOneUser: function(userModel){
-    var userView = new UserView({model: userModel});
-    this.$el.append(userView.render().el);
-  },
-  addAllUsers: function(){
-  
-  }
-});
-
-},{"./templates":13,"./userCollection":14,"./userModel":16,"./userView":17,"backbone":18,"jquery":19,"underscore":20}],16:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"./templates":13,"./userCollection":14,"./userModel":16,"./userView":17,"backbone":18,"dup":2,"jquery":19,"underscore":20}],16:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
