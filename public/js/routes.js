@@ -32,7 +32,6 @@ module.exports = Backbone.Router.extend ({
     console.log("profile page");
     var headerHTML = new headerView();
     $('#layoutView').html(headerHTML.render().el);
-    // $('#layoutView').find('.drinkform').remove();
 
   },
   onHomePage: function(){
