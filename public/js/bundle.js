@@ -16,16 +16,24 @@ var _ = require('underscore');
 var $ = require('jquery');
 Backbone.$ = $;
 var DrinkView = require('./modelView');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
     console.log('blue');
+    var self = this;
+    var drinkCollection = new DrinkCollection();
+    drinkCollection.fetch().then(function(data){
+      console.log(data);
+      // var collectionView = new CollectionView({collection: drinkCollection});
+    });
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
-    // this.$el.append(drinkView.render().el);
+    this.$el.append(drinkView.render().el);
     return this;
   },
   addAllDrinks: function(){
@@ -33,7 +41,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./modelView":9,"backbone":12,"jquery":13,"underscore":14}],3:[function(require,module,exports){
+},{"./collection":1,"./collectionView":2,"./modelView":9,"backbone":12,"jquery":13,"underscore":14}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -93,34 +101,12 @@ var HeaderView = require('./headerView');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
-<<<<<<< HEAD
-    // var self = this;
-    // var headerHTML = new HeaderView();
-    // var loginHTML = new LoginView();
-    // var drinkCollection = new DrinkCollection();
-    // drinkCollection.fetch().then(function(data){
-    //   $('body').html(data.data.description);
-    //   console.log(data.data[1001].name);
-    //   var collectionView = new CollectionView({collection: drinkCollection});
-    // self.$el.html(loginHTML.render().el);
-    // self.$el.append(headerHTML.render().el);
 
-    // });
 
-=======
-    var self = this;
-    var headerHTML = new HeaderView();
-    var loginHTML = new LoginView();
-    var formHTML = new FormView();
-    var drinkCollection = new DrinkCollection();
-    drinkCollection.fetch().then(function(data){
-      self.$el.html(loginHTML.render().el);
-      self.$el.append(formHTML.render().el);
-      var collectionView = new CollectionView({collection: drinkCollection});
 
-    });
->>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
+
   },
+
 });
 
 },{"./collection":1,"./collectionView":2,"./formView":3,"./headerView":4,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],6:[function(require,module,exports){
@@ -200,6 +186,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var headerView = require('./headerView');
 var LoginView = require('./loginView');
+var CollectionView = require('./collectionView');
 
 module.exports = Backbone.Router.extend ({
   routes: {
@@ -217,13 +204,27 @@ module.exports = Backbone.Router.extend ({
   homePage: function(){
     console.log("home page");
     var headerHTML = new headerView();
+    var profileHTML = new CollectionView();
     $('#layoutView').html(headerHTML.render().el);
-
+    $('.content').html(profileHTML.render().el);
+    this.onHomePage();
   },
   profilePage: function(){
     console.log("profile page");
 
 
+  },
+  onHomePage: function(){
+    var self = this;
+    var headerHTML = new HeaderView();
+    var loginHTML = new LoginView();
+    var formHTML = new FormView();
+    var drinkCollection = new DrinkCollection();
+    drinkCollection.fetch().then(function(data){
+      self.$el.html(loginHTML.render().el);
+      self.$el.append(formHTML.render().el);
+      var collectionView = new CollectionView({collection: drinkCollection});
+  });
   },
   loginPage: function(){
     console.log("login page");
@@ -237,11 +238,7 @@ module.exports = Backbone.Router.extend ({
 
 });
 
-<<<<<<< HEAD
-},{"./headerView":3,"./loginView":5,"backbone":11,"jquery":12,"underscore":13}],10:[function(require,module,exports){
-=======
-},{"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
->>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
+},{"./collectionView":2,"./headerView":4,"./loginView":6,"backbone":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -297,13 +294,10 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-<<<<<<< HEAD
+
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
-=======
-   "<h1 class='title'>alcho·me</h1>",
-   "<input class='username' placeholder='username' required></input>",
->>>>>>> 85f2d85ebb7cd1a27c4b68f0dc54fc0ea10625c6
+
    "<input class='password' placeholder='password'></input>",
    "<input class='photo' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
