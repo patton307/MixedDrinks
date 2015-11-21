@@ -13,10 +13,12 @@ module.exports = Backbone.View.extend({
     'click img': 'onProfile'
   },
   render: function() {
-
+    var markup = this.template({});
+    this.$el.html(markup);
+    return this;
   },
   onProfile: function() {
-
+    
   },
   initialize: function() {
 

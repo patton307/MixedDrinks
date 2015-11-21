@@ -3,6 +3,7 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
 var headerView = require('./headerView');
+var
 var LoginView = require('./loginView');
 
 module.exports = Backbone.Router.extend ({
@@ -19,7 +20,7 @@ module.exports = Backbone.Router.extend ({
   //     //  {this.layout = options.layout};
   // },
   homePage: function(){
-    console.log("home page");
+    console.log("home junk");
     var headerHTML = new headerView();
     $('#layoutView').html(headerHTML.render().el);
 

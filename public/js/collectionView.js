@@ -8,7 +8,6 @@ module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
     this.addAllDrinks();
-    console.log('blue');
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});

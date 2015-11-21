@@ -97,6 +97,6 @@ public class MixedDrinksController {
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
-     //   response.sendRedirect("/");
+        response.sendRedirect("/");
     }
 }
