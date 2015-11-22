@@ -6,6 +6,7 @@ var User = require('./userModel');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
+  // el: '#side',
   tagName: 'li',
   template: _.template(tmpl.sideUser),
   events: {
@@ -13,13 +14,13 @@ module.exports = Backbone.View.extend({
   },
   render: function() {
     var markup = this.template(this.model.toJSON());
-    this.$el.html(markup);
-    return this;
+     this.$el.html(markup);
+     return this;
   },
   onProfile: function() {
     console.log("clicked prof");
   },
   initialize: function() {
-    this.render();
+
   }
 });

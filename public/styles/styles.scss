@@ -2,7 +2,6 @@ body {
   background-color: #2A363B;
   font-family: 'Oswald' ;
 }
-
 .box {     //loginbox
   width: 400px;
   height: 350px;
@@ -129,6 +128,34 @@ margin-top:  10px;
   align-items: flex-start;
   width: 100%;
 }
+
+
+
+
+.profile {
+  width: 900px;
+  height: 600px;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin-left: 400px;
+
+  margin-top: 100px;
+  padding-top: 40px;
+
+        li {
+          text-align: center;
+          list-style-type: none;
+                  img {
+                    width: 25%;
+                    }
+
+            }
+                h4 {
+                  text-align: center;
+                  margin-top: 100px;
+                }
+}
+
 article{
   border-radius: 10px;
   background-color: #fecea8;
@@ -147,4 +174,36 @@ article{
       list-style-type: none;
     }
   }
+  #like {
+    color: white;
+    background-color: #2A363B;
+  }
+
+}
+
+.toTheLeft {
+  color: white;
+  width: 140px;
+  height: 750px;
+  position: fixed;
+  z-index: 2;
+  overflow: scroll;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin: 0;
+  padding-top: 40px;
+  #side {
+    margin-left: 0;
+    padding: 0;
+    li {
+      width: 140px;
+      list-style-type: none;
+      img {
+        margin-left: 5px;
+        width: 130px;
+        border-radius: 30px;
+      }
+    }
+  }
+
 }

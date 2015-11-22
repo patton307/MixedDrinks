@@ -9,6 +9,7 @@ var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
+var ProfileView = require('./profileView');
 var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./userCollectionView');
@@ -19,33 +20,29 @@ module.exports = Backbone.Router.extend ({
     '': 'loginPage',
     'profile': 'profilePage',
   },
-  // initialize: function(options){
-  //     // if(!this.layout)
-  //     //  {this.layout = options.layout};
-  // },
   homePage: function(){
-    console.log("home page");
-    new layoutView();
-    $('#layoutView').find('.box').remove();
-    new FormView();
-  },
-  profilePage: function(){
-    console.log("profile page");
-    var headerHTML = new headerView();
-    $('#layoutView').html(headerHTML.render().el);
-    // $('#layoutView').find('.drinkform').remove();
+     console.log("home page");
+     var users = new UserCollection();
+     users.fetch().then(function() {
+       new UserCollectionView({collection: users});
+       new layoutView();
+       $('#layoutView').find('.box').remove();
 
-  },
-  onHomePage: function(){
-
-  },
+     });
+   },
+   profilePage: function(){
+     console.log("profile page");
+     $('#layoutView').find('.drinkform').remove();
+     $('.content').find('article').remove();
+     var headerHTML = new HeaderView();
+     $('#layoutView').html(headerHTML.render().el);
+     var profileHTML = new ProfileView();
+     $('#layoutView').append(profileHTML.render().el);
+   },
   loginPage: function(){
     var loginHTML = new LoginView();
-    $('#layoutView').html(loginHTML.render().el);
-
-
-
-
+    $('#layoutView').append(loginHTML.render().el);
+    // new layoutView();
 
   }
 
