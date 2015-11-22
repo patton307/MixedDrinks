@@ -119,13 +119,7 @@ public class MixedDrinksController {
             user.image = image;
             users.save(user);
         }
-/*
-        if (!password.equals(user.password) || username == null || password == null) {
-            response.sendRedirect("/");
-        } else {
-            response.sendRedirect("/");
-        }
-        */
+
         else if (!PasswordHash.validatePassword(password, user.password)) {
             throw new Exception("Wrong password, try again!");
         }
