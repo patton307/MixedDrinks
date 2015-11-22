@@ -19,8 +19,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jack on 11/19/15.
@@ -77,14 +79,11 @@ public class MixedDrinksController {
 
         if (favorites.count() == 0) {
             Favorite f = new Favorite();
-            Favorite g = new Favorite();
             f.drink = drinks.findOne(1);
             f.favUser = users.findOneByUsername("Admin");
-            g.drink = drinks.findOne(2);
-            g.favUser = users.findOneByUsername("Admin");
             favorites.save(f);
-            favorites.save(g);
         }
+
     }
 
     @RequestMapping("/drinks")
@@ -98,11 +97,12 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/register-user")
-    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
+    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException {
         User user = new User();
         user.username = username;
-        user.password = PasswordHash.createHash(password);
+        user.password = password;
         user.image = image;
+
         users.save(user);
 
         response.sendRedirect("/");
@@ -113,14 +113,20 @@ public class MixedDrinksController {
         session.setAttribute("username", username);
         User user = users.findOneByUsername(username);
         if (user == null) {
-            response.sendRedirect("/register-user");
+            user = new User();
+            user.username = username;
+            user.password = PasswordHash.createHash(password);
+            user.image = image;
+            users.save(user);
         }
+
         else if (!PasswordHash.validatePassword(password, user.password)) {
-            response.sendRedirect("/");
+            throw new Exception("Wrong password, try again!");
         }
         else if (username == null || password == null) {
-            response.sendRedirect("/");
+            throw new Exception("Please enter both a username and password!");
         }
+
         response.sendRedirect("/");
     }
 
