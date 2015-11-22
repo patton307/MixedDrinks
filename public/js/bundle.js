@@ -75,7 +75,6 @@ Backbone.$ = $;
 var _ = require('underscore');
 var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
-var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
   el: '#layoutView',
@@ -185,7 +184,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./collection":3,"./collectionView":4,"./templates":14,"backbone":18,"jquery":19,"underscore":20}],6:[function(require,module,exports){
+},{"./collection":3,"./templates":14,"backbone":18,"jquery":19,"underscore":20}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
