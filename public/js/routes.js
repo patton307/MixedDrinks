@@ -32,14 +32,15 @@ module.exports = Backbone.Router.extend ({
      });
    },
    profilePage: function(){
-    
+
    },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);
     // new layoutView();
 
-  }
+  },
+  
 
 
 

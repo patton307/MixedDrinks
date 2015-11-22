@@ -28,7 +28,20 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":19,"jquery":20,"underscore":21}],2:[function(require,module,exports){
+},{"./collection":4,"./collectionView":5,"./formView":6,"./headerView":7,"./loginView":9,"./modelView":12,"backbone":20,"jquery":21,"underscore":22}],2:[function(require,module,exports){
+var Backbone = require('backbone');
+var DrinkModel = require('./model');
+var UserModel = require('./userModel');
+
+module.exports = Backbone.Collection.extend({
+  url: '/users',
+  model: UserModel,
+  initialize: function() {
+
+  }
+});
+
+},{"./model":11,"./userModel":18,"backbone":20}],3:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -45,9 +58,7 @@ module.exports = Backbone.View.extend({
     this.addAllUsers();
   },
   addUser: function(userModel) {
-    console.log('in addUser');
     var userView = new UserView({model: userModel});
-
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
@@ -57,7 +68,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"jquery":20,"underscore":21}],3:[function(require,module,exports){
+},{"./templates":15,"./userCollection":16,"./userModel":18,"./userView":19,"backbone":20,"jquery":21,"underscore":22}],4:[function(require,module,exports){
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
@@ -69,9 +80,9 @@ module.exports = Backbone.Collection.extend({
   }
 });
 
-},{"./model":10,"backbone":19}],4:[function(require,module,exports){
+},{"./model":11,"backbone":20}],5:[function(require,module,exports){
 arguments[4][1][0].apply(exports,arguments)
-},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":19,"dup":1,"jquery":20,"underscore":21}],5:[function(require,module,exports){
+},{"./collection":4,"./collectionView":5,"./formView":6,"./headerView":7,"./loginView":9,"./modelView":12,"backbone":20,"dup":1,"jquery":21,"underscore":22}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -188,7 +199,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./collection":3,"./collectionView":4,"./templates":14,"backbone":19,"jquery":20,"underscore":21}],6:[function(require,module,exports){
+},{"./collection":4,"./collectionView":5,"./templates":15,"backbone":20,"jquery":21,"underscore":22}],7:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -209,7 +220,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":14,"backbone":19,"jquery":20,"underscore":21}],7:[function(require,module,exports){
+},{"./templates":15,"backbone":20,"jquery":21,"underscore":22}],8:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -238,7 +249,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./UserCollectionView":2,"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./profileView":12,"./templates":14,"./userCollection":15,"./userView":18,"backbone":19,"jquery":20,"underscore":21}],8:[function(require,module,exports){
+},{"./UserCollectionView":3,"./collection":4,"./collectionView":5,"./formView":6,"./headerView":7,"./loginView":9,"./profileView":13,"./templates":15,"./userCollection":16,"./userView":19,"backbone":20,"jquery":21,"underscore":22}],9:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -246,6 +257,8 @@ var _ = require('underscore');
 var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./CollectionView');
+var UserModel = require('./userModel');
+var UserCollection = require('./UserCollection');
 
 module.exports = Backbone.View.extend({
 initialize: function () {
@@ -257,15 +270,57 @@ initialize: function () {
     return this;
   },
   events: {
-    'click .createUser': 'onCreateUser'
+    'click .createUser': 'onCreateUser',
+    'click #submitCreate': 'onSubmitNewUser',
+    'click #submit': 'onLogin'
   },
   onCreateUser: function() {
     $('.box').find('.password').removeClass('hidden');
     $('.box').find('.photo').removeClass('hidden');
+    $('.box').find('#submitCreate').removeClass('hidden');
+    $('.box').find('#cancel').removeClass('hidden');
+    $('.box').find('#submit').addClass('hidden');
+  },
+  onSubmitNewUser: function(event) {
+    event.preventDefault();
+    var newUser = {
+      username: $('.username').val(),
+      password: $('.password').val(),
+      image: $('.photo').val(),
+    };
+
+    $.ajax({
+      method: 'POST',
+      url: '/register-user',
+      data: newUser,
+      success: function() {
+        console.log("register-user");
+      }
+    });
+  },
+  onLogin: function(event) {
+    event.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: '/login',
+      data: {
+        username: $('.username').val(),
+        password: $('.password').val()
+      },
+      success: function() {
+        window.location.hash = "home";
+      },
+      failure: function(data) {
+        $('.box').append("<p>Inccorect username or password</p>");
+      },
+      error: function() {
+        $('.box').append("<p>Inccorect username or password</p>");
+      }
+    });
   }
 });
 
-},{"./CollectionView":1,"./collection":3,"./templates":14,"backbone":19,"jquery":20,"underscore":21}],9:[function(require,module,exports){
+},{"./CollectionView":1,"./UserCollection":2,"./collection":4,"./templates":15,"./userModel":18,"backbone":20,"jquery":21,"underscore":22}],10:[function(require,module,exports){
 var $ = require('jquery');
 var layoutView = require('./layoutView');
 var collectionView = require('./collectionView');
@@ -279,7 +334,7 @@ $(function () {
   Backbone.history.start();
 });
 
-},{"./collectionView":4,"./layoutView":7,"./routes":13,"backbone":19,"jquery":20}],10:[function(require,module,exports){
+},{"./collectionView":5,"./layoutView":8,"./routes":14,"backbone":20,"jquery":21}],11:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -291,7 +346,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"backbone":19,"jquery":20,"underscore":21}],11:[function(require,module,exports){
+},{"backbone":20,"jquery":21,"underscore":22}],12:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -319,7 +374,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./model":10,"./templates":14,"backbone":19,"jquery":20,"underscore":21}],12:[function(require,module,exports){
+},{"./model":11,"./templates":15,"backbone":20,"jquery":21,"underscore":22}],13:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -337,7 +392,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":14,"backbone":19,"jquery":20,"underscore":21}],13:[function(require,module,exports){
+},{"./templates":15,"backbone":20,"jquery":21,"underscore":22}],14:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -372,21 +427,22 @@ module.exports = Backbone.Router.extend ({
      });
    },
    profilePage: function(){
-    
+
    },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);
     // new layoutView();
 
-  }
+  },
+  
 
 
 
 
 });
 
-},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./layoutView":7,"./loginView":8,"./profileView":12,"./userCollection":15,"./userCollectionView":16,"./userView":18,"backbone":19,"jquery":20,"underscore":21}],14:[function(require,module,exports){
+},{"./collection":4,"./collectionView":5,"./formView":6,"./headerView":7,"./layoutView":8,"./loginView":9,"./profileView":13,"./userCollection":16,"./userCollectionView":17,"./userView":19,"backbone":20,"jquery":21,"underscore":22}],15:[function(require,module,exports){
 module.exports = {
 
   profile: [
@@ -418,7 +474,7 @@ module.exports = {
  ].join(""),
  sideUser: [
    "<li>",
-   "<img src='http://www.fillmurray.com/460/300' />",
+   "<img src='<%= image %>' />",
    "<h5><%= username %></h5>",
    "</li>"
  ].join(""),
@@ -456,6 +512,8 @@ module.exports = {
 
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
+   "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"
@@ -463,22 +521,11 @@ module.exports = {
 
 };
 
-},{}],15:[function(require,module,exports){
-var Backbone = require('backbone');
-var DrinkModel = require('./model');
-var UserModel = require('./userModel');
-
-module.exports = Backbone.Collection.extend({
-  url: '/users',
-  model: UserModel,
-  initialize: function() {
-
-  }
-});
-
-},{"./model":10,"./userModel":17,"backbone":19}],16:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
-},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"dup":2,"jquery":20,"underscore":21}],17:[function(require,module,exports){
+},{"./model":11,"./userModel":18,"backbone":20,"dup":2}],17:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"./templates":15,"./userCollection":16,"./userModel":18,"./userView":19,"backbone":20,"dup":3,"jquery":21,"underscore":22}],18:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
@@ -490,7 +537,7 @@ module.exports = Backbone.Model.extend({
   }
 });
 
-},{"backbone":19,"jquery":20,"underscore":21}],18:[function(require,module,exports){
+},{"backbone":20,"jquery":21,"underscore":22}],19:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
@@ -518,7 +565,7 @@ module.exports = Backbone.View.extend({
   }
 });
 
-},{"./templates":14,"./userModel":17,"backbone":19,"jquery":20,"underscore":21}],19:[function(require,module,exports){
+},{"./templates":15,"./userModel":18,"backbone":20,"jquery":21,"underscore":22}],20:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2416,7 +2463,7 @@ module.exports = Backbone.View.extend({
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":20,"underscore":21}],20:[function(require,module,exports){
+},{"jquery":21,"underscore":22}],21:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11628,7 +11675,7 @@ return jQuery;
 
 }));
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13178,4 +13225,4 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[9]);
+},{}]},{},[10]);
