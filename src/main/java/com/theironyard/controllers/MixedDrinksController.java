@@ -112,7 +112,7 @@ public class MixedDrinksController {
     public void login(HttpServletResponse response, HttpSession session, String username, String password) throws Exception {
         User user = users.findOneByUsername(username);
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/register-user");
         }
 
         if (PasswordHash.validatePassword(password, user.password)) {
