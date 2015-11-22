@@ -77,7 +77,6 @@ public class MixedDrinksController {
             }
         }
 
-
         if (favorites.count() == 0) {
             Favorite f = new Favorite();
             f.drink = drinks.findOne(1);
