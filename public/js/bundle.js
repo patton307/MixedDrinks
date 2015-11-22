@@ -19,12 +19,13 @@ module.exports = Backbone.View.extend({
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
-    console.log(this);
     return this;
+
   },
   addAllDrinks: function(){
-    console.log('this', this);
+  //  console.log('orange');
     _.each(this.collection.models, this.addOneDrink, this);
+
   }
 });
 
@@ -55,17 +56,15 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   el: '#side',
   initialize: function(){
-    this.addAllUsers();
+    // this.addAllUsers();
   },
-  addUser: function(userModel) {
+  addOneUser: function(userModel){
     var userView = new UserView({model: userModel});
     this.$el.append(userView.render().el);
   },
-  addAllUsers: function() {
-    _.each(this.collection.models, this.addUser, this);
-  },
-
-
+  addAllUsers: function(){
+  
+  }
 });
 
 },{"./templates":19,"./userCollection":20,"./userModel":22,"./userView":23,"backbone":24,"jquery":25,"underscore":26}],4:[function(require,module,exports){
@@ -81,8 +80,36 @@ module.exports = Backbone.Collection.extend({
 });
 
 },{"./model":15,"backbone":24}],5:[function(require,module,exports){
-arguments[4][1][0].apply(exports,arguments)
-},{"./collection":4,"./collectionView":5,"./formView":10,"./headerView":11,"./loginView":13,"./modelView":16,"backbone":24,"dup":1,"jquery":25,"underscore":26}],6:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
+var FormView = require('./formView');
+var HeaderView = require('./headerView');
+var DrinkView = require('./modelView');
+
+
+module.exports = Backbone.View.extend({
+  el: '#layoutView',
+  initialize: function(){
+    this.addAllDrinks();
+  },
+  addOneDrink: function(drinkModel){
+    var drinkView = new DrinkView({model: drinkModel});
+    this.$el.append(drinkView.render().el);
+    console.log(this);
+    return this;
+  },
+  addAllDrinks: function(){
+    console.log('this', this);
+    _.each(this.collection.models, this.addOneDrink, this);
+  }
+});
+
+},{"./collection":4,"./collectionView":5,"./formView":10,"./headerView":11,"./loginView":13,"./modelView":16,"backbone":24,"jquery":25,"underscore":26}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 var FavoritesModel = require('./favoritesModel');
@@ -124,9 +151,7 @@ module.exports = Backbone.View.extend({
   render: function() {
     var markup = this.template(this.model.toJSON());
     this.$el.html(markup);
-    console.log(markup);
     return this;
-
   },
   onProfile: function() {
   },
@@ -174,7 +199,8 @@ var DrinkCollection = require('./collection');
 module.exports = Backbone.View.extend({
   el: '.form',
   events: {
-    'click .send-stuff': 'onSubmitIngredients'
+    'click .send-stuff': 'onSubmitIngredients',
+    'click .like': 'onLike'
   },
   initialize: function () {
   },
@@ -266,9 +292,8 @@ module.exports = Backbone.View.extend({
         }
       }
   });
+},
 
-    /// FILTER THROUGH DATA TO FIND MATCHING DRINKS
-  },
   template: _.template(tmpl.form),
   render: function () {
     var markup = this.template({});
@@ -536,21 +561,21 @@ module.exports = {
   ].join(''),
   favorites: [
     "<article>",
-      "<h3><%=name%></h3>",
-      // "<ul id='ingredientList'>",
-      //   "<li><%=ingredient1%></li>",
-      //   "<li><%=ingredient2%></li>",
-      //   "<li><%=ingredient3%></li>",
-      //   "<li><%=ingredient4%></li>",
-      //   "<li><%=ingredient5%></li>",
-      //   "<li><%=ingredient6%></li>",
-      //   "<li><%=ingredient7%></li>",
-      //   "<li><%=ingredient8%></li>",
-      //   "<li><%=ingredient9%></li>",
-      //   "<li><%=ingredient10%></li>",
-      //   "<li><%=ingredient11%></li>",
-      //   "<li><%=ingredient12%></li>",
-      // "</ul>",
+      "<h3><%=drink.name%></h3>",
+      "<ul id='ingredientList'>",
+        "<li><%=drink.ingredient1%></li>",
+        "<li><%=drink.ingredient2%></li>",
+        "<li><%=drink.ingredient3%></li>",
+        "<li><%=drink.ingredient4%></li>",
+        "<li><%=drink.ingredient5%></li>",
+        "<li><%=drink.ingredient6%></li>",
+        "<li><%=drink.ingredient7%></li>",
+        "<li><%=drink.ingredient8%></li>",
+        "<li><%=drink.ingredient9%></li>",
+        "<li><%=drink.ingredient10%></li>",
+        "<li><%=drink.ingredient11%></li>",
+        "<li><%=drink.ingredient12%></li>",
+      "</ul>",
     "</article>",
   ].join(''),
   navigation: [
@@ -592,7 +617,7 @@ module.exports = {
    "<li><%=ingredient11%></li>",
    "<li><%=ingredient12%></li>",
    "</ul>",
-   "<button id='like'>I'd Drink That!</button>",
+   "<button class='like'>I'd Drink That!</button>",
    "</article>",
  ].join(""),
  ingredient: [
@@ -621,8 +646,33 @@ module.exports = {
 },{}],20:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
 },{"./model":15,"./userModel":22,"backbone":24,"dup":2}],21:[function(require,module,exports){
-arguments[4][3][0].apply(exports,arguments)
-},{"./templates":19,"./userCollection":20,"./userModel":22,"./userView":23,"backbone":24,"dup":3,"jquery":25,"underscore":26}],22:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var UserView = require('./userView');
+var UserModel = require('./userModel');
+var UserCollection = require('./userCollection');
+var tmpl = require('./templates');
+
+
+module.exports = Backbone.View.extend({
+  el: '#side',
+  initialize: function(){
+    this.addAllUsers();
+  },
+  addUser: function(userModel) {
+    var userView = new UserView({model: userModel});
+    this.$el.append(userView.render().el);
+  },
+  addAllUsers: function() {
+    _.each(this.collection.models, this.addUser, this);
+  },
+
+
+});
+
+},{"./templates":19,"./userCollection":20,"./userModel":22,"./userView":23,"backbone":24,"jquery":25,"underscore":26}],22:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
