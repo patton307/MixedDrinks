@@ -22,6 +22,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jack on 11/19/15.
@@ -75,6 +76,15 @@ public class MixedDrinksController {
                 drinks.save(drink);
             }
         }
+
+
+        if (favorites.count() == 0) {
+            Favorite f = new Favorite();
+            f.drink = drinks.findOne(1);
+            f.favUser = users.findOneByUsername("Admin");
+            favorites.save(f);
+        }
+
     }
 
     @RequestMapping("/drinks")
@@ -85,6 +95,18 @@ public class MixedDrinksController {
     @RequestMapping("/users")
     public List<User> users() {
         return (List<User>) users.findAll();
+    }
+
+    @RequestMapping("/register-user")
+    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException {
+        User user = new User();
+        user.username = username;
+        user.password = password;
+        user.image = image;
+
+        users.save(user);
+
+        response.sendRedirect("/");
     }
 
     @RequestMapping("/login")
@@ -121,7 +143,7 @@ public class MixedDrinksController {
         response.sendRedirect("/");
     }
 
-    @RequestMapping("/create")
+    @RequestMapping("/create-drink")
     public void create(HttpSession session,
                          HttpServletResponse response,
                          String name,
@@ -160,25 +182,27 @@ public class MixedDrinksController {
         drinks.save(drink);
     }
 
-    @RequestMapping("/favorite")
-    public void addFav(HttpSession session, HttpServletResponse response, int id) throws IOException {
+    @RequestMapping("/add-favorite")
+    public void addFav(HttpSession session, HttpServletResponse response, Integer id) throws IOException {
         String username = (String) session.getAttribute("username");
         User user = users.findOneByUsername(username);
         Drink selectedDrink = drinks.findOne(id);
-
         if (username == null) {
-            response.sendRedirect("/");
+            return;
         }
 
         Favorite fav = new Favorite();
-        fav.favUser = user;
         fav.drink = selectedDrink;
-
+        fav.favUser = user;
         favorites.save(fav);
+
+        response.sendRedirect("/");
     }
 
-/*
-    @RequestMapping("/created")
-    public
- */
+    @RequestMapping("/favorites")
+    public List<Favorite> showFavorites() {
+        return (List<Favorite>) favorites.findAll();
+    }
+
+
 }
