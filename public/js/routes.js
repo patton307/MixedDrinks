@@ -23,13 +23,14 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
+    $('#layoutView').find('.toTheLeft').removeClass('hidden');
+     console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
        new UserCollectionView({collection: users});
        new layoutView();
        $('#layoutView').find('.box').remove();
      });
-
    },
    profilePage: function(){
      var favorites = new FavoriteCollection();

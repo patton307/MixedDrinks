@@ -14,5 +14,12 @@ initialize: function () {
     var markup = this.template({});
     this.$el.html(markup);
     return this;
+  },
+  events: {
+    'click .createUser': 'onCreateUser'
+  },
+  onCreateUser: function() {
+    $('.box').find('.password').removeClass('hidden');
+    $('.box').find('.photo').removeClass('hidden');
   }
 });

@@ -357,6 +357,13 @@ initialize: function () {
     var markup = this.template({});
     this.$el.html(markup);
     return this;
+  },
+  events: {
+    'click .createUser': 'onCreateUser'
+  },
+  onCreateUser: function() {
+    $('.box').find('.password').removeClass('hidden');
+    $('.box').find('.photo').removeClass('hidden');
   }
 });
 
@@ -459,13 +466,14 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
+    $('#layoutView').find('.toTheLeft').removeClass('hidden');
+     console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
        new UserCollectionView({collection: users});
        new layoutView();
        $('#layoutView').find('.box').remove();
      });
-
    },
    profilePage: function(){
      var favorites = new FavoriteCollection();
@@ -566,8 +574,11 @@ module.exports = {
    "<input class='username' placeholder='username'></input>",
 
    "<input type='password' class='password' placeholder='password'></input>",
-   "<input class='photo' placeholder='photo'></input>",
+   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
+
+   "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"
  ].join(""),

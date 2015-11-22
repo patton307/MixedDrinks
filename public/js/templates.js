@@ -82,8 +82,11 @@ module.exports = {
    "<input class='username' placeholder='username'></input>",
 
    "<input type='password' class='password' placeholder='password'></input>",
-   "<input class='photo' placeholder='photo'></input>",
+   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
+
+   "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"
  ].join(""),
