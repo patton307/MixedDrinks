@@ -94,6 +94,7 @@ margin-left: -100px;
   margin-top: 100px;
   padding-top: 40px;
 
+
   input   {
     border-radius: 10px;
     border: 1px solid #2A363B;
@@ -127,11 +128,9 @@ margin-top:  10px;
   justify-content: space-around;
   flex-wrap: wrap;
   align-items: flex-start;
-  width: 100%;
+  width: 80%;
+  margin-left: 200px;
 }
-
-
-
 
 .profile {
   width: 900px;
@@ -179,6 +178,31 @@ article{
     color: white;
     background-color: #2A363B;
   }
+
+}
+.toTheLeft {
+ width: 140px;
+ height: 750px;
+ position: fixed;
+ z-index: 2;
+ overflow: scroll;
+ border-radius: 10px;
+ background-color: #fecea8 ;
+ margin: 0;
+ padding-top: 40px;
+ #side {
+   margin-left: 0;
+   padding: 0;
+   li {
+     width: 140px;
+     list-style-type: none;
+     img {
+       margin-left: 5px;
+       width: 130px;
+       border-radius: 30px;
+     }
+   }
+ }
 
 }
 
