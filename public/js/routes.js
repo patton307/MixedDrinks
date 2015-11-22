@@ -23,7 +23,7 @@ module.exports = Backbone.Router.extend ({
   },
   homePage: function(){
 
-    $('#layoutView').find('.toTheLeft').removeClass('hidden');
+    // $('#layoutView').find('.toTheLeft').removeClass('hidden');
      console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
@@ -33,9 +33,16 @@ module.exports = Backbone.Router.extend ({
 
      });
    },
-   profilePage: function(){
-
-   },
+  //  profilePage: function(){
+  //   //  $('#layoutView').find('.toTheLeft').removeClass('hidden');
+  //   //   console.log("profile page");
+  //   //   var headerHTML = new HeaderView();
+  //   //   $('#layoutView').find('section').remove();
+  //   //   var profileHTML = new ProfileView();
+  //   //   $('#layoutView').append(profileHTML.render().el);
+   //
+   //
+  //  },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);

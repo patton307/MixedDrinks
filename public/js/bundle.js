@@ -47,7 +47,6 @@ module.exports = Backbone.View.extend({
   addUser: function(userModel) {
     console.log('in addUser');
     var userView = new UserView({model: userModel});
-
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
@@ -362,11 +361,8 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
-<<<<<<< HEAD
 
-=======
-    $('#layoutView').find('.toTheLeft').removeClass('hidden');
->>>>>>> fb56973e77d43c1c07c74f3e267653b3a3dd9511
+    // $('#layoutView').find('.toTheLeft').removeClass('hidden');
      console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
@@ -376,9 +372,16 @@ module.exports = Backbone.Router.extend ({
 
      });
    },
-   profilePage: function(){
-    
-   },
+  //  profilePage: function(){
+  //   //  $('#layoutView').find('.toTheLeft').removeClass('hidden');
+  //   //   console.log("profile page");
+  //   //   var headerHTML = new HeaderView();
+  //   //   $('#layoutView').find('section').remove();
+  //   //   var profileHTML = new ProfileView();
+  //   //   $('#layoutView').append(profileHTML.render().el);
+   //
+   //
+  //  },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);
@@ -482,8 +485,35 @@ module.exports = Backbone.Collection.extend({
 });
 
 },{"./model":10,"./userModel":17,"backbone":19}],16:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"dup":2,"jquery":20,"underscore":21}],17:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var UserView = require('./userView');
+var UserModel = require('./userModel');
+var UserCollection = require('./userCollection');
+var tmpl = require('./templates');
+
+
+module.exports = Backbone.View.extend({
+  el: '#side',
+  initialize: function(){
+    this.addAllUsers();
+  },
+  addUser: function(userModel) {
+    console.log('in addUser');
+    var userView = new UserView({model: userModel});
+
+    this.$el.append(userView.render().el);
+  },
+  addAllUsers: function() {
+    _.each(this.collection.models, this.addUser, this);
+  },
+
+
+});
+
+},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"jquery":20,"underscore":21}],17:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
