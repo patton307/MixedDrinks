@@ -97,10 +97,10 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/register-user")
-    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException {
+    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         User user = new User();
         user.username = username;
-        user.password = password;
+        user.password = PasswordHash.createHash(password);
         user.image = image;
 
         users.save(user);
@@ -109,25 +109,18 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/login")
-    public void login(HttpServletResponse response, HttpSession session, String username, String password, String image) throws Exception {
-        session.setAttribute("username", username);
+    public void login(HttpServletResponse response, HttpSession session, String username, String password) throws Exception {
         User user = users.findOneByUsername(username);
         if (user == null) {
-            user = new User();
-            user.username = username;
-            user.password = PasswordHash.createHash(password);
-            user.image = image;
-            users.save(user);
+            response.sendRedirect("/login");
         }
 
-        else if (!PasswordHash.validatePassword(password, user.password)) {
-            throw new Exception("Wrong password, try again!");
+        if (PasswordHash.validatePassword(password, user.password)) {
+            session.setAttribute("username", username);
+            response.sendRedirect("/");
+        } else {
+            throw new Exception("Your password is not correct");
         }
-        else if (username == null || password == null) {
-            throw new Exception("Please enter both a username and password!");
-        }
-
-        response.sendRedirect("/");
     }
 
     @RequestMapping("/logout")
