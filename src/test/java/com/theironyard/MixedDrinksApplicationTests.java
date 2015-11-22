@@ -11,8 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @WebAppConfiguration
 public class MixedDrinksApplicationTests {
 
-	@Test
-	public void contextLoads() {
-	}
+
 
 }
