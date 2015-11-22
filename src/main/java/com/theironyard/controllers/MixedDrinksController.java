@@ -44,6 +44,7 @@ public class MixedDrinksController {
             admin = new User();
             admin.username = "Admin";
             admin.password = PasswordHash.createHash("Admin");
+            admin.image = "http://vignette2.wikia.nocookie.net/muppet/images/7/78/AN_004.jpg/revision/latest?cb=20111004221237";
             users.save(admin);
         }
 
