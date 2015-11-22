@@ -3,10 +3,10 @@ module.exports = {
   profile: [
     "<div class='profile'>",
     "<ul>",
-    "<li><h2>User Name</h2></li>",
     "<li><img src='http://www.fillmurray.com/460/300' /></li>",
+    "<li><h2>User Name</h2></li>",
     "</ul>",
-    "<h4>Favorite Recipes</h4>",
+    "<h3>Favorite Recipes</h3>",
     "<section id='recipes'>",
     "</section>",
     "</div>"
@@ -47,10 +47,11 @@ module.exports = {
    "</form>"
  ].join(""),
  sideUser: [
+
    "<li>",
    "<img src='<%= image %>' />",
    "<h5><%= username %></h5>",
-   "</li>"
+
  ].join(""),
  recipe: [
    "<article>",

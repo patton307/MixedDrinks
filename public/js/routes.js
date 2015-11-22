@@ -15,34 +15,56 @@ var FavoriteCollection = require('./favoritesCollection');
 var FavoritesCollectionView = require('./favoritesView');
 
 
-
 module.exports = Backbone.Router.extend ({
-  routes: {
-    '': 'loginPage',
-    'home': 'homePage',
-    'profile': 'profilePage',
-  },
-  homePage: function(){
-    $('#layoutView').find('.toTheLeft').removeClass('hidden');
-     console.log("home page");
-     var users = new UserCollection();
-     users.fetch().then(function() {
-       new UserCollectionView({collection: users});
-       new layoutView();
-       $('#layoutView').find('.box').remove();
-     });
-   },
-   profilePage: function(){
-     var favorites = new FavoriteCollection();
-     favorites.fetch().then(function(data){
-       console.log(data);
-       console.log('MODELS', favorites);
-       new FavoritesCollectionView({collection: favorites});
-     });
-   },
-  loginPage: function(){
-    var loginHTML = new LoginView();
-    $('#layoutView').html(loginHTML.render().el);
-  }
+ routes: {
+   '': 'loginPage',
+   'home': 'homePage',
+   'profile': 'profilePage',
+ },
 
+ homePage: function(){
+
+    new layoutView();
+
+    $('#layoutView').find('.box').remove();
+    $('#layoutView').find('.toTheLeft').addClass('hidden');
+$('#layoutView').find('.profile').remove();
+   },
+
+  
+  profilePage: function(){
+    var favorites = new FavoriteCollection();
+    favorites.fetch().then(function(data){
+      console.log(data);
+      console.log('MODELS', favorites);
+      new FavoritesCollectionView({collection: favorites});
+    });
+    $('#side').html("");
+    var users = new UserCollection();
+    users.fetch().then(function() {
+      new UserCollectionView({collection: users});
+    });
+    $('#layoutView').find('.drinkform').remove();
+    $('#layoutView').find('#nav').remove();
+      var headerHTML = new HeaderView();
+      $('.headerbox').html(headerHTML.render().el);
+      var profileHTML = new ProfileView();
+      $('.profilebox').html(profileHTML.render().el);
+      $('.content').find('article').remove();
+
+
+    // var userHTML = new UserCollectionView();
+    // $('#side').html(userHTML.render().el);
+
+    // var favorites = new FavoriteCollection();
+    // favorites.fetch().then(function(data){
+    //   console.log('favorites data', data[0]);
+    //   new FavoritesCollectionView({collection: favorites});
+
+    // });
+  },
+ loginPage: function(){
+   var loginHTML = new LoginView();
+   $('#layoutView').html(loginHTML.render().el);
+ }
 });

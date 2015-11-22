@@ -4,7 +4,7 @@ Backbone.$ = $;
 var _ = require('underscore');
 var FavoritesModel = require('./favoritesModel');
 var FavoritesCollection = require('./favoritesCollection');
-var FavoritesModelView = require('./favoritesModelView')
+var FavoritesModelView = require('./favoritesModelView');
 var tmpl = require('./templates');
 
 

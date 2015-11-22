@@ -7,7 +7,7 @@ var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
-var ProfileView = require('./profileView');
+// var ProfileView = require('./profileView');
 var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./UserCollectionView');
@@ -18,6 +18,7 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
+    $('#layoutView').find('#nav').remove();
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
 

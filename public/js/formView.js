@@ -90,10 +90,10 @@ module.exports = Backbone.View.extend({
         var ingredientFourID = $('#ingredientFour').val().toUpperCase();
 
         if(
-          combinedIngredients.includes(ingredientOneID)
-          &&combinedIngredients.includes(ingredientTwoID)
-          &&combinedIngredients.includes(ingredientThreeID)
-          &&combinedIngredients.includes(ingredientFourID)
+          combinedIngredients.includes(ingredientOneID)&&
+          combinedIngredients.includes(ingredientTwoID)&&
+          combinedIngredients.includes(ingredientThreeID)&&
+          combinedIngredients.includes(ingredientFourID)
         ){
           var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
