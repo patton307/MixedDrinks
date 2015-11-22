@@ -51,27 +51,9 @@ module.exports = Backbone.View.extend({
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
-    _.each(this.collection.models, function(){ console.log("in underscore");}, this);
-    //this.collection.models.forEach(function(){console.log("in for each");});
+    _.each(this.collection.models, this.addUser, this);
   },
-  // collect: function(){
-  //   var userCollection = new UserCollection();
-  //   return userCollection.fetch().then(function(data){
-  //     return data;
-  //   })
-  // },
-  // addAllUsers: function() {
-  //   this.collection.fetch().then(function(data) {
-  //     var template = _.template(tmpl.sideUser);
-  //     for (var i = 0; i < data.length; i++) {
-  //       var displayer = template(data[i]);
-  //       return displayer
-  //     }
-  //   });
-  // },
-  // render: function() {
-  //   $('#side').append(this.addAllUsers());
-  // }
+
 
 });
 
@@ -251,10 +233,6 @@ module.exports = Backbone.View.extend({
 
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
-    var userCollection = new UserCollection();
-    userCollection.fetch().then(function(){
-      var userCollectionView = new UserCollectionView({collection: userCollection});
-    });
 
   }
 
@@ -494,35 +472,8 @@ module.exports = Backbone.Collection.extend({
 });
 
 },{"./model":10,"./userModel":17,"backbone":19}],16:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery');
-Backbone.$ = $;
-var _ = require('underscore');
-var UserView = require('./userView');
-var UserModel = require('./userModel');
-var UserCollection = require('./userCollection');
-var tmpl = require('./templates');
-
-
-module.exports = Backbone.View.extend({
-  el: '#side',
-  initialize: function(){
-    this.addAllUsers();
-  },
-  addUser: function(userModel) {
-    console.log('in addUser');
-    var userView = new UserView({model: userModel});
-
-    this.$el.append(userView.render().el);
-  },
-  addAllUsers: function() {
-    _.each(this.collection.models, this.addUser, this);
-  },
-
-
-});
-
-},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"jquery":20,"underscore":21}],17:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"./templates":14,"./userCollection":15,"./userModel":17,"./userView":18,"backbone":19,"dup":2,"jquery":20,"underscore":21}],17:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');

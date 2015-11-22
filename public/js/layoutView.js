@@ -21,10 +21,6 @@ module.exports = Backbone.View.extend({
 
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
-    var userCollection = new UserCollection();
-    userCollection.fetch().then(function(){
-      var userCollectionView = new UserCollectionView({collection: userCollection});
-    });
 
   }
 
