@@ -29,7 +29,7 @@ module.exports = {
  ].join(""),
  sideUser: [
    "<li>",
-   "<img src='http://www.fillmurray.com/460/300' />",
+   "<img src='<%= image %>' />",
    "<h5><%= username %></h5>",
    "</li>"
  ].join(""),
@@ -67,6 +67,8 @@ module.exports = {
 
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
+   "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"
