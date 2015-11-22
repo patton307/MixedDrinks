@@ -22,6 +22,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jack on 11/19/15.
@@ -75,6 +76,15 @@ public class MixedDrinksController {
                 drinks.save(drink);
             }
         }
+
+
+        if (favorites.count() == 0) {
+            Favorite f = new Favorite();
+            f.drink = drinks.findOne(1);
+            f.favUser = users.findOneByUsername("Admin");
+            favorites.save(f);
+        }
+
     }
 
     @RequestMapping("/drinks")
@@ -85,6 +95,18 @@ public class MixedDrinksController {
     @RequestMapping("/users")
     public List<User> users() {
         return (List<User>) users.findAll();
+    }
+
+    @RequestMapping("/register-user")
+    public void addUser(HttpServletResponse response, String username, String password, String image) throws IOException {
+        User user = new User();
+        user.username = username;
+        user.password = password;
+        user.image = image;
+
+        users.save(user);
+
+        response.sendRedirect("/");
     }
 
     @RequestMapping("/login")
@@ -111,14 +133,6 @@ public class MixedDrinksController {
         else if (username == null || password == null) {
             throw new Exception("Please enter both a username and password!");
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-        response.sendRedirect("/");
-=======
-        */
-     //   response.sendRedirect("/");
->>>>>>> ccbf916e95085a8b465b00afe99c94d0d1540f97
-=======
 
         response.sendRedirect("/");
     }
@@ -127,13 +141,9 @@ public class MixedDrinksController {
     public void logout(HttpSession session, HttpServletResponse response) throws IOException {
         session.invalidate();
         response.sendRedirect("/");
->>>>>>> 12b3a237c45dc234edd97726e12cc37c28742693
     }
-<<<<<<< HEAD
-}
-=======
 
-    @RequestMapping("/create")
+    @RequestMapping("/create-drink")
     public void create(HttpSession session,
                          HttpServletResponse response,
                          String name,
@@ -172,26 +182,27 @@ public class MixedDrinksController {
         drinks.save(drink);
     }
 
-    @RequestMapping("/favorite")
-    public void addFav(HttpSession session, HttpServletResponse response, int id) throws IOException {
+    @RequestMapping("/add-favorite")
+    public void addFav(HttpSession session, HttpServletResponse response, Integer id) throws IOException {
         String username = (String) session.getAttribute("username");
         User user = users.findOneByUsername(username);
         Drink selectedDrink = drinks.findOne(id);
-
         if (username == null) {
-            response.sendRedirect("/");
+            return;
         }
 
         Favorite fav = new Favorite();
-        fav.favUser = user;
         fav.drink = selectedDrink;
-
+        fav.favUser = user;
         favorites.save(fav);
+
+        response.sendRedirect("/");
     }
 
-/*
-    @RequestMapping("/created")
-    public
- */
+    @RequestMapping("/favorites")
+    public List<Favorite> showFavorites() {
+        return (List<Favorite>) favorites.findAll();
+    }
+
+
 }
->>>>>>> 27d231177f3f9c064acf384f7cfec1ef027a69ee

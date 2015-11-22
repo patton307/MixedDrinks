@@ -18,5 +18,4 @@ public class Favorite {
 
     @ManyToOne
     public User favUser;
-
 }
