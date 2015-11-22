@@ -14,9 +14,7 @@ module.exports = Backbone.View.extend({
     this.addAllUsers();
   },
   addUser: function(userModel) {
-    console.log('in addUser');
     var userView = new UserView({model: userModel});
-
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
