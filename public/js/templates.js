@@ -3,13 +3,32 @@ module.exports = {
   profile: [
     "<div class='profile'>",
     "<ul>",
-    "<li><h2>User Name</h2></li>",
     "<li><img src='http://www.fillmurray.com/460/300' /></li>",
+    "<li><h2>User Name</h2></li>",
     "</ul>",
-    "<h4>Favorite Recipes</h4>",
+    "<h3>Favorite Recipes</h3>",
     "<section id='recipes'>",
     "</section>",
     "</div>"
+  ].join(''),
+  favorites: [
+    "<article>",
+      "<h3><%=name%></h3>",
+      // "<ul id='ingredientList'>",
+      //   "<li><%=ingredient1%></li>",
+      //   "<li><%=ingredient2%></li>",
+      //   "<li><%=ingredient3%></li>",
+      //   "<li><%=ingredient4%></li>",
+      //   "<li><%=ingredient5%></li>",
+      //   "<li><%=ingredient6%></li>",
+      //   "<li><%=ingredient7%></li>",
+      //   "<li><%=ingredient8%></li>",
+      //   "<li><%=ingredient9%></li>",
+      //   "<li><%=ingredient10%></li>",
+      //   "<li><%=ingredient11%></li>",
+      //   "<li><%=ingredient12%></li>",
+      // "</ul>",
+    "</article>",
   ].join(''),
   navigation: [
     "<ul id='nav'>",
@@ -28,10 +47,11 @@ module.exports = {
    "</form>"
  ].join(""),
  sideUser: [
+
    "<li>",
-   "<img src='http://www.fillmurray.com/460/300' />",
+   "<img src='<%= image %>' />",
    "<h5><%= username %></h5>",
-   "</li>"
+
  ].join(""),
  recipe: [
    "<article>",
@@ -67,6 +87,8 @@ module.exports = {
 
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
+   "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"

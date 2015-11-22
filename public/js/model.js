@@ -6,5 +6,6 @@ module.exports = Backbone.Model.extend({
   urlRoot: '/drinks',
   initialize: function() {
     //console.log('dog');
+    
   }
 });

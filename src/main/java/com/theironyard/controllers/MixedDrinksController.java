@@ -44,6 +44,7 @@ public class MixedDrinksController {
             admin = new User();
             admin.username = "Admin";
             admin.password = PasswordHash.createHash("Admin");
+            admin.image = "http://vignette2.wikia.nocookie.net/muppet/images/7/78/AN_004.jpg/revision/latest?cb=20111004221237";
             users.save(admin);
         }
 
@@ -81,7 +82,11 @@ public class MixedDrinksController {
             Favorite f = new Favorite();
             f.drink = drinks.findOne(1);
             f.favUser = users.findOneByUsername("Admin");
+            Favorite g = new Favorite();
+            g.drink = drinks.findOne(2);
+            g.favUser = users.findOneByUsername("Admin");
             favorites.save(f);
+            favorites.save(g);
         }
 
     }
@@ -112,7 +117,7 @@ public class MixedDrinksController {
     public void login(HttpServletResponse response, HttpSession session, String username, String password) throws Exception {
         User user = users.findOneByUsername(username);
         if (user == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/register-user");
         }
 
         if (PasswordHash.validatePassword(password, user.password)) {
@@ -131,7 +136,6 @@ public class MixedDrinksController {
 
     @RequestMapping("/create-drink")
     public void create(HttpSession session,
-                         HttpServletResponse response,
                          String name,
                          String ingredient1,
                          String ingredient2,
@@ -193,7 +197,13 @@ public class MixedDrinksController {
         }
         else {
             User user = users.findOneByUsername(username);
-            return (List<Favorite>) favorites.findAllByFavUser(user);
+            return favorites.findAllByFavUser(user);
         }
+    }
+
+    @RequestMapping("/other-favorites")
+    public List<Favorite> showOtherFavs(Integer id) {
+        User otherUser = users.findOne(id);
+        return favorites.findAllByFavUser(otherUser);
     }
 }
