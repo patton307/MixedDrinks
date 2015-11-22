@@ -11,6 +11,8 @@ var layoutView = require('./layoutView');
 var ProfileView = require('./profileView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./userCollectionView');
+var FavoriteCollection = require('./favoritesCollection');
+var FavoritesCollectionView = require('./favoritesView');
 
 
 module.exports = Backbone.Router.extend ({
@@ -26,10 +28,17 @@ module.exports = Backbone.Router.extend ({
 
     $('#layoutView').find('.box').remove();
     $('#layoutView').find('.toTheLeft').addClass('hidden');
+$('#layoutView').find('.profile').remove();
+   },
 
-    $('#layoutView').find('.profile').remove();
-  },
+  
   profilePage: function(){
+    var favorites = new FavoriteCollection();
+    favorites.fetch().then(function(data){
+      console.log(data);
+      console.log('MODELS', favorites);
+      new FavoritesCollectionView({collection: favorites});
+    });
     $('#side').html("");
     var users = new UserCollection();
     users.fetch().then(function() {

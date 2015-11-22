@@ -144,6 +144,27 @@ article {
     background-color: #2A363B; }
 
 .toTheLeft {
+  width: 140px;
+  height: 750px;
+  position: fixed;
+  z-index: 2;
+  overflow: scroll;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin: 0;
+  padding-top: 40px; }
+  .toTheLeft #side {
+    margin-left: 0;
+    padding: 0; }
+    .toTheLeft #side li {
+      width: 140px;
+      list-style-type: none; }
+      .toTheLeft #side li img {
+        margin-left: 5px;
+        width: 130px;
+        border-radius: 30px; }
+
+.toTheLeft {
   color: white;
   width: 300px;
   height: 750px;
@@ -174,9 +195,9 @@ article {
         margin-left: 30px; }
 
 button {
-  color: #2A363B;
+  background-color: #2A363B;
+  color: white;
   margin-left: 110px;
-  background-color: white;
   border: 1px solid #2A363B;
   border-radius: 8px;
   margin-top: 10px;
@@ -184,3 +205,23 @@ button {
 
 .hidden {
   display: none; }
+
+#submitCreate {
+  margin-left: 169px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #2A363B;
+  background-color: #2A363B;
+  color: white;
+  width: 40%;
+  padding: 10px; }
+
+#cancel {
+  margin-left: 175px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #2A363B;
+  background-color: #2A363B;
+  color: white;
+  width: 40%;
+  padding: 10px; }
