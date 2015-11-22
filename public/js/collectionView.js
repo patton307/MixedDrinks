@@ -11,7 +11,7 @@ var DrinkView = require('./modelView');
 
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+  el: '#recipes',
   initialize: function(){
     this.addAllDrinks();
   },

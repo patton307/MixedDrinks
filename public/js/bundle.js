@@ -93,7 +93,7 @@ var DrinkView = require('./modelView');
 
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+  el: '#recipes',
   initialize: function(){
     this.addAllDrinks();
   },
@@ -166,7 +166,7 @@ Backbone.$ = $;
 var _ = require('underscore');
 var FavoritesModel = require('./favoritesModel');
 var FavoritesCollection = require('./favoritesCollection');
-var FavoritesModelView = require('./favoritesModelView')
+var FavoritesModelView = require('./favoritesModelView');
 var tmpl = require('./templates');
 
 
@@ -282,10 +282,10 @@ module.exports = Backbone.View.extend({
         var ingredientFourID = $('#ingredientFour').val().toUpperCase();
 
         if(
-          combinedIngredients.includes(ingredientOneID)
-          &&combinedIngredients.includes(ingredientTwoID)
-          &&combinedIngredients.includes(ingredientThreeID)
-          &&combinedIngredients.includes(ingredientFourID)
+          combinedIngredients.includes(ingredientOneID)&&
+          combinedIngredients.includes(ingredientTwoID)&&
+          combinedIngredients.includes(ingredientThreeID)&&
+          combinedIngredients.includes(ingredientFourID)
         ){
           var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
@@ -333,7 +333,7 @@ var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
 var FormView = require('./formView');
 var HeaderView = require('./headerView');
-var ProfileView = require('./profileView');
+// var ProfileView = require('./profileView');
 var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./UserCollectionView');
@@ -344,6 +344,7 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
+    $('#layoutView').find('#nav').remove();
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
 
@@ -351,7 +352,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"./UserCollectionView":3,"./collection":4,"./collectionView":5,"./formView":10,"./headerView":11,"./loginView":13,"./profileView":17,"./templates":19,"./userCollection":20,"./userView":23,"backbone":24,"jquery":25,"underscore":26}],13:[function(require,module,exports){
+},{"./UserCollectionView":3,"./collection":4,"./collectionView":5,"./formView":10,"./headerView":11,"./loginView":13,"./templates":19,"./userCollection":20,"./userView":23,"backbone":24,"jquery":25,"underscore":26}],13:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -374,14 +375,18 @@ initialize: function () {
   events: {
     'click .createUser': 'onCreateUser',
     'click #submitCreate': 'onSubmitNewUser',
-    'click #submit': 'onLogin'
+    'click #submit': 'onLogin',
+
   },
+
   onCreateUser: function() {
     $('.box').find('.password').removeClass('hidden');
     $('.box').find('.photo').removeClass('hidden');
     $('.box').find('#submitCreate').removeClass('hidden');
     $('.box').find('#cancel').removeClass('hidden');
     $('.box').find('#submit').addClass('hidden');
+    $('.box').find('.createUser').addClass('hidden');
+    $('.box').find('.loginButton').removeClass('hidden');
   },
   onSubmitNewUser: function(event) {
     event.preventDefault();
@@ -397,9 +402,11 @@ initialize: function () {
       data: newUser,
       success: function() {
         console.log("register-user");
+        window.location.hash = "home";
       }
     });
   },
+
   onLogin: function(event) {
     event.preventDefault();
     $.ajax({
@@ -411,11 +418,14 @@ initialize: function () {
       },
       success: function() {
         window.location.hash = "home";
+        console.log('orange');
       },
-      failure: function(data) {
-        $('.box').append("<p>Inccorect username or password</p>");
+      failure: function() {
+        console.log('blue');
+        $('.box').html("<p>Inccorect username or password</p>");
       },
       error: function() {
+        console.log('red');
         $('.box').append("<p>Inccorect username or password</p>");
       }
     });
@@ -513,36 +523,58 @@ var FavoriteCollection = require('./favoritesCollection');
 var FavoritesCollectionView = require('./favoritesView');
 
 
-
 module.exports = Backbone.Router.extend ({
-  routes: {
-    '': 'loginPage',
-    'home': 'homePage',
-    'profile': 'profilePage',
-  },
-  homePage: function(){
-    $('#layoutView').find('.toTheLeft').removeClass('hidden');
-     console.log("home page");
-     var users = new UserCollection();
-     users.fetch().then(function() {
-       new UserCollectionView({collection: users});
-       new layoutView();
-       $('#layoutView').find('.box').remove();
-     });
-   },
-   profilePage: function(){
-     var favorites = new FavoriteCollection();
-     favorites.fetch().then(function(data){
-       console.log(data);
-       console.log('MODELS', favorites);
-       new FavoritesCollectionView({collection: favorites});
-     });
-   },
-  loginPage: function(){
-    var loginHTML = new LoginView();
-    $('#layoutView').html(loginHTML.render().el);
-  }
+ routes: {
+   '': 'loginPage',
+   'home': 'homePage',
+   'profile': 'profilePage',
+ },
 
+ homePage: function(){
+
+    new layoutView();
+
+    $('#layoutView').find('.box').remove();
+    $('#layoutView').find('.toTheLeft').addClass('hidden');
+$('#layoutView').find('.profile').remove();
+   },
+
+  
+  profilePage: function(){
+    var favorites = new FavoriteCollection();
+    favorites.fetch().then(function(data){
+      console.log(data);
+      console.log('MODELS', favorites);
+      new FavoritesCollectionView({collection: favorites});
+    });
+    $('#side').html("");
+    var users = new UserCollection();
+    users.fetch().then(function() {
+      new UserCollectionView({collection: users});
+    });
+    $('#layoutView').find('.drinkform').remove();
+    $('#layoutView').find('#nav').remove();
+      var headerHTML = new HeaderView();
+      $('.headerbox').html(headerHTML.render().el);
+      var profileHTML = new ProfileView();
+      $('.profilebox').html(profileHTML.render().el);
+      $('.content').find('article').remove();
+
+
+    // var userHTML = new UserCollectionView();
+    // $('#side').html(userHTML.render().el);
+
+    // var favorites = new FavoriteCollection();
+    // favorites.fetch().then(function(data){
+    //   console.log('favorites data', data[0]);
+    //   new FavoritesCollectionView({collection: favorites});
+
+    // });
+  },
+ loginPage: function(){
+   var loginHTML = new LoginView();
+   $('#layoutView').html(loginHTML.render().el);
+ }
 });
 
 },{"./collection":4,"./collectionView":5,"./favoritesCollection":6,"./favoritesView":9,"./formView":10,"./headerView":11,"./layoutView":12,"./loginView":13,"./profileView":17,"./userCollection":20,"./userCollectionView":21,"backbone":24,"jquery":25,"underscore":26}],19:[function(require,module,exports){
@@ -551,10 +583,10 @@ module.exports = {
   profile: [
     "<div class='profile'>",
     "<ul>",
-    "<li><h2>User Name</h2></li>",
     "<li><img src='http://www.fillmurray.com/460/300' /></li>",
+    "<li><h2>User Name</h2></li>",
     "</ul>",
-    "<h4>Favorite Recipes</h4>",
+    "<h3>Favorite Recipes</h3>",
     "<section id='recipes'>",
     "</section>",
     "</div>"
@@ -595,10 +627,11 @@ module.exports = {
    "</form>"
  ].join(""),
  sideUser: [
+
    "<li>",
    "<img src='<%= image %>' />",
    "<h5><%= username %></h5>",
-   "</li>"
+
  ].join(""),
  recipe: [
    "<article>",
@@ -637,7 +670,6 @@ module.exports = {
    "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
    "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
-
    "</div>"
  ].join(""),
 
@@ -666,6 +698,8 @@ module.exports = Backbone.View.extend({
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
+    // $('#side').find('.userinfo').remove();
+
     _.each(this.collection.models, this.addUser, this);
   },
 
@@ -695,6 +729,7 @@ Backbone.$ = $;
 module.exports = Backbone.View.extend({
   // el: '#side',
   tagName: 'li',
+  className: 'userinfo',
   template: _.template(tmpl.sideUser),
   events: {
     'click img': 'onProfile'

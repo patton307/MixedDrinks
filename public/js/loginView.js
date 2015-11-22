@@ -20,14 +20,18 @@ initialize: function () {
   events: {
     'click .createUser': 'onCreateUser',
     'click #submitCreate': 'onSubmitNewUser',
-    'click #submit': 'onLogin'
+    'click #submit': 'onLogin',
+
   },
+
   onCreateUser: function() {
     $('.box').find('.password').removeClass('hidden');
     $('.box').find('.photo').removeClass('hidden');
     $('.box').find('#submitCreate').removeClass('hidden');
     $('.box').find('#cancel').removeClass('hidden');
     $('.box').find('#submit').addClass('hidden');
+    $('.box').find('.createUser').addClass('hidden');
+    $('.box').find('.loginButton').removeClass('hidden');
   },
   onSubmitNewUser: function(event) {
     event.preventDefault();
@@ -43,9 +47,11 @@ initialize: function () {
       data: newUser,
       success: function() {
         console.log("register-user");
+        window.location.hash = "home";
       }
     });
   },
+
   onLogin: function(event) {
     event.preventDefault();
     $.ajax({
@@ -57,11 +63,14 @@ initialize: function () {
       },
       success: function() {
         window.location.hash = "home";
+        console.log('orange');
       },
-      failure: function(data) {
-        $('.box').append("<p>Inccorect username or password</p>");
+      failure: function() {
+        console.log('blue');
+        $('.box').html("<p>Inccorect username or password</p>");
       },
       error: function() {
+        console.log('red');
         $('.box').append("<p>Inccorect username or password</p>");
       }
     });

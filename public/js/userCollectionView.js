@@ -18,6 +18,8 @@ module.exports = Backbone.View.extend({
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
+    // $('#side').find('.userinfo').remove();
+
     _.each(this.collection.models, this.addUser, this);
   },
 
