@@ -202,6 +202,4 @@ public class MixedDrinksController {
     public List<Favorite> showFavorites() {
         return (List<Favorite>) favorites.findAll();
     }
-
-
 }
