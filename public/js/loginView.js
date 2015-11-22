@@ -49,11 +49,20 @@ initialize: function () {
   onLogin: function(event) {
     event.preventDefault();
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: '/login',
-      dataType: 'JSON',
-      success: function(data) {
-        console.log(data);
+      data: {
+        username: $('.username').val(),
+        password: $('.password').val()
+      },
+      success: function() {
+        window.location.hash = "home";
+      },
+      failure: function(data) {
+        $('.box').append("<p>Inccorect username or password</p>");
+      },
+      error: function() {
+        $('.box').append("<p>Inccorect username or password</p>");
       }
     });
   }
