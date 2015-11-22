@@ -91,10 +91,7 @@ module.exports = Backbone.View.extend({
         var ingredientFourID = $('#ingredientFour').val().toUpperCase();
 
         if(
-          combinedIngredients.includes(ingredientOneID)
-          &&combinedIngredients.includes(ingredientTwoID)
-          &&combinedIngredients.includes(ingredientThreeID)
-          &&combinedIngredients.includes(ingredientFourID)
+          combinedIngredients.includes(ingredientOneID)&&combinedIngredients.includes(ingredientTwoID)&&combinedIngredients.includes(ingredientThreeID)&&combinedIngredients.includes(ingredientFourID)
         ){
           // console.log(data[i]);
           // console.log(combinedIngredients);

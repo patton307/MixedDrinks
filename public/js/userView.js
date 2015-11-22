@@ -8,6 +8,7 @@ Backbone.$ = $;
 module.exports = Backbone.View.extend({
   // el: '#side',
   tagName: 'li',
+  className: 'userinfo',
   template: _.template(tmpl.sideUser),
   events: {
     'click img': 'onProfile'

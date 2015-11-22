@@ -11,8 +11,6 @@ var layoutView = require('./layoutView');
 var ProfileView = require('./profileView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./userCollectionView');
-var FavoriteCollection = require('./favoritesCollection');
-var FavoritesCollectionView = require('./favoritesView');
 
 
 module.exports = Backbone.Router.extend ({
@@ -21,21 +19,40 @@ module.exports = Backbone.Router.extend ({
    'home': 'homePage',
    'profile': 'profilePage',
  },
+
  homePage: function(){
+
+    new layoutView();
+
+    $('#layoutView').find('.box').remove();
+    $('#layoutView').find('.toTheLeft').addClass('hidden');
+
+    $('#layoutView').find('.profile').remove();
+  },
+  profilePage: function(){
+    $('#side').html("");
     var users = new UserCollection();
     users.fetch().then(function() {
       new UserCollectionView({collection: users});
-      new layoutView();
-      $('#layoutView').find('.box').remove();
     });
-  },
-  profilePage: function(){
-    var favorites = new FavoriteCollection();
-    favorites.fetch().then(function(data){
-      console.log('favorites data', data[0]);
-      new FavoritesCollectionView({collection: favorites});
+    $('#layoutView').find('.drinkform').remove();
+    $('#layoutView').find('#nav').remove();
+      var headerHTML = new HeaderView();
+      $('.headerbox').html(headerHTML.render().el);
+      var profileHTML = new ProfileView();
+      $('.profilebox').html(profileHTML.render().el);
+      $('.content').find('article').remove();
 
-    });
+
+    // var userHTML = new UserCollectionView();
+    // $('#side').html(userHTML.render().el);
+
+    // var favorites = new FavoriteCollection();
+    // favorites.fetch().then(function(data){
+    //   console.log('favorites data', data[0]);
+    //   new FavoritesCollectionView({collection: favorites});
+
+    // });
   },
  loginPage: function(){
    var loginHTML = new LoginView();

@@ -16,9 +16,11 @@ module.exports = Backbone.View.extend({
   addUser: function(userModel) {
     console.log('in addUser');
     var userView = new UserView({model: userModel});
-    this.$el.append(userView.render().el);
+    this.$el.html(userView.render().el);
   },
   addAllUsers: function() {
+    // $('#side').find('.userinfo').remove();
+
     _.each(this.collection.models, this.addUser, this);
   },
 
