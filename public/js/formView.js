@@ -7,6 +7,7 @@ var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
+  el: '#layoutView',
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },
@@ -26,37 +27,37 @@ module.exports = Backbone.View.extend({
         }
         if(data[i].ingredient2 === null){
           data[i].ingredient2 = '';
-        };
+        }
         if(data[i].ingredient3 === null){
           data[i].ingredient3 = '';
-        };
+        }
         if(data[i].ingredient4 === null){
           data[i].ingredient4 = '';
-        };
+        }
         if(data[i].ingredient5 === null){
           data[i].ingredient5 = '';
-        };
+        }
         if(data[i].ingredient6 === null){
           data[i].ingredient6 = '';
-        };
+        }
         if(data[i].ingredient7 === null){
           data[i].ingredient7 = '';
-        };
+        }
         if(data[i].ingredient8 === null){
           data[i].ingredient8 = '';
-        };
+        }
         if(data[i].ingredient9 === null){
           data[i].ingredient9 = '';
-        };
+        }
         if(data[i].ingredient10 === null){
           data[i].ingredient10 = '';
-        };
+        }
         if(data[i].ingredient11 === null){
           data[i].ingredient11 = '';
-        };
+        }
         if(data[i].ingredient12 === null){
           data[i].ingredient12 = '';
-        };
+        }
 
         var ingredient1 = data[i].ingredient1.toUpperCase();
         var ingredient2 = data[i].ingredient2.toUpperCase();
@@ -97,7 +98,7 @@ module.exports = Backbone.View.extend({
         ){
           // console.log(data[i]);
           // console.log(combinedIngredients);
-          var template = _.template(tmpl.recipe)
+          var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
         }
       }

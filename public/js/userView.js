@@ -6,19 +6,20 @@ var User = require('./userModel');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
-  tagName: 'div',
-  className: 'user',
+  tagName: 'li',
   template: _.template(tmpl.sideUser),
   events: {
     'click img': 'onProfile'
   },
   render: function() {
-
+    var markup = this.template(this.model.toJSON());
+    this.$el.html(markup);
+    return this;
   },
   onProfile: function() {
-
+    console.log("clicked prof");
   },
   initialize: function() {
-
+    this.render();
   }
 });

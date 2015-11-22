@@ -5,5 +5,6 @@ module.exports = Backbone.Collection.extend({
   url: '/drinks',
   model: DrinkModel,
   initialize: function() {
+
   }
 });
