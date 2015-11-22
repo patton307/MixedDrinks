@@ -255,6 +255,13 @@ initialize: function () {
     var markup = this.template({});
     this.$el.html(markup);
     return this;
+  },
+  events: {
+    'click .createUser': 'onCreateUser'
+  },
+  onCreateUser: function() {
+    $('.box').find('.password').removeClass('hidden');
+    $('.box').find('.photo').removeClass('hidden');
   }
 });
 
@@ -355,7 +362,11 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
+<<<<<<< HEAD
 
+=======
+    $('#layoutView').find('.toTheLeft').removeClass('hidden');
+>>>>>>> fb56973e77d43c1c07c74f3e267653b3a3dd9511
      console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
@@ -366,13 +377,7 @@ module.exports = Backbone.Router.extend ({
      });
    },
    profilePage: function(){
-     console.log("profile page");
-     $('#layoutView').find('.drinkform').remove();
-     $('.content').find('article').remove();
-     var headerHTML = new HeaderView();
-     $('#layoutView').html(headerHTML.render().el);
-     var profileHTML = new ProfileView();
-     $('#layoutView').append(profileHTML.render().el);
+    
    },
   loginPage: function(){
     var loginHTML = new LoginView();
@@ -452,8 +457,11 @@ module.exports = {
    "<input class='username' placeholder='username'></input>",
 
    "<input type='password' class='password' placeholder='password'></input>",
-   "<input class='photo' placeholder='photo'></input>",
+   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
+
+   "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
+   "<li class='createUser'><button>Not a user? Create an account!</button></li>",
 
    "</div>"
  ].join(""),
