@@ -21,42 +21,26 @@ module.exports = Backbone.Router.extend ({
     '': 'loginPage',
     'profile': 'profilePage',
   },
-  // initialize: function(options){
-  //     // if(!this.layout)
-  //     //  {this.layout = options.layout};
-  // },
   homePage: function(){
-    console.log("home page");
-    new layoutView();
 
+     console.log("home page");
+     var users = new UserCollection();
+     users.fetch().then(function() {
+       new UserCollectionView({collection: users});
+       new layoutView();
+       $('#layoutView').find('.box').remove();
 
-    // $('#layoutView').find('.box').remove();
-    var userHTML = new UserView();
-    $('#layoutView').prepend(userHTML.render().el);
-
-    var formHTML = new FormView();
-    $('.content').html(formHTML.render().el);
-    var headerHTML = new HeaderView();
-    $('.content').html(headerHTML.render().el);
-
-  },
-  profilePage: function(){
-    console.log("profile page");
-    // $('#layoutView').find('.drinkform').remove();
-    $('.content').find('article').remove();
-    var headerHTML = new HeaderView();
-    $('#layoutView').html(headerHTML.render().el);
-    var profileHTML = new ProfileView();
-    $('#layoutView').append(profileHTML.render().el);
-    var userHTML = new UserView();
-
-    $('#side').append(userHTML.render().el);
-
-
-  },
-  onHomePage: function(){
-
-  },
+     });
+   },
+   profilePage: function(){
+     console.log("profile page");
+     $('#layoutView').find('.drinkform').remove();
+     $('.content').find('article').remove();
+     var headerHTML = new HeaderView();
+     $('#layoutView').html(headerHTML.render().el);
+     var profileHTML = new ProfileView();
+     $('#layoutView').append(profileHTML.render().el);
+   },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);

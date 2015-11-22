@@ -19,7 +19,6 @@ module.exports = Backbone.View.extend({
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
     return this;
-
   },
   addAllDrinks: function(){
   //  console.log('orange');

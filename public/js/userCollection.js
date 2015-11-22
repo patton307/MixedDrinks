@@ -1,9 +1,11 @@
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
+var UserModel = require('./userModel');
 
-module.exports = Backbone.Model.extend({
+module.exports = Backbone.Collection.extend({
   url: '/users',
+  model: UserModel,
   initialize: function() {
-    //console.log(this.url);
+
   }
 });
