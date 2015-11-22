@@ -2,25 +2,24 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
-var User = require('./userModel');
+var User = require('./favoritesModel');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   // el: '#side',
-  tagName: 'li',
-  template: _.template(tmpl.sideUser),
+  tagName: 'div',
+  template: _.template(tmpl.favorites),
   events: {
-    'click img': 'onProfile'
   },
   render: function() {
     var markup = this.template(this.model.toJSON());
-     this.$el.html(markup);
-     return this;
+    this.$el.html(markup);
+    console.log(markup);
+    return this;
+
   },
   onProfile: function() {
-    console.log("clicked prof");
   },
   initialize: function() {
-    console.log('dog');
   }
 });

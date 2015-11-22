@@ -16,23 +16,10 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
-    var self = this;
-    var userCollection = new UserCollection();
-    userCollection.fetch().then(function(data) {
-      var template = _.template(tmpl.sideUser);
-      console.log(tmpl.sideUser);
-      for (var i = 0; i < data.length; i++) {
-        console.log(data[i]);
-        var displayer = template(data[i]);
-        $('#side').append(displayer);
-      }
-    });
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
-    self.$el.html(headerHTML.render().el);
-    self.$el.append(formHTML.render().el);
-
-
+    this.$el.append(headerHTML.render().el);
+    this.$el.append(formHTML.render().el);
 
   }
 

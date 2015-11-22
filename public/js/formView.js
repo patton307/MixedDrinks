@@ -6,7 +6,7 @@ var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+  el: '.form',
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },
@@ -14,7 +14,7 @@ module.exports = Backbone.View.extend({
   },
   onSubmitIngredients: function(event){
     event.preventDefault();
-    console.log('SUBMIT INGREDIENTS BUTTON');
+    //console.log('SUBMIT INGREDIENTS BUTTON');
     var drinkCollection = new DrinkCollection();
     $('.content').html('');
     drinkCollection.fetch().then(function(data){
