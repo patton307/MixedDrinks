@@ -20,36 +20,20 @@ module.exports = Backbone.Router.extend ({
     '': 'loginPage',
     'profile': 'profilePage',
   },
-  // initialize: function(options){
-  //     // if(!this.layout)
-  //     //  {this.layout = options.layout};
-  // },
   homePage: function(){
-    console.log("home page");
-    new layoutView();
-    $('#layoutView').find('.box').remove();
-    new FormView();
-  var headerHTML = new HeaderView();
-      $('#layoutView').html(headerHTML.render().el);
+    $('#layoutView').find('.toTheLeft').removeClass('hidden');
+     console.log("home page");
+     var users = new UserCollection();
+     users.fetch().then(function() {
+       new UserCollectionView({collection: users});
+       new layoutView();
+       $('#layoutView').find('.box').remove();
+
+     });
+   },
+   profilePage: function(){
     
-    // var userHTML = new UserView();
-    // $('#layoutView').append(userHTML.render().el);
-
-  },
-  profilePage: function(){
-    console.log("profile page");
-    $('#layoutView').find('.drinkform').remove();
-    $('.content').find('article').remove();
-    var headerHTML = new HeaderView();
-    $('#layoutView').html(headerHTML.render().el);
-    var profileHTML = new ProfileView();
-    $('#layoutView').append(profileHTML.render().el);
-
-
-  },
-  onHomePage: function(){
-
-  },
+   },
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);
