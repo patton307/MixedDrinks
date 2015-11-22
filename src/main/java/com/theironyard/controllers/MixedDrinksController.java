@@ -193,7 +193,14 @@ public class MixedDrinksController {
     }
 
     @RequestMapping("/favorites")
-    public List<Favorite> showFavorites() {
-        return (List<Favorite>) favorites.findAll();
+    public List<Favorite> showFavorites(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return (List<Favorite>) favorites.findAll();
+        }
+        else {
+            User user = users.findOneByUsername(username);
+            return (List<Favorite>) favorites.findAllByFavUser(user);
+        }
     }
 }
