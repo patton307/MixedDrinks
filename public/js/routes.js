@@ -21,6 +21,7 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
+    $('#layoutView').find('.toTheLeft').removeClass('hidden');
      console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
@@ -31,13 +32,7 @@ module.exports = Backbone.Router.extend ({
      });
    },
    profilePage: function(){
-     console.log("profile page");
-     $('#layoutView').find('.drinkform').remove();
-     $('.content').find('article').remove();
-     var headerHTML = new HeaderView();
-     $('#layoutView').html(headerHTML.render().el);
-     var profileHTML = new ProfileView();
-     $('#layoutView').append(profileHTML.render().el);
+    
    },
   loginPage: function(){
     var loginHTML = new LoginView();

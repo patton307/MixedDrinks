@@ -4,7 +4,7 @@ body {
 }
 .box {     //loginbox
   width: 400px;
-  height: 350px;
+  //height: 350px;
   border-radius: 10px;
   background-color: #fecea8;
   margin-left: auto;
@@ -126,7 +126,8 @@ margin-top:  10px;
   justify-content: space-around;
   flex-wrap: wrap;
   align-items: flex-start;
-  width: 100%;
+  width: 80%;
+  margin-left: 200px;
 }
 
 
