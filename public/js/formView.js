@@ -4,7 +4,6 @@ Backbone.$ = $;
 var _ = require('underscore');
 var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
-var CollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
   el: '.form',
@@ -96,8 +95,6 @@ module.exports = Backbone.View.extend({
           &&combinedIngredients.includes(ingredientThreeID)
           &&combinedIngredients.includes(ingredientFourID)
         ){
-          // console.log(data[i]);
-          // console.log(combinedIngredients);
           var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
         }

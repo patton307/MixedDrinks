@@ -138,6 +138,27 @@ article {
     background-color: #2A363B; }
 
 .toTheLeft {
+  width: 140px;
+  height: 750px;
+  position: fixed;
+  z-index: 2;
+  overflow: scroll;
+  border-radius: 10px;
+  background-color: #fecea8;
+  margin: 0;
+  padding-top: 40px; }
+  .toTheLeft #side {
+    margin-left: 0;
+    padding: 0; }
+    .toTheLeft #side li {
+      width: 140px;
+      list-style-type: none; }
+      .toTheLeft #side li img {
+        margin-left: 5px;
+        width: 130px;
+        border-radius: 30px; }
+
+.toTheLeft {
   color: white;
   width: 140px;
   height: 750px;

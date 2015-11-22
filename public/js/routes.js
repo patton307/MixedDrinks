@@ -2,7 +2,6 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
-var headerView = require('./headerView');
 var DrinkCollection = require('./collection');
 var CollectionView = require('./collectionView');
 var LoginView = require('./loginView');
@@ -10,14 +9,17 @@ var FormView = require('./formView');
 var HeaderView = require('./headerView');
 var layoutView = require('./layoutView');
 var ProfileView = require('./profileView');
-var UserView = require('./userView');
 var UserCollection = require('./userCollection');
 var UserCollectionView = require('./userCollectionView');
+var FavoriteCollection = require('./favoritesCollection');
+var FavoritesCollectionView = require('./favoritesView');
+
+
 
 module.exports = Backbone.Router.extend ({
   routes: {
-    'home': 'homePage',
     '': 'loginPage',
+    'home': 'homePage',
     'profile': 'profilePage',
   },
   homePage: function(){
@@ -28,21 +30,19 @@ module.exports = Backbone.Router.extend ({
        new UserCollectionView({collection: users});
        new layoutView();
        $('#layoutView').find('.box').remove();
-
      });
    },
    profilePage: function(){
-
+     var favorites = new FavoriteCollection();
+     favorites.fetch().then(function(data){
+       console.log(data);
+       console.log('MODELS', favorites);
+       new FavoritesCollectionView({collection: favorites});
+     });
    },
   loginPage: function(){
     var loginHTML = new LoginView();
-    $('#layoutView').append(loginHTML.render().el);
-    // new layoutView();
-
-  },
-  
-
-
-
+    $('#layoutView').html(loginHTML.render().el);
+  }
 
 });

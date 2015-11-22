@@ -18,7 +18,6 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
-
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
 
