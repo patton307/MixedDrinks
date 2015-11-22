@@ -1,11 +1,9 @@
 var Backbone = require('backbone');
-var $ = require('jquery');
-var _ = require('underscore');
+var FavoritesModel = require('./favoritesModel');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: '/drinks',
+  url: '/favorites',
   initialize: function() {
-    //console.log('dog');
-    
+    //console.log(this.url);
   }
 });

@@ -67,8 +67,37 @@ module.exports = Backbone.Collection.extend({
 });
 
 },{"./model":10,"backbone":18}],4:[function(require,module,exports){
-arguments[4][1][0].apply(exports,arguments)
-},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":18,"dup":1,"jquery":19,"underscore":20}],5:[function(require,module,exports){
+var Backbone = require('backbone');
+var $ = require('jquery');
+Backbone.$ = $;
+var _ = require('underscore');
+var DrinkCollection = require('./collection');
+var CollectionView = require('./collectionView');
+var LoginView = require('./loginView');
+var FormView = require('./formView');
+var HeaderView = require('./headerView');
+var DrinkView = require('./modelView');
+
+
+module.exports = Backbone.View.extend({
+  el: '#layoutView',
+  initialize: function(){
+    this.addAllDrinks();
+  },
+  addOneDrink: function(drinkModel){
+    var drinkView = new DrinkView({model: drinkModel});
+    this.$el.append(drinkView.render().el);
+    return this;
+  },
+  addAllDrinks: function(){
+  //  console.log('orange');
+  console.log('this', this);
+
+    _.each(this.collection.models, this.addOneDrink, this);
+  }
+});
+
+},{"./collection":3,"./collectionView":4,"./formView":5,"./headerView":6,"./loginView":8,"./modelView":11,"backbone":18,"jquery":19,"underscore":20}],5:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
@@ -166,8 +195,6 @@ module.exports = Backbone.View.extend({
           &&combinedIngredients.includes(ingredientThreeID)
           &&combinedIngredients.includes(ingredientFourID)
         ){
-          // console.log(data[i]);
-          // console.log(combinedIngredients);
           var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
         }
@@ -289,6 +316,7 @@ module.exports = Backbone.Model.extend({
   urlRoot: '/drinks',
   initialize: function() {
     //console.log('dog');
+    
   }
 });
 

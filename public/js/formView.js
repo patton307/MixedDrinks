@@ -95,8 +95,6 @@ module.exports = Backbone.View.extend({
           &&combinedIngredients.includes(ingredientThreeID)
           &&combinedIngredients.includes(ingredientFourID)
         ){
-          // console.log(data[i]);
-          // console.log(combinedIngredients);
           var template = _.template(tmpl.recipe);
           $('.content').append(template(data[i]));
         }
