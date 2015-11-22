@@ -355,39 +355,7 @@ module.exports = Backbone.Router.extend ({
     'profile': 'profilePage',
   },
   homePage: function(){
-<<<<<<< HEAD
-    console.log("home page");
-    new layoutView();
 
-
-    // $('#layoutView').find('.box').remove();
-    var userHTML = new UserView();
-    $('#layoutView').prepend(userHTML.render().el);
-
-    var formHTML = new FormView();
-    $('.content').html(formHTML.render().el);
-    var headerHTML = new HeaderView();
-    $('.content').html(headerHTML.render().el);
-
-  },
-  profilePage: function(){
-    console.log("profile page");
-    // $('#layoutView').find('.drinkform').remove();
-    $('.content').find('article').remove();
-    var headerHTML = new HeaderView();
-    $('#layoutView').html(headerHTML.render().el);
-    var profileHTML = new ProfileView();
-    $('#layoutView').append(profileHTML.render().el);
-    var userHTML = new UserView();
-
-    $('#side').append(userHTML.render().el);
-
-
-  },
-  onHomePage: function(){
-
-  },
-=======
      console.log("home page");
      var users = new UserCollection();
      users.fetch().then(function() {
@@ -406,7 +374,6 @@ module.exports = Backbone.Router.extend ({
      var profileHTML = new ProfileView();
      $('#layoutView').append(profileHTML.render().el);
    },
->>>>>>> 80aa53cebe40e813bfa3dd700cc3c375eb1d92df
   loginPage: function(){
     var loginHTML = new LoginView();
     $('#layoutView').append(loginHTML.render().el);
