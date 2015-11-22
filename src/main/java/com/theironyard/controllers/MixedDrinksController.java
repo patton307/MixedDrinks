@@ -19,10 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
  * Created by Jack on 11/19/15.
@@ -79,15 +77,14 @@ public class MixedDrinksController {
 
         if (favorites.count() == 0) {
             Favorite f = new Favorite();
+            Favorite g = new Favorite();
             f.drink = drinks.findOne(1);
             f.favUser = users.findOneByUsername("Admin");
+            g.drink = drinks.findOne(2);
+            g.favUser = users.findOneByUsername("Admin");
             favorites.save(f);
+            favorites.save(g);
         }
-            Favorite f = new Favorite();
-            f.drink = drinks.findOne(2);
-            f.favUser = users.findOneByUsername("Admin");
-            favorites.save(f);
-
     }
 
     @RequestMapping("/drinks")
