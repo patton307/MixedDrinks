@@ -21,7 +21,7 @@ public class User {
     // @Column(nullable = false)
     public String password;
 
+    @Column(length = 10000)
     public String image;
-
 
 }
