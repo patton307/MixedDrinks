@@ -18,11 +18,11 @@ module.exports = Backbone.View.extend({
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
+    console.log(this);
     return this;
   },
   addAllDrinks: function(){
-  //  console.log('orange');
+    console.log('this', this);
     _.each(this.collection.models, this.addOneDrink, this);
-
   }
 });
