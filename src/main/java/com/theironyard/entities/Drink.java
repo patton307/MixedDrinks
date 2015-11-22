@@ -41,6 +41,8 @@ public class Drink {
 
     public String ingredient12;
 
+    public boolean isFav;
+
 
     @ManyToOne
     public User user;
