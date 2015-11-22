@@ -77,7 +77,6 @@ public class MixedDrinksController {
             }
         }
 
-
         if (favorites.count() == 0) {
             Favorite f = new Favorite();
             f.drink = drinks.findOne(1);
@@ -203,6 +202,4 @@ public class MixedDrinksController {
     public List<Favorite> showFavorites() {
         return (List<Favorite>) favorites.findAll();
     }
-
-
 }
