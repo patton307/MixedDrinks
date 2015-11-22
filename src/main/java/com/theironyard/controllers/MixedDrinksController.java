@@ -200,4 +200,10 @@ public class MixedDrinksController {
             return favorites.findAllByFavUser(user);
         }
     }
+
+    @RequestMapping("/other-favorites")
+    public List<Favorite> showOtherFavs(Integer id) {
+        User otherUser = users.findOne(id);
+        return favorites.findAllByFavUser(otherUser);
+    }
 }
