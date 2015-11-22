@@ -13,6 +13,7 @@ import java.util.List;
 public interface DrinkRepository extends PagingAndSortingRepository<Drink, Integer> {
     List<Drink> findAllByUser(User user);
 
-    @Query("Select d from Drink d where isFav = true")
+  /*  @Query("Select d from Drink d where isFav = true")
     List <Drink> findAllByIsFav(User user);
+    */
 }
