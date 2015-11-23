@@ -24,18 +24,9 @@ module.exports = Backbone.Router.extend ({
 
  homePage: function(){
     new layoutView();
-    // $('#layoutView').html("");
-    // var formHTML = new FormView();
-    // var headerHTML = new HeaderView();
-    // console.log(formHTML);
-    // $('#layoutView').append(headerHTML.render().el);
-    // $('#layoutView').append(formHTML.render().el);
-    // $('#layoutView').find('.box').remove();
-    // $('#layoutView').find('.toTheLeft').addClass('hidden');
-    // $('#layoutView').find('.profile').remove();
-    // $('#layoutView').find('.box').remove();
-    // $('#layoutView').find('.toTheLeft').addClass('hidden');
-    // $('#layoutView').find('.profile').remove();
+    $('#layoutView').find('.box').remove();
+    $('#layoutView').find('.toTheLeft').addClass('hidden');
+    $('#layoutView').find('.profile').remove();
    },
 
 
@@ -46,8 +37,7 @@ module.exports = Backbone.Router.extend ({
       console.log('MODELS', favorites);
       new FavoritesCollectionView({collection: favorites});
     });
-
-    // $('#layoutView').html("");
+    $('#side').html("");
     var users = new UserCollection();
     users.fetch().then(function() {
       new UserCollectionView({collection: users});
@@ -60,19 +50,19 @@ module.exports = Backbone.Router.extend ({
       $('.profilebox').html(profileHTML.render().el);
       $('.content').find('article').remove();
 
+
+    // var userHTML = new UserCollectionView();
+    // $('#side').html(userHTML.render().el);
+
+    // var favorites = new FavoriteCollection();
+    // favorites.fetch().then(function(data){
+    //   console.log('favorites data', data[0]);
+    //   new FavoritesCollectionView({collection: favorites});
+
+    // });
   },
-   loginPage: function(){
-     var loginHTML = new LoginView();
-     $('#layoutView').html(loginHTML.render().el);
-   },
-
-
-
-
-
-   updateView: function(view) {
-     if(this.view && this.view.render()) {
-       this.view.render();
-     }
-   }
+ loginPage: function(){
+   var loginHTML = new LoginView();
+   $('#layoutView').html(loginHTML.render().el);
+ }
 });

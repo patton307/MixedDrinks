@@ -3,6 +3,7 @@ var _ = require('underscore');
 var $ = require('jquery');
 var tmpl = require('./templates');
 Backbone.$ = $;
+var FavoriteModel = require('./addFav');
 
 module.exports = Backbone.View.extend({
   tagName: 'article',
@@ -16,7 +17,9 @@ module.exports = Backbone.View.extend({
      return this;
   },
   onLike: function(){
-    console.log("liked");
+    var newFav = new FavoriteModel(this.model);
+    newFav.save();
+    console.log(this.model);
   },
   initialize: function(){
     //console.log('blue');

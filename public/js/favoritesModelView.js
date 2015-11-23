@@ -16,8 +16,6 @@ module.exports = Backbone.View.extend({
     this.$el.html(markup);
     return this;
   },
-  onProfile: function() {
-  },
   initialize: function() {
   }
 });
