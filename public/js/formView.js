@@ -7,15 +7,17 @@ var DrinkCollection = require('./collection');
 var DrinkCollectionView = require('./collectionView');
 
 module.exports = Backbone.View.extend({
-  el: '.form',
+
   events: {
     'click .send-stuff': 'onSubmitIngredients',
     'click .like': 'onLike'
   },
   initialize: function () {
+    this.render();
   },
   onSubmitIngredients: function(event){
     event.preventDefault();
+
     /// SETS ALL UPPER CASE//
     var ingredientOneID = $('#ingredientOne').val().toUpperCase();
     var ingredientTwoID = $('#ingredientTwo').val().toUpperCase();
@@ -34,7 +36,7 @@ module.exports = Backbone.View.extend({
       var newData = [];
         for (var i = 0; i < data.length; i++) {
           for(var prop in data[i]){
-            if(data[i][prop] == null){
+            if(data[i][prop] === null){
               data[i][prop] = "";
             }
           }
