@@ -14,7 +14,7 @@ var UserCollectionView = require('./UserCollectionView');
 var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+    el: '#layoutView',
   initialize: function(){
     $('#layoutView').html("");
     var headerHTML = new HeaderView();
@@ -23,6 +23,6 @@ module.exports = Backbone.View.extend({
     this.$el.append(formHTML.render().el);
 
   }
-  
+
 
 });
