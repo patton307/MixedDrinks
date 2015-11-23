@@ -14,7 +14,7 @@ module.exports = {
   favorites: [
     "<article>",
       "<h3><%=drink.name%></h3>",
-      "<ul id='ingredientList'>",
+      "<ul id='drink.ingredientList'>",
         "<li><%=drink.ingredient1%></li>",
         "<li><%=drink.ingredient2%></li>",
         "<li><%=drink.ingredient3%></li>",
@@ -59,9 +59,8 @@ module.exports = {
 
  ].join(""),
  recipe: [
-   "<article>",
    "<h3><%=name%></h3>",
-   "<ul id='ingredientList'>",
+   "<ul class='ingredientList'>",
    "<li><%=ingredient1%></li>",
    "<li><%=ingredient2%></li>",
    "<li><%=ingredient3%></li>",
@@ -76,7 +75,6 @@ module.exports = {
    "<li><%=ingredient12%></li>",
    "</ul>",
    "<button class='like'>I'd Drink That!</button>",
-   "</article>",
  ].join(""),
  ingredient: [
    "<li>Ingredient Name</li>"
