@@ -13,28 +13,29 @@ module.exports = {
   ].join(''),
   favorites: [
     "<article>",
-      "<h3><%=name%></h3>",
-      // "<ul id='ingredientList'>",
-      //   "<li><%=ingredient1%></li>",
-      //   "<li><%=ingredient2%></li>",
-      //   "<li><%=ingredient3%></li>",
-      //   "<li><%=ingredient4%></li>",
-      //   "<li><%=ingredient5%></li>",
-      //   "<li><%=ingredient6%></li>",
-      //   "<li><%=ingredient7%></li>",
-      //   "<li><%=ingredient8%></li>",
-      //   "<li><%=ingredient9%></li>",
-      //   "<li><%=ingredient10%></li>",
-      //   "<li><%=ingredient11%></li>",
-      //   "<li><%=ingredient12%></li>",
-      // "</ul>",
+      "<h3><%=drink.name%></h3>",
+      "<ul id='ingredientList'>",
+        "<li><%=drink.ingredient1%></li>",
+        "<li><%=drink.ingredient2%></li>",
+        "<li><%=drink.ingredient3%></li>",
+        "<li><%=drink.ingredient4%></li>",
+        "<li><%=drink.ingredient5%></li>",
+        "<li><%=drink.ingredient6%></li>",
+        "<li><%=drink.ingredient7%></li>",
+        "<li><%=drink.ingredient8%></li>",
+        "<li><%=drink.ingredient9%></li>",
+        "<li><%=drink.ingredient10%></li>",
+        "<li><%=drink.ingredient11%></li>",
+        "<li><%=drink.ingredient12%></li>",
+      "</ul>",
     "</article>",
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>alcoh·me</h1></li>",
-    "<li><a id='home' href='#home'>Home</a></li>",
-    "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><h1>alcoh·me</h1></li>",
+      "<li><a id='home' href='#home'>Home</a></li>",
+      "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><a id='logout' href='#'>Logout</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -70,7 +71,7 @@ module.exports = {
    "<li><%=ingredient11%></li>",
    "<li><%=ingredient12%></li>",
    "</ul>",
-   "<button id='like'>I'd Drink That!</button>",
+   "<button class='like'>I'd Drink That!</button>",
    "</article>",
  ].join(""),
  ingredient: [
@@ -78,19 +79,15 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
-
-   "<input type='password' class='password' placeholder='password'></input>",
-   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
-
+   "<input type='password' class='password initialPassword' placeholder='password'></input>",
+   "<input type='password' class='password confirmPassword hidden' placeholder='confirm password'></input>",
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
    "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
    "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
-
    "</div>"
  ].join(""),
 
