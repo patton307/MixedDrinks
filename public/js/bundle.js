@@ -174,17 +174,19 @@ var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
 
 module.exports = Backbone.View.extend({
-  el: '.form',
+
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },
   initialize: function () {
+    this.render();
   },
   onSubmitIngredients: function(event){
     event.preventDefault();
+    console.log(layoutView);
     //console.log('SUBMIT INGREDIENTS BUTTON');
+    $('.content').html("");
     var drinkCollection = new DrinkCollection();
-    $('.content').html('');
     drinkCollection.fetch().then(function(data){
       for(var i = 0; i < data.length; i++){
         ////ASSIGNS NULL INGREDIENT TO EMPTY STRING //
@@ -319,13 +321,14 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+    $('#layoutView').html("");
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
-    $('#layoutView').find('#nav').remove();
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
 
   }
+  
 
 });
 
@@ -464,7 +467,9 @@ var tmpl = require('./templates');
 
 module.exports = Backbone.View.extend({
   initialize: function () {
+    // this.render();
   },
+
   template: _.template(tmpl.profile),
   render: function () {
     var markup = this.template({});
@@ -501,13 +506,18 @@ module.exports = Backbone.Router.extend ({
  homePage: function(){
 
     new layoutView();
-
-    $('#layoutView').find('.box').remove();
-    $('#layoutView').find('.toTheLeft').addClass('hidden');
-$('#layoutView').find('.profile').remove();
+    // $('#layoutView').html("");
+    // var formHTML = new FormView();
+    // var headerHTML = new HeaderView();
+    // console.log(formHTML);
+    // $('#layoutView').append(headerHTML.render().el);
+    // $('#layoutView').append(formHTML.render().el);
+    // $('#layoutView').find('.box').remove();
+    // $('#layoutView').find('.toTheLeft').addClass('hidden');
+    // $('#layoutView').find('.profile').remove();
    },
 
-  
+
   profilePage: function(){
     var favorites = new FavoriteCollection();
     favorites.fetch().then(function(data){
@@ -515,7 +525,8 @@ $('#layoutView').find('.profile').remove();
       console.log('MODELS', favorites);
       new FavoritesCollectionView({collection: favorites});
     });
-    $('#side').html("");
+
+    // $('#layoutView').html("");
     var users = new UserCollection();
     users.fetch().then(function() {
       new UserCollectionView({collection: users});
@@ -528,21 +539,21 @@ $('#layoutView').find('.profile').remove();
       $('.profilebox').html(profileHTML.render().el);
       $('.content').find('article').remove();
 
-
-    // var userHTML = new UserCollectionView();
-    // $('#side').html(userHTML.render().el);
-
-    // var favorites = new FavoriteCollection();
-    // favorites.fetch().then(function(data){
-    //   console.log('favorites data', data[0]);
-    //   new FavoritesCollectionView({collection: favorites});
-
-    // });
   },
- loginPage: function(){
-   var loginHTML = new LoginView();
-   $('#layoutView').html(loginHTML.render().el);
- }
+   loginPage: function(){
+     var loginHTML = new LoginView();
+     $('#layoutView').html(loginHTML.render().el);
+   },
+
+
+
+
+
+   updateView: function(view) {
+     if(this.view && this.view.render()) {
+       this.view.render();
+     }
+   }
 });
 
 },{"./collection":4,"./collectionView":5,"./favoritesCollection":6,"./favoritesView":9,"./formView":10,"./headerView":11,"./layoutView":12,"./loginView":13,"./profileView":17,"./userCollection":20,"./userCollectionView":21,"backbone":24,"jquery":25,"underscore":26}],19:[function(require,module,exports){
@@ -580,19 +591,23 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>alcoh·me</h1></li>",
+    "<li><h1>alcoh<img src='https://d30y9cdsu7xlg0.cloudfront.net/png/76022-200.png'>me</h1></li>",
     "<li><a id='home' href='#home'>Home</a></li>",
     "<li><a id='profile' href='#profile'>My Profile</a></li>",
     "</ul>"
   ].join(""),
   form: [
+    "<section class='form'>",
     "<form class='drinkform'>",
+    "<h2>What's in your fridge?</h2>",
      "<input type='text' id='ingredientOne' class='ingredients' placeholder='optional ingredients'>",
      "<input type='text' id='ingredientTwo' class='ingredients' placeholder='optional ingredients' >",
      "<input type='text' id='ingredientThree' class='ingredients' placeholder='optional ingredients'>",
      "<input type='text' id='ingredientFour' class='ingredients' placeholder='optional ingredients'>",
      "<button class='send-stuff'>submit</button>",
-   "</form>"
+   "</form>",
+   "</section>",
+   "<div class='content'></div>",
  ].join(""),
  sideUser: [
 
@@ -627,7 +642,7 @@ module.exports = {
  login:[
    "<div class='box'>",
 
-   "<h1 class='title'>alcoh·me</h1>",
+   "<h1 class='title'>alcoh<img src='https://d30y9cdsu7xlg0.cloudfront.net/png/76022-200.png'>me</h1></i>",
    "<input class='username' placeholder='username'></input>",
 
    "<input type='password' class='password' placeholder='password'></input>",
@@ -655,6 +670,11 @@ var _ = require('underscore');
 
 module.exports = Backbone.Model.extend({
   urlRoot: '/users',
+  defaults: {
+    username: "Rando",
+    password: "1234",
+    image: "https://www.teachforamerica.org/sites/default/files/styles/large/public/thumbnails/image/headshot.png?itok=EW2-dSgB",
+  },
   initialize: function() {
 
   }

@@ -9,6 +9,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 200px; }
+  .box img {
+    width: 15%; }
   .box .title {
     color: white;
     font-size: 60px;
@@ -44,6 +46,9 @@ body {
   background-color: #fecea8;
   margin-top: -34px;
   position: relative; }
+  #nav img {
+    width: 5%;
+    display: inline-block; }
   #nav li {
     list-style-type: none;
     display: block;
@@ -73,7 +78,10 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
-  padding-top: 40px; }
+  padding-top: 18px; }
+  .drinkform h2 {
+    text-align: center;
+    padding-bottom: 15px; }
   .drinkform input {
     border-radius: 10px;
     border: 1px solid #2A363B;

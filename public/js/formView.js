@@ -6,17 +6,19 @@ var tmpl = require('./templates');
 var DrinkCollection = require('./collection');
 
 module.exports = Backbone.View.extend({
-  el: '.form',
+
   events: {
     'click .send-stuff': 'onSubmitIngredients'
   },
   initialize: function () {
+    this.render();
   },
   onSubmitIngredients: function(event){
     event.preventDefault();
+    console.log(layoutView);
     //console.log('SUBMIT INGREDIENTS BUTTON');
+    $('.content').html("");
     var drinkCollection = new DrinkCollection();
-    $('.content').html('');
     drinkCollection.fetch().then(function(data){
       for(var i = 0; i < data.length; i++){
         ////ASSIGNS NULL INGREDIENT TO EMPTY STRING //

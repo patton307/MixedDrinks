@@ -16,12 +16,13 @@ var tmpl = require('./templates');
 module.exports = Backbone.View.extend({
   el: '#layoutView',
   initialize: function(){
+    $('#layoutView').html("");
     var headerHTML = new HeaderView();
     var formHTML = new FormView();
-    $('#layoutView').find('#nav').remove();
     this.$el.append(headerHTML.render().el);
     this.$el.append(formHTML.render().el);
 
   }
+  
 
 });

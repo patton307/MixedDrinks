@@ -25,13 +25,18 @@ module.exports = Backbone.Router.extend ({
  homePage: function(){
 
     new layoutView();
-
-    $('#layoutView').find('.box').remove();
-    $('#layoutView').find('.toTheLeft').addClass('hidden');
-$('#layoutView').find('.profile').remove();
+    // $('#layoutView').html("");
+    // var formHTML = new FormView();
+    // var headerHTML = new HeaderView();
+    // console.log(formHTML);
+    // $('#layoutView').append(headerHTML.render().el);
+    // $('#layoutView').append(formHTML.render().el);
+    // $('#layoutView').find('.box').remove();
+    // $('#layoutView').find('.toTheLeft').addClass('hidden');
+    // $('#layoutView').find('.profile').remove();
    },
 
-  
+
   profilePage: function(){
     var favorites = new FavoriteCollection();
     favorites.fetch().then(function(data){
@@ -39,7 +44,8 @@ $('#layoutView').find('.profile').remove();
       console.log('MODELS', favorites);
       new FavoritesCollectionView({collection: favorites});
     });
-    $('#side').html("");
+
+    // $('#layoutView').html("");
     var users = new UserCollection();
     users.fetch().then(function() {
       new UserCollectionView({collection: users});
@@ -52,19 +58,19 @@ $('#layoutView').find('.profile').remove();
       $('.profilebox').html(profileHTML.render().el);
       $('.content').find('article').remove();
 
-
-    // var userHTML = new UserCollectionView();
-    // $('#side').html(userHTML.render().el);
-
-    // var favorites = new FavoriteCollection();
-    // favorites.fetch().then(function(data){
-    //   console.log('favorites data', data[0]);
-    //   new FavoritesCollectionView({collection: favorites});
-
-    // });
   },
- loginPage: function(){
-   var loginHTML = new LoginView();
-   $('#layoutView').html(loginHTML.render().el);
- }
+   loginPage: function(){
+     var loginHTML = new LoginView();
+     $('#layoutView').html(loginHTML.render().el);
+   },
+
+
+
+
+
+   updateView: function(view) {
+     if(this.view && this.view.render()) {
+       this.view.render();
+     }
+   }
 });
