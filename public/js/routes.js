@@ -23,9 +23,7 @@ module.exports = Backbone.Router.extend ({
  },
 
  homePage: function(){
-
     new layoutView();
-
     $('#layoutView').find('.box').remove();
     $('#layoutView').find('.toTheLeft').addClass('hidden');
     $('#layoutView').find('.profile').remove();

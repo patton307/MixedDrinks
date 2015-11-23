@@ -9,7 +9,8 @@ var DrinkCollectionView = require('./collectionView');
 module.exports = Backbone.View.extend({
   el: '.form',
   events: {
-    'click .send-stuff': 'onSubmitIngredients'
+    'click .send-stuff': 'onSubmitIngredients',
+    'click .like': 'onLike'
   },
   initialize: function () {
   },

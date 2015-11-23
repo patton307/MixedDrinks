@@ -17,7 +17,6 @@ module.exports = Backbone.View.extend({
     var favoritesModelView = new FavoritesModelView({model: favoriteModel});
     console.log(favoritesModelView);
     this.$el.append(favoritesModelView.render().el);
-    // console.log(this.$el.append(favoritesModelView.render().el));
   },
   addAllFavorites: function() {
     _.each(this.collection.models, this.addFavorite, this);

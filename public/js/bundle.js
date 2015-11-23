@@ -3,32 +3,24 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
-var DrinkCollection = require('./collection');
-var CollectionView = require('./collectionView');
-var LoginView = require('./loginView');
-var FormView = require('./formView');
-var HeaderView = require('./headerView');
 var DrinkView = require('./modelView');
 
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+  el: '.drinkList',
   initialize: function(){
     this.addAllDrinks();
   },
   addOneDrink: function(drinkModel){
     var drinkView = new DrinkView({model: drinkModel});
     this.$el.append(drinkView.render().el);
-    console.log(this);
-    return this;
   },
   addAllDrinks: function(){
-    console.log('this', this);
     _.each(this.collection.models, this.addOneDrink, this);
   }
 });
 
-},{"./collection":4,"./collectionView":5,"./formView":10,"./headerView":11,"./loginView":13,"./modelView":16,"backbone":24,"jquery":25,"underscore":26}],2:[function(require,module,exports){
+},{"./modelView":16,"backbone":24,"jquery":25,"underscore":26}],2:[function(require,module,exports){
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 var UserModel = require('./userModel');
@@ -47,9 +39,6 @@ var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
 var UserView = require('./userView');
-var UserModel = require('./userModel');
-var UserCollection = require('./userCollection');
-var tmpl = require('./templates');
 
 
 module.exports = Backbone.View.extend({
@@ -62,15 +51,11 @@ module.exports = Backbone.View.extend({
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
-    // $('#side').find('.userinfo').remove();
-
     _.each(this.collection.models, this.addUser, this);
   },
-
-
 });
 
-},{"./templates":19,"./userCollection":20,"./userModel":22,"./userView":23,"backbone":24,"jquery":25,"underscore":26}],4:[function(require,module,exports){
+},{"./userView":23,"backbone":24,"jquery":25,"underscore":26}],4:[function(require,module,exports){
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 
@@ -83,28 +68,8 @@ module.exports = Backbone.Collection.extend({
 });
 
 },{"./model":15,"backbone":24}],5:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery');
-Backbone.$ = $;
-var _ = require('underscore');
-var DrinkView = require('./modelView');
-
-
-module.exports = Backbone.View.extend({
-  el: '.drinkList',
-  initialize: function(){
-    this.addAllDrinks();
-  },
-  addOneDrink: function(drinkModel){
-    var drinkView = new DrinkView({model: drinkModel});
-    this.$el.append(drinkView.render().el);
-  },
-  addAllDrinks: function(){
-    _.each(this.collection.models, this.addOneDrink, this);
-  }
-});
-
-},{"./modelView":16,"backbone":24,"jquery":25,"underscore":26}],6:[function(require,module,exports){
+arguments[4][1][0].apply(exports,arguments)
+},{"./modelView":16,"backbone":24,"dup":1,"jquery":25,"underscore":26}],6:[function(require,module,exports){
 var Backbone = require('backbone');
 var DrinkModel = require('./model');
 var FavoritesModel = require('./favoritesModel');
@@ -174,7 +139,6 @@ module.exports = Backbone.View.extend({
     var favoritesModelView = new FavoritesModelView({model: favoriteModel});
     console.log(favoritesModelView);
     this.$el.append(favoritesModelView.render().el);
-    // console.log(this.$el.append(favoritesModelView.render().el));
   },
   addAllFavorites: function() {
     _.each(this.collection.models, this.addFavorite, this);
@@ -195,7 +159,8 @@ var DrinkCollectionView = require('./collectionView');
 module.exports = Backbone.View.extend({
   el: '.form',
   events: {
-    'click .send-stuff': 'onSubmitIngredients'
+    'click .send-stuff': 'onSubmitIngredients',
+    'click .like': 'onLike'
   },
   initialize: function () {
   },
@@ -308,14 +273,18 @@ initialize: function () {
   events: {
     'click .createUser': 'onCreateUser',
     'click #submitCreate': 'onSubmitNewUser',
-    'click #submit': 'onLogin'
+    'click #submit': 'onLogin',
   },
+
   onCreateUser: function() {
     $('.box').find('.password').removeClass('hidden');
     $('.box').find('.photo').removeClass('hidden');
     $('.box').find('#submitCreate').removeClass('hidden');
     $('.box').find('#cancel').removeClass('hidden');
     $('.box').find('#submit').addClass('hidden');
+    $('.box').find('.createUser').addClass('hidden');
+    $('.box').find('.loginButton').removeClass('hidden');
+    $('.box').find('.confirmPassword').removeClass('hidden');
   },
   onSubmitNewUser: function(event) {
     event.preventDefault();
@@ -324,18 +293,28 @@ initialize: function () {
       password: $('.password').val(),
       image: $('.photo').val(),
     };
-
+    console.log($('.password').val());
+    if($('.initialPassword').val() === $('.confirmPassword').val()){
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/register-user',
       data: newUser,
       success: function() {
         console.log("register-user");
+        window.location.hash = "home";
       }
     });
+  }else{
+    $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
+  }
   },
+
   onLogin: function(event) {
     event.preventDefault();
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/login',
@@ -345,12 +324,14 @@ initialize: function () {
       },
       success: function() {
         window.location.hash = "home";
+        console.log('orange');
       },
-      failure: function(data) {
-        $('.box').append("<p>Inccorect username or password</p>");
+      failure: function() {
+        console.log('blue');
       },
       error: function() {
-        $('.box').append("<p>Inccorect username or password</p>");
+        console.log('red');
+        $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
       }
     });
   }
@@ -454,9 +435,7 @@ module.exports = Backbone.Router.extend ({
  },
 
  homePage: function(){
-
     new layoutView();
-
     $('#layoutView').find('.box').remove();
     $('#layoutView').find('.toTheLeft').addClass('hidden');
     $('#layoutView').find('.profile').remove();
@@ -535,9 +514,10 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>alcoh·me</h1></li>",
-    "<li><a id='home' href='#home'>Home</a></li>",
-    "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><h1>alcoh·me</h1></li>",
+      "<li><a id='home' href='#home'>Home</a></li>",
+      "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><a id='logout' href='#'>Logout</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -572,26 +552,22 @@ module.exports = {
    "<li><%=ingredient11%></li>",
    "<li><%=ingredient12%></li>",
    "</ul>",
-   "<button id='like'>I'd Drink That!</button>",
+   "<button class='like'>I'd Drink That!</button>",
  ].join(""),
  ingredient: [
    "<li>Ingredient Name</li>"
  ].join(""),
  login:[
    "<div class='box'>",
-
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
-
-   "<input type='password' class='password' placeholder='password'></input>",
-   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
-
+   "<input type='password' class='password initialPassword' placeholder='password'></input>",
+   "<input type='password' class='password confirmPassword hidden' placeholder='confirm password'></input>",
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
    "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
    "<li><a id='cancel' class='hidden' href=''>cancel</a></li>",
    "<li class='createUser'><button>Not a user? Create an account!</button></li>",
-
    "</div>"
  ].join(""),
 
@@ -600,28 +576,8 @@ module.exports = {
 },{}],20:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
 },{"./model":15,"./userModel":22,"backbone":24,"dup":2}],21:[function(require,module,exports){
-var Backbone = require('backbone');
-var $ = require('jquery');
-Backbone.$ = $;
-var _ = require('underscore');
-var UserView = require('./userView');
-
-
-module.exports = Backbone.View.extend({
-  el: '#side',
-  initialize: function(){
-    this.addAllUsers();
-  },
-  addUser: function(userModel) {
-    var userView = new UserView({model: userModel});
-    this.$el.append(userView.render().el);
-  },
-  addAllUsers: function() {
-    _.each(this.collection.models, this.addUser, this);
-  },
-});
-
-},{"./userView":23,"backbone":24,"jquery":25,"underscore":26}],22:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"./userView":23,"backbone":24,"dup":3,"jquery":25,"underscore":26}],22:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('underscore');
