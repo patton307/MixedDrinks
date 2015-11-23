@@ -23,7 +23,6 @@ module.exports = Backbone.Router.extend ({
  },
 
  homePage: function(){
-
     new layoutView();
     // $('#layoutView').html("");
     // var formHTML = new FormView();
@@ -31,6 +30,9 @@ module.exports = Backbone.Router.extend ({
     // console.log(formHTML);
     // $('#layoutView').append(headerHTML.render().el);
     // $('#layoutView').append(formHTML.render().el);
+    // $('#layoutView').find('.box').remove();
+    // $('#layoutView').find('.toTheLeft').addClass('hidden');
+    // $('#layoutView').find('.profile').remove();
     // $('#layoutView').find('.box').remove();
     // $('#layoutView').find('.toTheLeft').addClass('hidden');
     // $('#layoutView').find('.profile').remove();

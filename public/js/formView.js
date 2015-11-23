@@ -8,7 +8,8 @@ var DrinkCollection = require('./collection');
 module.exports = Backbone.View.extend({
 
   events: {
-    'click .send-stuff': 'onSubmitIngredients'
+    'click .send-stuff': 'onSubmitIngredients',
+    'click .like': 'onLike'
   },
   initialize: function () {
     this.render();
@@ -102,9 +103,8 @@ module.exports = Backbone.View.extend({
         }
       }
   });
+},
 
-    /// FILTER THROUGH DATA TO FIND MATCHING DRINKS
-  },
   template: _.template(tmpl.form),
   render: function () {
     var markup = this.template({});
