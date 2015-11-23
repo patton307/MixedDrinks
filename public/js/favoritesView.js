@@ -9,7 +9,7 @@ var tmpl = require('./templates');
 
 
 module.exports = Backbone.View.extend({
-  el: '#layoutView',
+  el: '#recipes',
   initialize: function(){
     this.addAllFavorites();
   },

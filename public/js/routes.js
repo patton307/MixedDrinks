@@ -28,10 +28,10 @@ module.exports = Backbone.Router.extend ({
 
     $('#layoutView').find('.box').remove();
     $('#layoutView').find('.toTheLeft').addClass('hidden');
-$('#layoutView').find('.profile').remove();
+    $('#layoutView').find('.profile').remove();
    },
 
-  
+
   profilePage: function(){
     var favorites = new FavoriteCollection();
     favorites.fetch().then(function(data){
