@@ -179,7 +179,6 @@ module.exports = Backbone.View.extend({
     var favoritesModelView = new FavoritesModelView({model: favoriteModel});
     console.log(favoritesModelView);
     this.$el.append(favoritesModelView.render().el);
-    // console.log(this.$el.append(favoritesModelView.render().el));
   },
   addAllFavorites: function() {
     _.each(this.collection.models, this.addFavorite, this);
@@ -376,7 +375,6 @@ initialize: function () {
     'click .createUser': 'onCreateUser',
     'click #submitCreate': 'onSubmitNewUser',
     'click #submit': 'onLogin',
-
   },
 
   onCreateUser: function() {
@@ -387,6 +385,7 @@ initialize: function () {
     $('.box').find('#submit').addClass('hidden');
     $('.box').find('.createUser').addClass('hidden');
     $('.box').find('.loginButton').removeClass('hidden');
+    $('.box').find('.confirmPassword').removeClass('hidden');
   },
   onSubmitNewUser: function(event) {
     event.preventDefault();
@@ -395,7 +394,10 @@ initialize: function () {
       password: $('.password').val(),
       image: $('.photo').val(),
     };
-
+    console.log($('.password').val());
+    if($('.initialPassword').val() === $('.confirmPassword').val()){
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/register-user',
@@ -405,10 +407,15 @@ initialize: function () {
         window.location.hash = "home";
       }
     });
+  }else{
+    $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
+  }
   },
 
   onLogin: function(event) {
     event.preventDefault();
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/login',
@@ -422,11 +429,10 @@ initialize: function () {
       },
       failure: function() {
         console.log('blue');
-        $('.box').html("<p>Inccorect username or password</p>");
       },
       error: function() {
         console.log('red');
-        $('.box').append("<p>Inccorect username or password</p>");
+        $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
       }
     });
   }
@@ -531,15 +537,13 @@ module.exports = Backbone.Router.extend ({
  },
 
  homePage: function(){
-
     new layoutView();
-
     $('#layoutView').find('.box').remove();
     $('#layoutView').find('.toTheLeft').addClass('hidden');
-$('#layoutView').find('.profile').remove();
+    $('#layoutView').find('.profile').remove();
    },
 
-  
+
   profilePage: function(){
     var favorites = new FavoriteCollection();
     favorites.fetch().then(function(data){
@@ -612,9 +616,10 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>alcoh·me</h1></li>",
-    "<li><a id='home' href='#home'>Home</a></li>",
-    "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><h1>alcoh·me</h1></li>",
+      "<li><a id='home' href='#home'>Home</a></li>",
+      "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><a id='logout' href='#'>Logout</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -658,13 +663,10 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
-
-   "<input type='password' class='password' placeholder='password'></input>",
-   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
-
+   "<input type='password' class='password initialPassword' placeholder='password'></input>",
+   "<input type='password' class='password confirmPassword hidden' placeholder='confirm password'></input>",
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
    "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",

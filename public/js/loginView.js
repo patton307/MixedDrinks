@@ -21,7 +21,6 @@ initialize: function () {
     'click .createUser': 'onCreateUser',
     'click #submitCreate': 'onSubmitNewUser',
     'click #submit': 'onLogin',
-
   },
 
   onCreateUser: function() {
@@ -32,6 +31,7 @@ initialize: function () {
     $('.box').find('#submit').addClass('hidden');
     $('.box').find('.createUser').addClass('hidden');
     $('.box').find('.loginButton').removeClass('hidden');
+    $('.box').find('.confirmPassword').removeClass('hidden');
   },
   onSubmitNewUser: function(event) {
     event.preventDefault();
@@ -40,7 +40,10 @@ initialize: function () {
       password: $('.password').val(),
       image: $('.photo').val(),
     };
-
+    console.log($('.password').val());
+    if($('.initialPassword').val() === $('.confirmPassword').val()){
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/register-user',
@@ -50,10 +53,15 @@ initialize: function () {
         window.location.hash = "home";
       }
     });
+  }else{
+    $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
+  }
   },
 
   onLogin: function(event) {
     event.preventDefault();
+    $('.box').find('p').remove();
+    $('.invalid').html("<p>Inccorect username or password</p>");
     $.ajax({
       method: 'POST',
       url: '/login',
@@ -67,11 +75,10 @@ initialize: function () {
       },
       failure: function() {
         console.log('blue');
-        $('.box').html("<p>Inccorect username or password</p>");
       },
       error: function() {
         console.log('red');
-        $('.box').append("<p>Inccorect username or password</p>");
+        $('.box').append("<p class = 'invalid'>Inccorect username or password</p>");
       }
     });
   }

@@ -32,9 +32,10 @@ module.exports = {
   ].join(''),
   navigation: [
     "<ul id='nav'>",
-    "<li><h1>alcoh·me</h1></li>",
-    "<li><a id='home' href='#home'>Home</a></li>",
-    "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><h1>alcoh·me</h1></li>",
+      "<li><a id='home' href='#home'>Home</a></li>",
+      "<li><a id='profile' href='#profile'>My Profile</a></li>",
+      "<li><a id='logout' href='#'>Logout</a></li>",
     "</ul>"
   ].join(""),
   form: [
@@ -78,13 +79,10 @@ module.exports = {
  ].join(""),
  login:[
    "<div class='box'>",
-
    "<h1 class='title'>alcoh·me</h1>",
    "<input class='username' placeholder='username'></input>",
-
-   "<input type='password' class='password' placeholder='password'></input>",
-   "<input type='password' class='password hidden' placeholder='confirm password'></input>",
-
+   "<input type='password' class='password initialPassword' placeholder='password'></input>",
+   "<input type='password' class='password confirmPassword hidden' placeholder='confirm password'></input>",
    "<input class='photo hidden' placeholder='photo'></input>",
    "<li><a id='submit' href='#home'>SUBMIT</a></li>",
    "<li><a id='submitCreate' class='hidden' href='#home'>SUBMIT</a></li>",
