@@ -3,9 +3,6 @@ var $ = require('jquery');
 Backbone.$ = $;
 var _ = require('underscore');
 var UserView = require('./userView');
-var UserModel = require('./userModel');
-var UserCollection = require('./userCollection');
-var tmpl = require('./templates');
 
 
 module.exports = Backbone.View.extend({
@@ -18,10 +15,6 @@ module.exports = Backbone.View.extend({
     this.$el.append(userView.render().el);
   },
   addAllUsers: function() {
-    // $('#side').find('.userinfo').remove();
-
     _.each(this.collection.models, this.addUser, this);
   },
-
-
 });
